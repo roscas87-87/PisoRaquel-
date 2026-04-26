@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Guía de Granada · Vega Granada</title>
+<meta name="description" content="Guía turística completa de Granada. Qué ver, dónde comer, cómo moverse. La Alhambra, el Albaicín, tapas gratuitas y más.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--cream:#faf6ef;--white:#fff;--warm:#f5ede0;--gold:#b8913a;--gold-lt:#d4a84b;--gold-dk:#8a6a28;--ink:#1c1710;--bark:#4a3b28;--stone:#8c7d6a;--mist:#c8bfb2}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);overflow-x:hidden}
+
+/* NAV — same as index */
+nav{position:fixed;top:0;left:0;right:0;z-index:300;background:rgba(250,246,239,.94);backdrop-filter:blur(14px);border-bottom:1px solid rgba(184,145,58,.18)}
+.nav-inner{max-width:1400px;margin:0 auto;padding:0 3rem;height:68px;display:flex;align-items:center;justify-content:space-between;gap:2rem}
+.nav-logo{text-decoration:none;line-height:1.15}
+.nav-logo-main{display:block;font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:600;color:var(--ink);letter-spacing:.05em}
+.nav-logo-sub{display:block;font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--stone)}
+.nav-links{display:flex;align-items:center;gap:2.5rem;list-style:none}
+.nav-links a{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--bark);text-decoration:none;opacity:.7;transition:.2s}
+.nav-links a:hover,.nav-links a.active{opacity:1;color:var(--gold)}
+.nav-book{background:var(--gold)!important;color:white!important;opacity:1!important;padding:.48rem 1.2rem;border-radius:2px}
+.nav-book:hover{background:var(--gold-dk)!important}
+.nav-right{display:flex;align-items:center;gap:1.5rem}
+.lang-toggle{display:flex;align-items:center;gap:.3rem}
+.lang-btn{background:none;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.68rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--stone);padding:.25rem .45rem;border-radius:2px;transition:.2s}
+.lang-btn.active{color:var(--gold);background:rgba(184,145,58,.12)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:.5rem;background:none;border:none}
+.hamburger span{display:block;width:22px;height:2px;background:var(--bark);transition:.3s;transform-origin:center}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.mobile-menu{display:none;position:fixed;top:68px;left:0;right:0;bottom:0;background:var(--cream);z-index:299;flex-direction:column;padding:2.5rem 2rem;gap:2rem;overflow-y:auto}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:300;color:var(--ink);text-decoration:none;border-bottom:1px solid rgba(184,145,58,.15);padding-bottom:1rem}
+.mobile-menu a:hover{color:var(--gold)}
+.mobile-menu .m-book{background:var(--gold);color:white;padding:1rem 2rem;text-align:center;font-size:1rem;font-family:'DM Sans',sans-serif;font-weight:500;letter-spacing:.1em;text-transform:uppercase;margin-top:.5rem}
+
+/* HERO */
+.guide-hero{padding-top:68px;background:var(--ink);position:relative;overflow:hidden;min-height:440px;display:flex;align-items:center}
+.gh-bg{position:absolute;inset:0;background:url('https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Alhambra_palace.jpg/1280px-Alhambra_palace.jpg') center/cover no-repeat;opacity:.22;filter:sepia(.3)}
+.gh-pattern{position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg width='50' height='50' viewBox='0 0 50 50' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolygon points='25,2 48,25 25,48 2,25' stroke='%23b8913a' stroke-width='.4' fill='none' opacity='.15'/%3E%3C/svg%3E");opacity:1}
+.gh-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(28,23,16,.6),rgba(28,23,16,.8))}
+.gh-content{position:relative;z-index:2;max-width:1400px;margin:0 auto;padding:5rem 6rem;width:100%}
+.gh-back{display:inline-flex;align-items:center;gap:.5rem;font-size:.68rem;letter-spacing:.15em;text-transform:uppercase;color:var(--gold-lt);text-decoration:none;margin-bottom:2rem;opacity:.8;transition:.2s}
+.gh-back:hover{opacity:1}
+.gh-tag{font-size:.65rem;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;display:flex;align-items:center;gap:.7rem}
+.gh-tag::before{content:'';width:24px;height:1px;background:var(--gold)}
+.gh-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.8rem,6vw,5rem);font-weight:300;color:white;line-height:1;margin-bottom:.8rem}
+.gh-title em{font-style:italic;color:var(--gold)}
+.gh-sub{font-size:.9rem;color:rgba(250,246,239,.6);max-width:540px;line-height:1.7}
+
+/* INTRO STRIP */
+.intro-strip{background:var(--gold);color:var(--ink);padding:1.2rem 4rem;display:flex;align-items:center;justify-content:center;gap:3rem;flex-wrap:wrap}
+.is-item{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;font-weight:500;display:flex;align-items:center;gap:.5rem}
+
+/* LAYOUT */
+.guide-body{max-width:1400px;margin:0 auto;padding:5rem 6rem;display:grid;grid-template-columns:1fr 3fr;gap:4rem;align-items:start}
+.sidebar{position:sticky;top:90px}
+.toc{background:var(--white);border:1px solid rgba(184,145,58,.15);border-radius:2px;padding:1.5rem;margin-bottom:1.5rem}
+.toc-title{font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;display:flex;align-items:center;gap:.5rem}
+.toc-title::before{content:'';width:16px;height:1px;background:var(--gold)}
+.toc a{display:block;font-size:.78rem;color:var(--stone);text-decoration:none;padding:.4rem 0;border-bottom:1px solid rgba(184,145,58,.08);transition:.2s}
+.toc a:last-child{border-bottom:none}
+.toc a:hover{color:var(--gold)}
+.back-card{background:var(--gold);padding:1.5rem;border-radius:2px;text-align:center}
+.back-card p{font-size:.65rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.8);margin-bottom:.7rem}
+.back-card a{display:block;background:white;color:var(--gold-dk);text-decoration:none;padding:.7rem 1rem;font-size:.7rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;border-radius:2px;transition:.2s}
+.back-card a:hover{background:var(--ink);color:var(--gold-lt)}
+
+/* CONTENT */
+.guide-content{}
+.g-section{margin-bottom:4.5rem;padding-bottom:4.5rem;border-bottom:1px solid rgba(184,145,58,.12)}
+.g-section:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+.gs-label{font-size:.62rem;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin-bottom:.7rem;display:flex;align-items:center;gap:.6rem}
+.gs-label::before{content:'';width:18px;height:1px;background:var(--gold)}
+.gs-title{font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:300;color:var(--ink);margin-bottom:1.2rem;line-height:1.1}
+.gs-title em{font-style:italic;color:var(--gold)}
+.gs-intro{font-size:.9rem;color:var(--stone);line-height:1.85;margin-bottom:2rem;max-width:660px}
+.place-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem}
+.place-card{background:var(--white);border:1px solid rgba(184,145,58,.1);border-radius:2px;overflow:hidden;transition:.25s}
+.place-card:hover{border-color:rgba(184,145,58,.35);transform:translateY(-3px);box-shadow:0 8px 24px rgba(28,23,16,.07)}
+.pc-img{height:180px;overflow:hidden;background:var(--warm)}
+.pc-img img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
+.place-card:hover .pc-img img{transform:scale(1.05)}
+.pc-ph{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:3rem;background:linear-gradient(135deg,var(--warm),var(--cream))}
+.pc-body{padding:1.4rem}
+.pc-cat{font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:.3rem}
+.pc-name{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:400;color:var(--ink);margin-bottom:.5rem}
+.pc-desc{font-size:.78rem;color:var(--stone);line-height:1.65;margin-bottom:.8rem}
+.pc-tip{font-size:.72rem;color:var(--bark);background:rgba(184,145,58,.08);border-left:2px solid var(--gold);padding:.5rem .75rem;margin-top:.5rem}
+.pc-tip strong{color:var(--gold-dk)}
+.pc-link{display:inline-flex;align-items:center;gap:.4rem;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);text-decoration:none;transition:.2s}
+.pc-link:hover{color:var(--gold-dk)}
+
+/* Food section */
+.food-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem}
+.food-card{background:var(--white);border:1px solid rgba(184,145,58,.1);padding:1.5rem;border-radius:2px;transition:.25s}
+.food-card:hover{border-color:rgba(184,145,58,.35);transform:translateY(-2px)}
+.fc-ico{font-size:1.8rem;margin-bottom:.7rem}
+.fc-name{font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:var(--ink);margin-bottom:.4rem}
+.fc-desc{font-size:.75rem;color:var(--stone);line-height:1.6}
+.fc-tip{font-size:.7rem;color:var(--gold-dk);margin-top:.5rem;font-style:italic}
+
+/* Tips section */
+.tips-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem}
+.tip-card{background:var(--white);border:1px solid rgba(184,145,58,.1);padding:1.5rem 1.75rem;border-radius:2px;display:flex;gap:1rem;align-items:flex-start;transition:.2s}
+.tip-card:hover{border-color:rgba(184,145,58,.3)}
+.tip-ico{font-size:1.6rem;flex-shrink:0;margin-top:.1rem}
+.tip-body{}
+.tip-title{font-size:.8rem;font-weight:500;color:var(--ink);margin-bottom:.35rem}
+.tip-desc{font-size:.75rem;color:var(--stone);line-height:1.6}
+
+/* CTA banner */
+.cta-banner{background:var(--ink);color:var(--cream);padding:3.5rem;border-radius:2px;display:flex;align-items:center;justify-content:space-between;gap:2rem;flex-wrap:wrap;margin-top:3rem}
+.cta-text{}
+.cta-kicker{font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:.5rem}
+.cta-title{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:300;color:white}
+.cta-title em{font-style:italic;color:var(--gold)}
+.cta-btns{display:flex;gap:1rem;flex-wrap:wrap}
+.cta-btn{display:inline-flex;align-items:center;gap:.5rem;text-decoration:none;padding:.82rem 1.8rem;font-size:.72rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;border-radius:2px;transition:.2s}
+.cta-btn-gold{background:var(--gold);color:var(--ink)}
+.cta-btn-gold:hover{background:var(--gold-lt)}
+.cta-btn-outline{background:transparent;color:rgba(250,246,239,.7);border:1px solid rgba(250,246,239,.3)}
+.cta-btn-outline:hover{border-color:var(--gold);color:var(--gold)}
+
+/* Footer */
+footer{background:var(--ink);color:rgba(250,246,239,.5);padding:2.5rem 6rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1.5rem}
+.f-logo{font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--gold-lt)}
+.f-links{display:flex;gap:2rem;flex-wrap:wrap}
+.f-links a{font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(250,246,239,.45);text-decoration:none;transition:.2s}
+.f-links a:hover{color:var(--gold-lt)}
+.f-copy{font-size:.65rem;opacity:.4}
+
+/* Reveal */
+.rv-a{opacity:0;transform:translateY(22px);transition:opacity .7s,transform .7s}
+.rv-a.in{opacity:1;transform:none}
+
+/* Lang */
+[lc="en"]{display:none}
+body.en [lc="es"]{display:none}
+body.en [lc="en"]{display:revert}
+
+/* Responsive */
+@media(max-width:1100px){
+  .nav-links{display:none}.hamburger{display:flex}.nav-inner{padding:0 1.5rem}
+  .gh-content{padding:3.5rem 1.8rem}
+  .guide-body{grid-template-columns:1fr;padding:3rem 1.8rem;gap:2.5rem}
+  .sidebar{position:static}
+  .place-grid,.tips-grid{grid-template-columns:1fr}
+  .food-grid{grid-template-columns:1fr 1fr}
+  .intro-strip{padding:1.2rem 1.8rem;gap:1.5rem}
+  footer{padding:2rem 1.8rem;flex-direction:column;text-align:center}
+  .cta-banner{flex-direction:column}
+}
+@media(max-width:600px){.food-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <span class="nav-logo-main">Vega Granada</span>
+      <span class="nav-logo-sub">Piso Turístico · Churriana de la Vega</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html" lc="es">Inicio</a><a href="index.html" lc="en">Home</a></li>
+      <li><a href="index.html#galeria" lc="es">Galería</a><a href="index.html#galeria" lc="en">Gallery</a></li>
+      <li><a href="index.html#comodidades" lc="es">Comodidades</a><a href="index.html#comodidades" lc="en">Amenities</a></li>
+      <li><a href="granada.html" class="active" lc="es">Guía Granada</a><a href="granada.html" class="active" lc="en">Granada Guide</a></li>
+      <li><a href="index.html#reservar" class="nav-book" lc="es">Reservar</a><a href="index.html#reservar" class="nav-book" lc="en">Book Now</a></li>
+    </ul>
+    <div class="nav-right">
+      <div class="lang-toggle">
+        <button class="lang-btn active" onclick="setLang('es')">ES</button>
+        <span style="color:var(--mist);font-size:.7rem">|</span>
+        <button class="lang-btn" onclick="setLang('en')">EN</button>
+      </div>
+      <button class="hamburger" id="ham" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html" onclick="closeMenu()" lc="es">Inicio</a><a href="index.html" onclick="closeMenu()" lc="en">Home</a>
+  <a href="index.html#galeria" onclick="closeMenu()" lc="es">Galería</a><a href="index.html#galeria" onclick="closeMenu()" lc="en">Gallery</a>
+  <a href="granada.html" onclick="closeMenu()" lc="es">Guía de Granada</a><a href="granada.html" onclick="closeMenu()" lc="en">Granada Guide</a>
+  <a href="index.html#reservar" onclick="closeMenu()" class="m-book" lc="es">Reservar ahora</a><a href="index.html#reservar" onclick="closeMenu()" class="m-book" lc="en">Book now</a>
+</div>
+
+<!-- HERO -->
+<div class="guide-hero">
+  <div class="gh-bg"></div>
+  <div class="gh-pattern"></div>
+  <div class="gh-overlay"></div>
+  <div class="gh-content">
+    <a href="index.html" class="gh-back">← <span lc="es">Volver al apartamento</span><span lc="en">Back to apartment</span></a>
+    <p class="gh-tag" lc="es">Tu guía de viaje personalizada</p>
+    <p class="gh-tag" lc="en">Your personalised travel guide</p>
+    <h1 class="gh-title"><span lc="es">Descubre <em>Granada</em></span><span lc="en">Discover <em>Granada</em></span></h1>
+    <p class="gh-sub" lc="es">Todo lo que necesitas saber para aprovechar al máximo tu estancia. Desde la Alhambra hasta las mejores tapas gratuitas.</p>
+    <p class="gh-sub" lc="en">Everything you need to know to make the most of your stay. From the Alhambra to the best free tapas.</p>
+  </div>
+</div>
+
+<!-- INTRO STRIP -->
+<div class="intro-strip">
+  <div class="is-item">🕌 <span lc="es">Alhambra Patrimonio UNESCO</span><span lc="en">Alhambra UNESCO Heritage</span></div>
+  <div class="is-item">🍷 <span lc="es">Tapas gratis con cada copa</span><span lc="en">Free tapas with every drink</span></div>
+  <div class="is-item">❄️ <span lc="es">Esquí a 45 min</span><span lc="en">Skiing 45 min away</span></div>
+  <div class="is-item">🌊 <span lc="es">Costa a 60 min</span><span lc="en">Coast 60 min away</span></div>
+</div>
+
+<!-- BODY -->
+<div class="guide-body">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="toc">
+      <div class="toc-title" lc="es">En esta guía</div>
+      <div class="toc-title" lc="en">In this guide</div>
+      <a href="#monumentos" lc="es">🕌 Monumentos</a><a href="#monumentos" lc="en">🕌 Monuments</a>
+      <a href="#barrios" lc="es">🏘️ Barrios</a><a href="#barrios" lc="en">🏘️ Neighbourhoods</a>
+      <a href="#tapas" lc="es">🍷 Tapas y gastronomía</a><a href="#tapas" lc="en">🍷 Tapas & food</a>
+      <a href="#naturaleza" lc="es">🏔️ Naturaleza</a><a href="#naturaleza" lc="en">🏔️ Nature</a>
+      <a href="#consejos" lc="es">💡 Consejos prácticos</a><a href="#consejos" lc="en">💡 Practical tips</a>
+    </div>
+    <div class="back-card">
+      <p lc="es">¿Listo para reservar?</p>
+      <p lc="en">Ready to book?</p>
+      <a href="index.html#reservar" lc="es">Ver el apartamento →</a>
+      <a href="index.html#reservar" lc="en">View apartment →</a>
+    </div>
+  </aside>
+
+  <!-- CONTENT -->
+  <div class="guide-content">
+
+    <!-- MONUMENTOS -->
+    <div class="g-section" id="monumentos">
+      <p class="gs-label rv-a" lc="es">Imprescindibles</p>
+      <p class="gs-label rv-a" lc="en">Must-sees</p>
+      <h2 class="gs-title rv-a"><span lc="es">Monumentos que te <em>dejarán sin palabras</em></span><span lc="en">Monuments that will <em>leave you speechless</em></span></h2>
+      <p class="gs-intro rv-a" lc="es">Granada atesora uno de los patrimonios históricos más impresionantes de Europa. Desde tu apartamento llegas en minutos.</p>
+      <p class="gs-intro rv-a" lc="en">Granada holds one of Europe's most impressive historical heritages. From your apartment you can get there in minutes.</p>
+      <div class="place-grid">
+        <div class="place-card rv-a">
+          <div class="pc-img"><div class="pc-ph">🕌</div></div>
+          <div class="pc-body">
+            <div class="pc-cat" lc="es">Patrimonio UNESCO · 12 min</div><div class="pc-cat" lc="en">UNESCO Heritage · 12 min</div>
+            <div class="pc-name">La Alhambra</div>
+            <p class="pc-desc" lc="es">El palacio nazarí más espectacular del mundo. Los Palacios Nazaríes, el Generalife y la Alcazaba son imprescindibles. Reserva con meses de antelación.</p>
+            <p class="pc-desc" lc="en">The world's most spectacular Moorish palace. The Nasrid Palaces, Generalife and Alcazaba are unmissable. Book months in advance.</p>
+            <div class="pc-tip" lc="es"><strong>Consejo:</strong> Reserva online en alhambra.org. Visita nocturna los viernes y sábados — mágica y menos masificada.</div>
+            <div class="pc-tip" lc="en"><strong>Tip:</strong> Book online at alhambra.org. Night visits on Fridays and Saturdays — magical and less crowded.</div>
+          </div>
+        </div>
+        <div class="place-card rv-a">
+          <div class="pc-img"><div class="pc-ph">🕍</div></div>
+          <div class="pc-body">
+            <div class="pc-cat" lc="es">Barrio histórico · 10 min</div><div class="pc-cat" lc="en">Historic quarter · 10 min</div>
+            <div class="pc-name">El Albaicín</div>
+            <p class="pc-desc" lc="es">Barrio árabe medieval declarado Patrimonio de la Humanidad. Callejuelas empedradas, cármenes con jardines y las mejores vistas de la Alhambra desde el Mirador de San Nicolás.</p>
+            <p class="pc-desc" lc="en">Medieval Arab quarter declared a World Heritage Site. Cobbled streets, traditional gardens and the best views of the Alhambra from the Mirador de San Nicolás.</p>
+            <div class="pc-tip" lc="es"><strong>Consejo:</strong> Sube al mirador al atardecer. La Alhambra con el sol a sus espaldas es una imagen que no olvidarás.</div>
+            <div class="pc-tip" lc="en"><strong>Tip:</strong> Head up to the viewpoint at sunset. The Alhambra with the setting sun behind it is an image you won't forget.</div>
+          </div>
+        </div>
+        <div class="place-card rv-a">
+          <div class="pc-img"><div class="pc-ph">⛪</div></div>
+          <div class="pc-body">
+            <div class="pc-cat" lc="es">Centro · 8 min</div><div class="pc-cat" lc="en">City centre · 8 min</div>
+            <div class="pc-name" lc="es">Catedral y Capilla Real</div><div class="pc-name" lc="en">Cathedral & Royal Chapel</div>
+            <p class="pc-desc" lc="es">La catedral renacentista es la segunda más grande de España. Junto a ella, la Capilla Real guarda los sepulcros de los Reyes Católicos, Isabel y Fernando.</p>
+            <p class="pc-desc" lc="en">The Renaissance cathedral is Spain's second largest. Next to it, the Royal Chapel houses the tombs of Catholic Monarchs Isabella and Ferdinand.</p>
+            <div class="pc-tip" lc="es"><strong>Consejo:</strong> Visita los domingos gratis a las 13h con la misa. El órgano barroco es extraordinario.</div>
+            <div class="pc-tip" lc="en"><strong>Tip:</strong> Visit free on Sundays at 1pm for mass. The Baroque organ is extraordinary.</div>
+          </div>
+        </div>
+        <div class="place-card rv-a">
+          <div class="pc-img"><div class="pc-ph">🎭</div></div>
+          <div class="pc-body">
+            <div class="pc-cat" lc="es">Barrio histórico · 15 min</div><div class="pc-cat" lc="en">Historic quarter · 15 min</div>
+            <div class="pc-name">El Sacromonte</div>
+            <p class="pc-desc" lc="es">El barrio de las cuevas y el flamenco gitano. Las zambras en las cuevas son una experiencia única. La Abadía del Sacromonte ofrece vistas increíbles del Albaicín.</p>
+            <p class="pc-desc" lc="en">The cave neighbourhood and Gypsy flamenco district. Zambra shows in the caves are a unique experience. Sacromonte Abbey offers incredible views of the Albaicín.</p>
+            <div class="pc-tip" lc="es"><strong>Consejo:</strong> Reserva una zambra flamenca por la noche en Cueva de La Rocío o Cueva María La Canastera. Imprescindible.</div>
+            <div class="pc-tip" lc="en"><strong>Tip:</strong> Book a flamenco zambra at night at Cueva de La Rocío or Cueva María La Canastera. An absolute must.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BARRIOS -->
+    <div class="g-section" id="barrios">
+      <p class="gs-label rv-a" lc="es">Para pasear</p>
+      <p class="gs-label rv-a" lc="en">For walking</p>
+      <h2 class="gs-title rv-a"><span lc="es">Barrios con <em>alma</em></span><span lc="en">Neighbourhoods with <em>soul</em></span></h2>
+      <p class="gs-intro rv-a" lc="es">Cada barrio de Granada tiene su propia personalidad. Perderte por ellos sin mapa es una de las mejores experiencias de la ciudad.</p>
+      <p class="gs-intro rv-a" lc="en">Each Granada neighbourhood has its own personality. Getting lost in them without a map is one of the city's best experiences.</p>
+      <div class="place-grid">
+        <div class="place-card rv-a">
+          <div class="pc-img"><div class="pc-ph">🛍️</div></div>
+          <div class="pc-body">
+            <div class="pc-cat" lc="es">Compras y tapas</div><div class="pc-cat" lc="en">Shopping & tapas</div>
+            <div class="pc-name" lc="es">Centro histórico</div><div class="pc-name" lc="en">Historic centre</div>
+            <p class="pc-desc" lc="es">La Calle Reyes Católicos, Calle Mesones y los alrededores de la Catedral. Aquí está el mejor ambiente de tapas gratuitas y comercio local.</p>
+            <p class="pc-desc" lc="en">Calle Reyes Católicos, Calle Mesones and around the Cathedral. Best free tapas atmosphere and local shops.</p>
+          </div>
+        </div>
+        <div class="place-card rv-a">
+          <div class="pc-img"><div class="pc-ph">🌿</div></div>
+          <div class="pc-body">
+            <div class="pc-cat" lc="es">Relax y naturaleza</div><div class="pc-cat" lc="en">Relaxation & nature</div>
+            <div class="pc-name" lc="es">Paseo del Salón y Genil</div><div class="pc-name" lc="en">Paseo del Salón & Genil</div>
+            <p class="pc-desc" lc="es">Paseo ribereño a orillas del Genil. Perfecto para correr, ir en bici o simplemente disfrutar de un vermut en las terrazas bajo los árboles.</p>
+            <p class="pc-desc" lc="en">Riverside walk along the Genil. Perfect for running, cycling or simply enjoying a vermouth on the terraces under the trees.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAPAS -->
+    <div class="g-section" id="tapas">
+      <p class="gs-label rv-a" lc="es">Gastronomía</p>
+      <p class="gs-label rv-a" lc="en">Food & drink</p>
+      <h2 class="gs-title rv-a"><span lc="es">Las <em>tapas</em> son gratis</span><span lc="en">Tapas are <em>free</em></span></h2>
+      <p class="gs-intro rv-a" lc="es">Granada es famosa en todo el mundo porque cuando pides una copa, te ponen una tapa gratis. Cuanto más bebes, más comes — y mejor. Es una tradición que no encontrarás en ningún otro lugar.</p>
+      <p class="gs-intro rv-a" lc="en">Granada is world-famous because when you order a drink, you get a free tapa. The more you drink, the more — and better — you eat. It's a tradition you won't find anywhere else.</p>
+      <div class="food-grid">
+        <div class="food-card rv-a">
+          <div class="fc-ico">🍷</div>
+          <div class="fc-name" lc="es">Zona de tapas</div><div class="fc-name" lc="en">Tapas zone</div>
+          <p class="fc-desc" lc="es">Calle Navas, Calle Elvira y los alrededores de la Plaza Nueva son los epicentros del tapeo granadino.</p>
+          <p class="fc-desc" lc="en">Calle Navas, Calle Elvira and around Plaza Nueva are the epicentres of Granada's tapa culture.</p>
+          <p class="fc-tip" lc="es">★ Bar Los Diamantes — el mejor marisco de la ciudad</p>
+          <p class="fc-tip" lc="en">★ Bar Los Diamantes — the city's best seafood</p>
+        </div>
+        <div class="food-card rv-a">
+          <div class="fc-ico">☕</div>
+          <div class="fc-name" lc="es">Tetería árabe</div><div class="fc-name" lc="en">Arab tea house</div>
+          <p class="fc-desc" lc="es">La Calle Calderería Nueva está llena de teterías árabes con decenas de tés, cachimbas y pasteles de miel. Una experiencia única.</p>
+          <p class="fc-desc" lc="en">Calle Calderería Nueva is full of Arab tea houses with dozens of teas, hookah pipes and honey pastries. A unique experience.</p>
+          <p class="fc-tip" lc="es">★ La Tetería del Bañuelo — atmósfera excepcional</p>
+          <p class="fc-tip" lc="en">★ La Tetería del Bañuelo — exceptional atmosphere</p>
+        </div>
+        <div class="food-card rv-a">
+          <div class="fc-ico">🍨</div>
+          <div class="fc-name" lc="es">Pionono</div><div class="fc-name" lc="en">Pionono cake</div>
+          <p class="fc-desc" lc="es">El dulce típico de Granada. Un pequeño bizcochito bañado en crema y azúcar tostado. Originario de Santa Fe.</p>
+          <p class="fc-desc" lc="en">Granada's typical sweet. A small sponge soaked in cream and toasted sugar. Originally from nearby Santa Fe.</p>
+          <p class="fc-tip" lc="es">★ Casa Ysla — los piononos originales desde 1897</p>
+          <p class="fc-tip" lc="en">★ Casa Ysla — the original piononos since 1897</p>
+        </div>
+        <div class="food-card rv-a">
+          <div class="fc-ico">🥘</div>
+          <div class="fc-name" lc="es">Remojón granadino</div><div class="fc-name" lc="en">Remojón salad</div>
+          <p class="fc-desc" lc="es">Ensalada típica granadina de naranja, bacalao, aceitunas y cebolleta. Un plato fresco y sorprendente muy propio de la Vega.</p>
+          <p class="fc-desc" lc="en">Typical Granada salad of orange, cod, olives and spring onion. A fresh and surprising dish very typical of La Vega.</p>
+        </div>
+        <div class="food-card rv-a">
+          <div class="fc-ico">🫓</div>
+          <div class="fc-name" lc="es">Choto al ajillo</div><div class="fc-name" lc="en">Kid goat with garlic</div>
+          <p class="fc-desc" lc="es">Cabrito lechal al ajillo, plato estrella de la gastronomía granadina de las Alpujarras. Irresistible.</p>
+          <p class="fc-desc" lc="en">Suckling kid with garlic, the star dish of Granada's Alpujarras cuisine. Irresistible.</p>
+        </div>
+        <div class="food-card rv-a">
+          <div class="fc-ico">🍺</div>
+          <div class="fc-name" lc="es">La Alhambra (cerveza)</div><div class="fc-name" lc="en">Alhambra beer</div>
+          <p class="fc-desc" lc="es">La cerveza fabricada en Granada. Prueba la Alhambra Reserva 1925 o la Roja. Siempre con su tapa correspondiente.</p>
+          <p class="fc-desc" lc="en">The beer brewed in Granada. Try Alhambra Reserva 1925 or the Roja. Always with a free tapa alongside.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- NATURALEZA -->
+    <div class="g-section" id="naturaleza">
+      <p class="gs-label rv-a" lc="es">Aventura y naturaleza</p>
+      <p class="gs-label rv-a" lc="en">Adventure & nature</p>
+      <h2 class="gs-title rv-a"><span lc="es">Más allá de la <em>ciudad</em></span><span lc="en">Beyond the <em>city</em></span></h2>
+      <p class="gs-intro rv-a" lc="es">La provincia de Granada ofrece una variedad de paisajes única en el mundo: nieve, playa y desierto en el mismo día.</p>
+      <p class="gs-intro rv-a" lc="en">Granada province offers a uniquely varied landscape: snow, beach and desert all in one day.</p>
+      <div class="place-grid">
+        <div class="place-card rv-a">
+          <div class="pc-img"><div class="pc-ph">⛷️</div></div>
+          <div class="pc-body">
+            <div class="pc-cat" lc="es">45 min en coche</div><div class="pc-cat" lc="en">45 min by car</div>
+            <div class="pc-name">Sierra Nevada</div>
+            <p class="pc-desc" lc="es">La estación de esquí más al sur de Europa. En verano se convierte en un paraíso para el senderismo con vistas al Mediterráneo.</p>
+            <p class="pc-desc" lc="en">The southernmost ski resort in Europe. In summer it becomes a hiking paradise with views of the Mediterranean.</p>
+            <div class="pc-tip" lc="es"><strong>Tip:</strong> En invierno puedes esquiar y bañarte en la Costa Tropical el mismo día. Único en el mundo.</div>
+            <div class="pc-tip" lc="en"><strong>Tip:</strong> In winter you can ski and swim on the Tropical Coast on the same day. Unique in the world.</div>
+          </div>
+        </div>
+        <div class="place-card rv-a">
+          <div class="pc-img"><div class="pc-ph">🏖️</div></div>
+          <div class="pc-body">
+            <div class="pc-cat" lc="es">60 min en coche</div><div class="pc-cat" lc="en">60 min by car</div>
+            <div class="pc-name" lc="es">Costa Tropical</div><div class="pc-name" lc="en">Tropical Coast</div>
+            <p class="pc-desc" lc="es">Almuñécar, Salobreña y La Herradura. El mar más cálido de la Península, con chirimoyos y aguacates en los acantilados.</p>
+            <p class="pc-desc" lc="en">Almuñécar, Salobreña and La Herradura. The warmest sea on the Peninsula, with custard apple and avocado trees on the cliffs.</p>
+            <div class="pc-tip" lc="es"><strong>Tip:</strong> Salobreña tiene una fortaleza árabe sobre el peñón con vistas increíbles al mar y a la vega.</div>
+            <div class="pc-tip" lc="en"><strong>Tip:</strong> Salobreña has an Arab fortress on the rock with incredible views of the sea and the vega plain.</div>
+          </div>
+        </div>
+        <div class="place-card rv-a">
+          <div class="pc-img"><div class="pc-ph">🏘️</div></div>
+          <div class="pc-body">
+            <div class="pc-cat" lc="es">1h en coche</div><div class="pc-cat" lc="en">1h by car</div>
+            <div class="pc-name" lc="es">Las Alpujarras</div><div class="pc-name" lc="en">The Alpujarras</div>
+            <p class="pc-desc" lc="es">Pueblos blancos colgados en las laderas de Sierra Nevada. Pampaneira, Bubión y Capileira forman un conjunto de arquitectura bereber única en Europa.</p>
+            <p class="pc-desc" lc="en">White villages clinging to the slopes of Sierra Nevada. Pampaneira, Bubión and Capileira form a unique Berber-style architectural ensemble in Europe.</p>
+          </div>
+        </div>
+        <div class="place-card rv-a">
+          <div class="pc-img"><div class="pc-ph">🌋</div></div>
+          <div class="pc-body">
+            <div class="pc-cat" lc="es">1h 30min</div><div class="pc-cat" lc="en">1h 30min</div>
+            <div class="pc-name" lc="es">Desierto de Tabernas</div><div class="pc-name" lc="en">Tabernas Desert</div>
+            <p class="pc-desc" lc="es">El único desierto verdadero de Europa, en Almería. Escenario de los spaghetti westerns de Sergio Leone. Paisaje de otro mundo.</p>
+            <p class="pc-desc" lc="en">Europe's only true desert, in Almería. Setting for Sergio Leone's spaghetti westerns. An otherworldly landscape.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONSEJOS -->
+    <div class="g-section" id="consejos">
+      <p class="gs-label rv-a" lc="es">Información práctica</p>
+      <p class="gs-label rv-a" lc="en">Practical information</p>
+      <h2 class="gs-title rv-a"><span lc="es">Consejos para tu <em>estancia</em></span><span lc="en">Tips for your <em>stay</em></span></h2>
+      <div class="tips-grid">
+        <div class="tip-card rv-a"><div class="tip-ico">🚗</div><div class="tip-body"><div class="tip-title" lc="es">Cómo llegar desde el apartamento</div><div class="tip-title" lc="en">Getting from the apartment</div><p class="tip-desc" lc="es">En coche al centro: 5-8 min. Metro: parada a 2 min a pie, llega al centro en 10 min. Bus urbano también disponible.</p><p class="tip-desc" lc="en">By car to centre: 5-8 min. Metro: stop 2 min walk, reaches centre in 10 min. City bus also available.</p></div></div>
+        <div class="tip-card rv-a"><div class="tip-ico">🎫</div><div class="tip-body"><div class="tip-title" lc="es">Reserva la Alhambra con antelación</div><div class="tip-title" lc="en">Book the Alhambra in advance</div><p class="tip-desc" lc="es">Las entradas se agotan meses antes en temporada alta. Reserva en alhambra.org nada más confirmar el apartamento.</p><p class="tip-desc" lc="en">Tickets sell out months ahead in high season. Book at alhambra.org as soon as you confirm the apartment.</p></div></div>
+        <div class="tip-card rv-a"><div class="tip-ico">🌡️</div><div class="tip-body"><div class="tip-title" lc="es">Clima de Granada</div><div class="tip-title" lc="en">Granada's climate</div><p class="tip-desc" lc="es">Veranos muy calurosos (38°C) y noches frescas. Inviernos fríos con posible nieve. Primavera y otoño, perfectos.</p><p class="tip-desc" lc="en">Very hot summers (38°C) with cool nights. Cold winters with possible snow. Spring and autumn are perfect.</p></div></div>
+        <div class="tip-card rv-a"><div class="tip-ico">💶</div><div class="tip-body"><div class="tip-title" lc="es">Presupuesto</div><div class="tip-title" lc="en">Budget</div><p class="tip-desc" lc="es">Granada es de las ciudades más asequibles de España. Tapas gratis con cada copa (1,5–2€). Menú del día desde 10€.</p><p class="tip-desc" lc="en">Granada is one of Spain's most affordable cities. Free tapas with every drink (€1.5–2). Set lunch menu from €10.</p></div></div>
+        <div class="tip-card rv-a"><div class="tip-ico">📱</div><div class="tip-body"><div class="tip-title" lc="es">Apps útiles</div><div class="tip-title" lc="en">Useful apps</div><p class="tip-desc" lc="es">Google Maps funciona perfectamente. Para el autobús: Moovit. Para aparcar: ElParking. Para la Alhambra: app oficial.</p><p class="tip-desc" lc="en">Google Maps works perfectly. For buses: Moovit. For parking: ElParking. For the Alhambra: official app.</p></div></div>
+        <div class="tip-card rv-a"><div class="tip-ico">🕐</div><div class="tip-body"><div class="tip-title" lc="es">Horarios españoles</div><div class="tip-title" lc="en">Spanish schedules</div><p class="tip-desc" lc="es">Las tiendas cierran 14-17h (siesta). Los restaurantes sirven comida 14-16h y cena 21-23h. Las terrazas llenan a las 20h.</p><p class="tip-desc" lc="en">Shops close 14-17h (siesta). Restaurants serve lunch 14-16h and dinner 21-23h. Terraces fill up at 20h.</p></div></div>
+      </div>
+    </div>
+
+    <!-- CTA BANNER -->
+    <div class="cta-banner rv-a">
+      <div class="cta-text">
+        <p class="cta-kicker" lc="es">Todo esto a 5 minutos de tu apartamento</p>
+        <p class="cta-kicker" lc="en">All of this 5 minutes from your apartment</p>
+        <h3 class="cta-title"><span lc="es">¿A qué esperas para <em>reservar</em>?</span><span lc="en">What are you waiting for<br>to <em>book</em>?</span></h3>
+      </div>
+      <div class="cta-btns">
+        <a href="index.html#reservar" class="cta-btn cta-btn-gold" lc="es">✦ Ver el apartamento</a>
+        <a href="index.html#reservar" class="cta-btn cta-btn-gold" lc="en">✦ View apartment</a>
+        <a href="index.html#contacto" class="cta-btn cta-btn-outline" lc="es">Contactar directamente</a>
+        <a href="index.html#contacto" class="cta-btn cta-btn-outline" lc="en">Contact directly</a>
+      </div>
+    </div>
+
+  </div><!-- /guide-content -->
+</div><!-- /guide-body -->
+
+<footer>
+  <div class="f-logo">Vega Granada ✦</div>
+  <div class="f-links">
+    <a href="index.html" lc="es">Inicio</a><a href="index.html" lc="en">Home</a>
+    <a href="index.html#galeria" lc="es">Galería</a><a href="index.html#galeria" lc="en">Gallery</a>
+    <a href="index.html#reservar" lc="es">Reservar</a><a href="index.html#reservar" lc="en">Book</a>
+  </div>
+  <div class="f-copy">© 2026 Piso Turístico Vega Granada · Churriana de la Vega</div>
+</footer>
+
+<script>
+function setLang(l){document.body.classList.toggle('en',l==='en');document.querySelectorAll('.lang-btn').forEach(b=>b.classList.toggle('active',b.textContent.trim().toLowerCase()===l));localStorage.setItem('pvg_lang',l)}
+const sl=localStorage.getItem('pvg_lang');if(sl)setLang(sl);
+function toggleMenu(){document.getElementById('ham').classList.toggle('open');document.getElementById('mobileMenu').classList.toggle('open');document.body.style.overflow=document.getElementById('mobileMenu').classList.contains('open')?'hidden':''}
+function closeMenu(){document.getElementById('ham').classList.remove('open');document.getElementById('mobileMenu').classList.remove('open');document.body.style.overflow=''}
+const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')}),{threshold:.08});
+document.querySelectorAll('.rv-a').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
