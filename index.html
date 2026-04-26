@@ -92,20 +92,40 @@ h1 em{font-style:italic;color:var(--gold)}
 .gal-section{background:#161209}
 .gal-head{padding:5rem 6rem 2.5rem}
 .gal-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr;grid-template-rows:300px 220px;gap:4px}
-.gi{position:relative;overflow:hidden;background:var(--warm);cursor:pointer}
-.gi:first-child{grid-row:1/3}
-.gi img{width:100%;height:100%;object-fit:cover;transition:transform .7s,opacity .3s;opacity:.95}
+/* ── GALLERY ELEGANT ── */
+.gal-hero{position:relative;overflow:hidden;height:520px;cursor:pointer;background:#1e1810}
+.gal-hero img{width:100%;height:100%;object-fit:cover;transition:transform .8s ease,opacity .3s;opacity:.9}
+.gal-hero:hover img{transform:scale(1.03);opacity:1}
+.gal-hero-label{position:absolute;bottom:0;left:0;right:0;padding:2rem 2.5rem;background:linear-gradient(to top,rgba(14,12,9,.85),transparent)}
+.gal-hero-label h3{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:300;color:white;margin-bottom:.2rem}
+.gal-hero-label p{font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold)}
+.gal-three{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin-top:4px}
+.gi{position:relative;overflow:hidden;background:#1e1810;cursor:pointer;height:260px}
+.gi img{width:100%;height:100%;object-fit:cover;transition:transform .7s,opacity .3s;opacity:.88}
 .gi:hover img{transform:scale(1.05);opacity:1}
-.gi-lbl{position:absolute;bottom:0;left:0;right:0;padding:.8rem 1rem;background:linear-gradient(to top,rgba(28,23,16,.7),transparent);font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(250,246,239,.9);opacity:0;transition:.3s}
+.gi-lbl{position:absolute;bottom:0;left:0;right:0;padding:.8rem 1rem;background:linear-gradient(to top,rgba(14,12,9,.8),transparent);font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(232,220,200,.9);opacity:0;transition:.3s}
 .gi:hover .gi-lbl{opacity:1}
+.gal-more-btn{display:flex;align-items:center;justify-content:center;gap:.75rem;margin-top:1.5rem;padding:1rem 2.5rem;background:transparent;border:1px solid rgba(201,168,76,.3);color:var(--gold);font-family:'DM Sans',sans-serif;font-size:.72rem;font-weight:500;letter-spacing:.16em;text-transform:uppercase;cursor:pointer;transition:.25s;border-radius:2px;width:fit-content;margin-left:auto;margin-right:auto}
+.gal-more-btn:hover{background:rgba(201,168,76,.1);border-color:var(--gold)}
+/* gallery modal */
+.gal-modal{display:none;position:fixed;inset:0;z-index:500;background:rgba(10,8,5,.97);flex-direction:column}
+.gal-modal.open{display:flex}
+.gm-header{display:flex;align-items:center;justify-content:space-between;padding:1.25rem 2rem;border-bottom:1px solid rgba(201,168,76,.15)}
+.gm-title{font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--gold);letter-spacing:.05em}
+.gm-close{background:none;border:none;color:rgba(232,220,200,.5);font-size:1.5rem;cursor:pointer;transition:.2s;line-height:1}
+.gm-close:hover{color:var(--gold)}
+.gm-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:4px;padding:4px;overflow-y:auto;flex:1}
+.gm-item{position:relative;overflow:hidden;cursor:pointer;aspect-ratio:4/3;background:#1e1810}
+.gm-item img{width:100%;height:100%;object-fit:cover;transition:transform .5s,opacity .3s;opacity:.88}
+.gm-item:hover img{transform:scale(1.05);opacity:1}
 /* lightbox */
-.lightbox{display:none;position:fixed;inset:0;z-index:500;background:rgba(28,23,16,.95);align-items:center;justify-content:center}
+.lightbox{display:none;position:fixed;inset:0;z-index:600;background:rgba(10,8,5,.97);align-items:center;justify-content:center}
 .lightbox.open{display:flex}
 .lb-img{max-width:90vw;max-height:90vh;object-fit:contain;border-radius:2px}
-.lb-close{position:absolute;top:1.5rem;right:2rem;font-size:2rem;color:var(--mist);cursor:pointer;background:none;border:none;line-height:1}
-.lb-prev,.lb-next{position:absolute;top:50%;transform:translateY(-50%);font-size:2rem;color:var(--mist);cursor:pointer;background:none;border:none;padding:1rem;transition:.2s}
+.lb-close{position:absolute;top:1.5rem;right:2rem;font-size:2rem;color:rgba(232,220,200,.5);cursor:pointer;background:none;border:none;line-height:1;transition:.2s}
+.lb-prev,.lb-next{position:absolute;top:50%;transform:translateY(-50%);font-size:2.5rem;color:rgba(232,220,200,.4);cursor:pointer;background:none;border:none;padding:1rem;transition:.2s}
 .lb-prev{left:1rem}.lb-next{right:1rem}
-.lb-prev:hover,.lb-next:hover,.lb-close:hover{color:var(--gold-lt)}
+.lb-prev:hover,.lb-next:hover,.lb-close:hover{color:var(--gold)}
 
 /* ── AMENITIES ── */
 .am-section{background:#0e0c09}
@@ -333,21 +353,62 @@ body.en [lc="en"]{display:revert}
     <p class="sec-lbl rv-a" lc="en">The apartment</p>
     <h2 class="sec-h rv-a"><span lc="es">Diseño moderno,<br>alma <em>andaluza</em></span><span lc="en">Modern design,<br><em>Andalusian</em> soul</span></h2>
   </div>
-  <div class="gal-grid" id="galGrid">
-    <div class="gi rv-a" onclick="openLb(0)"><img src="img/01-salon-cocina.jpg" alt="Salón y cocina"><div class="gi-lbl" lc="es">Salón · Cocina abierta</div><div class="gi-lbl" lc="en">Living · Open kitchen</div></div>
-    <div class="gi rv-a" onclick="openLb(1)"><img src="img/14-habitacion1.jpg" alt="Habitación principal"><div class="gi-lbl" lc="es">Habitación principal</div><div class="gi-lbl" lc="en">Master bedroom</div></div>
-    <div class="gi rv-a" onclick="openLb(2)"><img src="img/12-habitacion2.jpg" alt="Habitación 2"><div class="gi-lbl" lc="es">Habitación 2</div><div class="gi-lbl" lc="en">Bedroom 2</div></div>
-    <div class="gi rv-a" onclick="openLb(3)"><img src="img/10-bano1.jpg" alt="Baño principal"><div class="gi-lbl" lc="es">Baño principal · Doble lavabo</div><div class="gi-lbl" lc="en">Main bathroom · Double sink</div></div>
-    <div class="gi rv-a" onclick="openLb(4)"><img src="img/05-cocina-completa.jpg" alt="Cocina"><div class="gi-lbl" lc="es">Cocina equipada</div><div class="gi-lbl" lc="en">Equipped kitchen</div></div>
+  <!-- Hero photo -->
+  <div class="gal-hero rv-a" onclick="openLb(0)">
+    <img src="img/01-salon-cocina.jpg" alt="Salón y cocina abierta">
+    <div class="gal-hero-label">
+      <h3 lc="es">Salón · Cocina abierta</h3>
+      <h3 lc="en">Living room · Open kitchen</h3>
+      <p lc="es">Espacio principal reformado</p>
+      <p lc="en">Fully renovated main space</p>
+    </div>
   </div>
-  <!-- Second row -->
-  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:4px;margin-top:4px">
-    <div class="gi rv-a" style="height:180px" onclick="openLb(5)"><img src="img/03-suelo-radiante.jpg" alt="Suelo radiante"><div class="gi-lbl" lc="es">Suelo radiante</div><div class="gi-lbl" lc="en">Underfloor heating</div></div>
-    <div class="gi rv-a" style="height:180px" onclick="openLb(6)"><img src="img/11-habitacion3.jpg" alt="Habitación 3"><div class="gi-lbl" lc="es">Habitación 3</div><div class="gi-lbl" lc="en">Bedroom 3</div></div>
-    <div class="gi rv-a" style="height:180px" onclick="openLb(7)"><img src="img/09-bano2.jpg" alt="Baño 2"><div class="gi-lbl" lc="es">Segundo baño</div><div class="gi-lbl" lc="en">Second bathroom</div></div>
-    <div class="gi rv-a" style="height:180px" onclick="openLb(8)"><img src="img/15-vistas-sierra.jpg" alt="Vistas Sierra Nevada"><div class="gi-lbl" lc="es">Vistas Sierra Nevada</div><div class="gi-lbl" lc="en">Sierra Nevada views</div></div>
+  <!-- 3 fotos -->
+  <div class="gal-three">
+    <div class="gi rv-a" onclick="openLb(1)">
+      <img src="img/14-habitacion1.jpg" alt="Habitación principal">
+      <div class="gi-lbl"><span lc="es">Habitación principal</span><span lc="en">Master bedroom</span></div>
+    </div>
+    <div class="gi rv-a" onclick="openLb(2)">
+      <img src="img/10-bano1.jpg" alt="Baño principal">
+      <div class="gi-lbl"><span lc="es">Baño · Doble lavabo</span><span lc="en">Bathroom · Double sink</span></div>
+    </div>
+    <div class="gi rv-a" onclick="openLb(3)">
+      <img src="img/15-vistas-sierra.jpg" alt="Vistas Sierra Nevada">
+      <div class="gi-lbl"><span lc="es">Vistas Sierra Nevada</span><span lc="en">Sierra Nevada views</span></div>
+    </div>
   </div>
+  <!-- Botón ver todas -->
+  <button class="gal-more-btn rv-a" onclick="openModal()">
+    <span lc="es">Ver las 15 fotos →</span>
+    <span lc="en">View all 15 photos →</span>
+  </button>
 </section>
+
+<!-- MODAL GALERÍA COMPLETA -->
+<div class="gal-modal" id="galModal">
+  <div class="gm-header">
+    <span class="gm-title">Vega Granada ✦ <span lc="es">Todas las fotos</span><span lc="en">All photos</span></span>
+    <button class="gm-close" onclick="closeModal()">✕</button>
+  </div>
+  <div class="gm-grid">
+    <div class="gm-item" onclick="openLb(0)"><img src="img/01-salon-cocina.jpg" alt="Salón"></div>
+    <div class="gm-item" onclick="openLb(1)"><img src="img/14-habitacion1.jpg" alt="Habitación 1"></div>
+    <div class="gm-item" onclick="openLb(2)"><img src="img/10-bano1.jpg" alt="Baño 1"></div>
+    <div class="gm-item" onclick="openLb(3)"><img src="img/15-vistas-sierra.jpg" alt="Sierra Nevada"></div>
+    <div class="gm-item" onclick="openLb(4)"><img src="img/05-cocina-completa.jpg" alt="Cocina"></div>
+    <div class="gm-item" onclick="openLb(5)"><img src="img/02-cocina.jpg" alt="Cocina 2"></div>
+    <div class="gm-item" onclick="openLb(6)"><img src="img/03-suelo-radiante.jpg" alt="Suelo radiante"></div>
+    <div class="gm-item" onclick="openLb(7)"><img src="img/04-salon-vista.jpg" alt="Salón"></div>
+    <div class="gm-item" onclick="openLb(8)"><img src="img/12-habitacion2.jpg" alt="Habitación 2"></div>
+    <div class="gm-item" onclick="openLb(9)"><img src="img/11-habitacion3.jpg" alt="Habitación 3"></div>
+    <div class="gm-item" onclick="openLb(10)"><img src="img/09-bano2.jpg" alt="Baño 2"></div>
+    <div class="gm-item" onclick="openLb(11)"><img src="img/13-vestidor.jpg" alt="Vestidor"></div>
+    <div class="gm-item" onclick="openLb(12)"><img src="img/06-lavadero.jpg" alt="Lavandería"></div>
+    <div class="gm-item" onclick="openLb(13)"><img src="img/07-cocina-noche.jpg" alt="Cocina noche"></div>
+    <div class="gm-item" onclick="openLb(14)"><img src="img/08-salon-tv.jpg" alt="Salón TV"></div>
+  </div>
+</div>
 
 <!-- LIGHTBOX -->
 <div class="lightbox" id="lb" onclick="closeLbOutside(event)">
@@ -523,14 +584,33 @@ function closeMenu(){
   document.body.style.overflow='';
 }
 
+// Gallery modal
+function openModal(){document.getElementById('galModal').classList.add('open');document.body.style.overflow='hidden'}
+function closeModal(){document.getElementById('galModal').classList.remove('open');document.body.style.overflow=''}
+
 // Lightbox
-const lbImgs=['img/01-salon-cocina.jpg','img/14-habitacion1.jpg','img/12-habitacion2.jpg','img/10-bano1.jpg','img/05-cocina-completa.jpg','img/03-suelo-radiante.jpg','img/11-habitacion3.jpg','img/09-bano2.jpg','img/15-vistas-sierra.jpg'];
+const lbImgs=[
+  'img/01-salon-cocina.jpg','img/14-habitacion1.jpg','img/10-bano1.jpg',
+  'img/15-vistas-sierra.jpg','img/05-cocina-completa.jpg','img/02-cocina.jpg',
+  'img/03-suelo-radiante.jpg','img/04-salon-vista.jpg','img/12-habitacion2.jpg',
+  'img/11-habitacion3.jpg','img/09-bano2.jpg','img/13-vestidor.jpg',
+  'img/06-lavadero.jpg','img/07-cocina-noche.jpg','img/08-salon-tv.jpg'
+];
 let lbIdx=0;
-function openLb(i){lbIdx=i;document.getElementById('lbImg').src=lbImgs[i];document.getElementById('lb').classList.add('open');document.body.style.overflow='hidden'}
+function openLb(i){
+  lbIdx=i;
+  document.getElementById('lbImg').src=lbImgs[i];
+  document.getElementById('lb').classList.add('open');
+  document.body.style.overflow='hidden';
+}
 function closeLb(){document.getElementById('lb').classList.remove('open');document.body.style.overflow=''}
 function closeLbOutside(e){if(e.target===document.getElementById('lb'))closeLb()}
 function lbNav(d){lbIdx=(lbIdx+d+lbImgs.length)%lbImgs.length;document.getElementById('lbImg').src=lbImgs[lbIdx]}
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLb();if(e.key==='ArrowRight')lbNav(1);if(e.key==='ArrowLeft')lbNav(-1)});
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){closeLb();closeModal();}
+  if(e.key==='ArrowRight')lbNav(1);
+  if(e.key==='ArrowLeft')lbNav(-1);
+});
 
 // Scroll reveal
 const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')}),{threshold:.1});
