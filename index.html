@@ -88,46 +88,44 @@ h1 em{font-style:italic;color:var(--gold)}
 .sec-h em{font-style:italic;color:var(--gold)}
 .sec-p{font-size:.88rem;line-height:1.85;color:var(--stone);max-width:500px}
 
-/* ── GALLERY SECTION ── */
+/* ── GALLERY ── */
 .gal-section{background:#161209}
 .gal-head{padding:5rem 6rem 2.5rem}
-.gal-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr;grid-template-rows:300px 220px;gap:4px}
-/* ── GALLERY ELEGANT ── */
-.gal-hero{position:relative;overflow:hidden;height:480px;cursor:pointer;background:#1e1810;display:block}
-.gal-hero img{width:100%;height:100%;object-fit:cover;transition:transform .8s ease,opacity .3s;opacity:.9}
-.gal-hero:hover img{transform:scale(1.03);opacity:1}
-.gal-hero-label{position:absolute;bottom:0;left:0;right:0;padding:2rem 2.5rem;background:linear-gradient(to top,rgba(14,12,9,.9),transparent)}
-.gal-hero-label h3{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:300;color:white;margin-bottom:.2rem}
-.gal-hero-label p{font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold)}
-.gal-count{position:absolute;top:1.25rem;right:1.25rem;background:rgba(14,12,9,.7);border:1px solid rgba(201,168,76,.3);color:var(--gold);padding:.45rem .9rem;border-radius:2px;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;display:flex;align-items:center;gap:.4rem;backdrop-filter:blur(4px)}
-.gal-three{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin-top:4px}
-.gi{position:relative;overflow:hidden;background:#1e1810;cursor:pointer;height:260px}
-.gi img{width:100%;height:100%;object-fit:cover;transition:transform .7s,opacity .3s;opacity:.88}
-.gi:hover img{transform:scale(1.05);opacity:1}
-.gi-lbl{position:absolute;bottom:0;left:0;right:0;padding:.8rem 1rem;background:linear-gradient(to top,rgba(14,12,9,.85),transparent);font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(232,220,200,.95);opacity:0;transition:.3s}
-.gi:hover .gi-lbl{opacity:1}
+
+/* 1 sola foto grande */
+.gal-single{position:relative;overflow:hidden;height:500px;cursor:pointer;display:block;background:#1e1810}
+.gal-single img{width:100%;height:100%;object-fit:cover;transition:transform .8s,opacity .3s;opacity:.88}
+.gal-single:hover img{transform:scale(1.03);opacity:1}
+.gal-single-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(14,12,9,.75) 0%,transparent 50%);display:flex;align-items:flex-end;justify-content:space-between;padding:2rem 2.5rem}
+.gal-single-text h3{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:300;color:white;margin-bottom:.2rem}
+.gal-single-text p{font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold)}
+.gal-single-badge{background:rgba(14,12,9,.7);border:1px solid rgba(201,168,76,.35);color:var(--gold);padding:.5rem 1rem;border-radius:2px;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;display:flex;align-items:center;gap:.4rem;backdrop-filter:blur(4px);white-space:nowrap;align-self:flex-end}
+
+/* Botón ver todas */
 .gal-more-btn{display:flex;align-items:center;justify-content:center;gap:.75rem;margin:2rem auto 0;padding:.95rem 3rem;background:transparent;border:1px solid rgba(201,168,76,.35);color:var(--gold);font-family:'DM Sans',sans-serif;font-size:.72rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;cursor:pointer;transition:.25s;border-radius:2px}
 .gal-more-btn:hover{background:rgba(201,168,76,.12);border-color:var(--gold);transform:translateY(-1px)}
 
-/* gallery modal */
-.gal-modal{display:none;position:fixed;inset:0;z-index:500;background:rgba(10,8,5,.97);flex-direction:column}
+/* Modal galería — fotos TODAS del mismo tamaño */
+.gal-modal{display:none;position:fixed;inset:0;z-index:500;background:rgba(8,6,3,.97);flex-direction:column}
 .gal-modal.open{display:flex}
-.gm-header{display:flex;align-items:center;justify-content:space-between;padding:1.25rem 2rem;border-bottom:1px solid rgba(201,168,76,.15);flex-shrink:0}
-.gm-title{font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--gold);letter-spacing:.05em}
-.gm-close{background:none;border:none;color:rgba(232,220,200,.5);font-size:1.6rem;cursor:pointer;transition:.2s;line-height:1;padding:.25rem .5rem}
+.gm-header{display:flex;align-items:center;justify-content:space-between;padding:1.1rem 1.5rem;border-bottom:1px solid rgba(201,168,76,.15);flex-shrink:0}
+.gm-title{font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--gold);letter-spacing:.05em}
+.gm-close{background:none;border:none;color:rgba(232,220,200,.5);font-size:1.5rem;cursor:pointer;transition:.2s;line-height:1;padding:.25rem .6rem}
 .gm-close:hover{color:var(--gold)}
 .gm-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;padding:3px;overflow-y:auto;flex:1}
 .gm-item{position:relative;overflow:hidden;cursor:pointer;aspect-ratio:4/3;background:#1e1810}
-.gm-item img{width:100%;height:100%;object-fit:cover;transition:transform .5s,opacity .3s;opacity:.85}
-.gm-item:hover img{transform:scale(1.04);opacity:1}
+.gm-item img{width:100%;height:100%;object-fit:cover;transition:transform .4s,opacity .3s;opacity:.85;display:block}
+.gm-item:hover img{transform:scale(1.05);opacity:1}
+.gm-lbl{position:absolute;bottom:0;left:0;right:0;padding:.5rem .75rem;background:linear-gradient(to top,rgba(14,12,9,.85),transparent);font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(232,220,200,.9);opacity:0;transition:.3s}
+.gm-item:hover .gm-lbl{opacity:1}
 
-/* lightbox */
-.lightbox{display:none;position:fixed;inset:0;z-index:600;background:rgba(8,6,3,.97);align-items:center;justify-content:center}
+/* Lightbox */
+.lightbox{display:none;position:fixed;inset:0;z-index:600;background:rgba(6,4,2,.97);align-items:center;justify-content:center}
 .lightbox.open{display:flex}
-.lb-img{max-width:92vw;max-height:92vh;object-fit:contain;border-radius:1px}
-.lb-close{position:absolute;top:1.25rem;right:1.5rem;font-size:1.8rem;color:rgba(232,220,200,.45);cursor:pointer;background:none;border:none;line-height:1;transition:.2s;padding:.5rem}
-.lb-prev,.lb-next{position:absolute;top:50%;transform:translateY(-50%);font-size:2.5rem;color:rgba(232,220,200,.35);cursor:pointer;background:none;border:none;padding:1rem;transition:.2s}
-.lb-prev{left:.5rem}.lb-next{right:.5rem}
+.lb-img{max-width:92vw;max-height:92vh;object-fit:contain}
+.lb-close{position:absolute;top:1rem;right:1.25rem;font-size:1.8rem;color:rgba(232,220,200,.4);cursor:pointer;background:none;border:none;line-height:1;transition:.2s;padding:.5rem}
+.lb-prev,.lb-next{position:absolute;top:50%;transform:translateY(-50%);font-size:2.5rem;color:rgba(232,220,200,.3);cursor:pointer;background:none;border:none;padding:1rem;transition:.2s}
+.lb-prev{left:.25rem}.lb-next{right:.25rem}
 .lb-prev:hover,.lb-next:hover,.lb-close:hover{color:var(--gold)}
 
 /* ── AMENITIES ── */
@@ -221,7 +219,65 @@ footer{background:#161209;border-top:1px solid rgba(201,168,76,.12);color:rgba(2
 .f-links a:hover{color:var(--gold)}
 .f-copy{font-size:.65rem;opacity:.35}
 
-/* ── REVEAL ── */
+/* ── MODAL RESERVA ── */
+.res-modal{display:none;position:fixed;inset:0;z-index:700;background:rgba(8,6,3,.96);align-items:center;justify-content:center;padding:1rem}
+.res-modal.open{display:flex}
+.res-box{background:#1e1810;border:1px solid rgba(201,168,76,.2);border-radius:3px;width:100%;max-width:560px;max-height:90vh;overflow-y:auto;position:relative}
+.res-header{padding:2rem 2rem 1.5rem;border-bottom:1px solid rgba(201,168,76,.12);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:#1e1810;z-index:1}
+.res-title{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:300;color:var(--ink)}
+.res-title em{font-style:italic;color:var(--gold)}
+.res-close{background:none;border:none;color:var(--stone);font-size:1.5rem;cursor:pointer;transition:.2s;line-height:1;padding:.25rem}
+.res-close:hover{color:var(--gold)}
+.res-body{padding:2rem}
+/* Steps */
+.res-steps{display:flex;gap:0;margin-bottom:2rem;border:1px solid rgba(201,168,76,.15);border-radius:2px;overflow:hidden}
+.res-step{flex:1;text-align:center;padding:.6rem;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--stone);border-right:1px solid rgba(201,168,76,.12);transition:.2s;cursor:default}
+.res-step:last-child{border-right:none}
+.res-step.active{background:rgba(201,168,76,.12);color:var(--gold)}
+.res-step.done{color:var(--gold-dk)}
+/* Step panels */
+.res-panel{display:none}.res-panel.active{display:block}
+/* Smoobu calendar */
+.smoobu-wrap{background:#161209;border:1px solid rgba(201,168,76,.12);border-radius:2px;padding:1.5rem;margin-bottom:1.5rem;min-height:120px;display:flex;align-items:center;justify-content:center}
+.smoobu-placeholder{text-align:center;color:var(--stone)}
+.smoobu-placeholder .sp-icon{font-size:2rem;margin-bottom:.5rem}
+.smoobu-placeholder p{font-size:.75rem;line-height:1.6}
+.smoobu-placeholder code{background:rgba(201,168,76,.1);color:var(--gold);padding:.2rem .5rem;border-radius:2px;font-size:.7rem}
+/* Form fields */
+.rf{display:flex;flex-direction:column;gap:.35rem;margin-bottom:1.1rem}
+.rl{font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--stone)}
+.ri,.rs{background:#161209;border:1px solid rgba(201,168,76,.18);padding:.82rem 1rem;font-family:'DM Sans',sans-serif;font-size:.9rem;color:var(--ink);outline:none;transition:.2s;border-radius:2px;width:100%}
+.ri:focus,.rs:focus{border-color:var(--gold)}
+.ri::placeholder{color:var(--stone);opacity:.4}
+.frow2{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+/* Price summary */
+.price-box{background:#161209;border:1px solid rgba(201,168,76,.12);border-radius:2px;padding:1.25rem 1.5rem;margin-bottom:1.5rem}
+.price-row{display:flex;justify-content:space-between;align-items:center;padding:.4rem 0;font-size:.82rem;color:var(--stone);border-bottom:1px solid rgba(201,168,76,.07)}
+.price-row:last-child{border-bottom:none;padding-top:.75rem;margin-top:.25rem}
+.price-row.total{font-size:.92rem;color:var(--ink);font-weight:500}
+.price-row.total span:last-child{color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:1.3rem}
+.price-note{font-size:.65rem;color:var(--stone);margin-top:.6rem;line-height:1.55}
+.price-note strong{color:var(--gold-dk)}
+/* Stripe */
+.stripe-wrap{background:#161209;border:1px solid rgba(201,168,76,.12);border-radius:2px;padding:1.5rem;margin-bottom:1.5rem}
+.stripe-placeholder{text-align:center;color:var(--stone)}
+.stripe-placeholder .sp-icon{font-size:1.75rem;margin-bottom:.5rem}
+.stripe-placeholder p{font-size:.75rem;line-height:1.6}
+.stripe-placeholder code{background:rgba(201,168,76,.1);color:var(--gold);padding:.2rem .5rem;border-radius:2px;font-size:.7rem}
+#card-element{background:#0e0c09;border:1px solid rgba(201,168,76,.25);border-radius:2px;padding:1rem;min-height:46px}
+#card-errors{color:#e57373;font-size:.75rem;margin-top:.5rem;min-height:1rem}
+.stripe-secure{display:flex;align-items:center;gap:.5rem;font-size:.65rem;color:var(--stone);margin-top:.75rem}
+/* Buttons */
+.res-btn{width:100%;background:var(--gold);color:#0e0c09;border:none;padding:1rem;font-family:'DM Sans',sans-serif;font-size:.78rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:.2s;margin-top:.5rem}
+.res-btn:hover{background:var(--gold-lt)}
+.res-btn:disabled{opacity:.5;cursor:not-allowed}
+.res-btn-back{width:100%;background:transparent;color:var(--stone);border:1px solid rgba(201,168,76,.18);padding:.85rem;font-family:'DM Sans',sans-serif;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:.2s;margin-top:.5rem}
+.res-btn-back:hover{border-color:var(--gold);color:var(--gold)}
+/* Success */
+.res-success{text-align:center;padding:2rem 0}
+.res-success-icon{font-size:3.5rem;margin-bottom:1rem}
+.res-success h3{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:300;color:var(--ink);margin-bottom:.75rem}
+.res-success p{font-size:.85rem;color:var(--stone);line-height:1.7;max-width:340px;margin:0 auto}
 .rv-a{opacity:0;transform:translateY(24px);transition:opacity .75s ease,transform .75s ease}
 .rv-a.in{opacity:1;transform:none}
 .rv-a:nth-child(2){transition-delay:.08s}.rv-a:nth-child(3){transition-delay:.16s}
@@ -270,6 +326,40 @@ body.en [lc="en"]{display:revert}
   .gi{height:65vw}
   .gm-grid{grid-template-columns:1fr}
   .strip-item{font-size:.62rem}
+/* ── COOKIE BANNER ── */
+.cookie-banner{position:fixed;bottom:0;left:0;right:0;z-index:400;background:#1e1810;border-top:1px solid rgba(201,168,76,.2);padding:1.25rem 2rem;transform:translateY(100%);transition:transform .4s ease;box-shadow:0 -4px 24px rgba(0,0,0,.4)}
+.cookie-banner.show{transform:translateY(0)}
+.cookie-inner{max-width:1400px;margin:0 auto;display:flex;align-items:center;gap:2rem;flex-wrap:wrap}
+.cookie-text{flex:1;min-width:260px}
+.cookie-title{font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--gold);margin-bottom:.3rem}
+.cookie-desc{font-size:.72rem;color:var(--stone);line-height:1.6}
+.cookie-btns{display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;flex-shrink:0}
+.cookie-btn-accept{background:var(--gold);color:#0e0c09;border:none;padding:.65rem 1.4rem;font-family:'DM Sans',sans-serif;font-size:.7rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:.2s;white-space:nowrap}
+.cookie-btn-accept:hover{background:var(--gold-lt)}
+.cookie-btn-reject{background:transparent;color:var(--stone);border:1px solid rgba(201,168,76,.2);padding:.65rem 1.4rem;font-family:'DM Sans',sans-serif;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:.2s;white-space:nowrap}
+.cookie-btn-reject:hover{border-color:var(--gold);color:var(--gold)}
+.cookie-link{font-size:.65rem;color:var(--stone);text-decoration:underline;text-underline-offset:3px;opacity:.6;transition:.2s;white-space:nowrap}
+.cookie-link:hover{color:var(--gold);opacity:1}
+@media(max-width:600px){
+  .cookie-banner{padding:1rem 1.25rem}
+  .cookie-inner{gap:1rem}
+  .cookie-btns{width:100%;justify-content:space-between}
+}
+
+/* ── BOTONES FLOTANTES ── */
+.float-btns{position:fixed;bottom:1.75rem;right:1.5rem;z-index:250;display:flex;flex-direction:column;gap:.75rem;align-items:flex-end}
+.float-btn{display:flex;align-items:center;gap:.6rem;padding:.75rem 1.4rem;border-radius:50px;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.7rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;box-shadow:0 4px 20px rgba(0,0,0,.45);transition:transform .2s,box-shadow .2s;white-space:nowrap}
+.float-btn:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(0,0,0,.55)}
+.float-btn-reservar{background:var(--gold);color:#0e0c09}
+.float-btn-reservar:hover{background:var(--gold-lt)}
+.float-btn-wa{background:#25d366;color:white}
+.float-btn-wa:hover{background:#1fb355}
+.float-icon{font-size:1rem;line-height:1}
+@media(max-width:600px){
+  .float-btns{bottom:1.25rem;right:1rem;gap:.6rem}
+  .float-btn{padding:.85rem;border-radius:50%;width:54px;height:54px;justify-content:center}
+  .float-label{display:none}
+  .float-icon{font-size:1.3rem}
 }
 </style>
 </head>
@@ -287,7 +377,7 @@ body.en [lc="en"]{display:revert}
       <li><a href="#comodidades" lc="es">Comodidades</a><a href="#comodidades" lc="en">Amenities</a></li>
       <li><a href="#ubicacion" lc="es">Ubicación</a><a href="#ubicacion" lc="en">Location</a></li>
       <li><a href="granada.html" lc="es">Guía Granada</a><a href="granada.html" lc="en">Granada Guide</a></li>
-      <li><a href="#reservar" class="nav-book" lc="es">Reservar</a><a href="#reservar" class="nav-book" lc="en">Book Now</a></li>
+      <li><a onclick="openResModal()" class="nav-book" href="#" lc="es">Reservar</a><a onclick="openResModal()" class="nav-book" href="#" lc="en">Book Now</a></li>
     </ul>
     <div class="nav-right">
       <div class="lang-toggle">
@@ -331,23 +421,22 @@ body.en [lc="en"]{display:revert}
       <span lc="en">Exceptional · 39 reviews · Booking.com</span>
     </div>
     <div class="hero-btns">
-      <a href="#reservar" class="btn-primary" lc="es">✦ Reservar ahora</a>
-      <a href="#reservar" class="btn-primary" lc="en">✦ Book now</a>
+      <a onclick="openResModal()" class="btn-primary" href="#" lc="es">✦ Reservar ahora</a>
+      <a onclick="openResModal()" class="btn-primary" href="#" lc="en">✦ Book now</a>
       <a href="#galeria" class="btn-secondary" lc="es">Ver el apartamento</a>
       <a href="#galeria" class="btn-secondary" lc="en">View apartment</a>
     </div>
     <div class="hero-stats">
       <div class="hstat"><div class="hstat-n">3</div><div class="hstat-l" lc="es">Habitaciones</div><div class="hstat-l" lc="en">Bedrooms</div></div>
-      <div class="hstat"><div class="hstat-n">6</div><div class="hstat-l" lc="es">Huéspedes</div><div class="hstat-l" lc="en">Guests</div></div>
+      <div class="hstat"><div class="hstat-n">5</div><div class="hstat-l" lc="es">Huéspedes</div><div class="hstat-l" lc="en">Guests</div></div>
       <div class="hstat"><div class="hstat-n">5'</div><div class="hstat-l" lc="es">A Granada</div><div class="hstat-l" lc="en">To Granada</div></div>
       <div class="hstat"><div class="hstat-n">9.8</div><div class="hstat-l" lc="es">Puntuación</div><div class="hstat-l" lc="en">Score</div></div>
     </div>
   </div>
-  <div class="hero-right">
-    <div class="hero-gallery">
-      <div class="hg-main"><img src="img/14-habitacion1.jpg" alt="Habitación principal"></div>
-      <div class="hg-thumb"><img src="img/01-salon-cocina.jpg" alt="Salón"><div class="hg-badge" lc="es">Salón abierto</div><div class="hg-badge" lc="en">Open plan</div></div>
-      <div class="hg-thumb"><img src="img/15-vistas-sierra.jpg" alt="Vistas Sierra Nevada"><div class="hg-badge" lc="es">Vistas Sierra Nevada</div><div class="hg-badge" lc="en">Sierra Nevada views</div></div>
+  <div class="hero-right" onclick="openGalModal()" style="cursor:pointer">
+    <img src="img/14-habitacion1.jpg" alt="Habitación principal" style="width:100%;height:100%;object-fit:cover;opacity:.88;transition:opacity .3s">
+    <div style="position:absolute;bottom:1.5rem;right:1.5rem;background:rgba(14,12,9,.75);border:1px solid rgba(201,168,76,.35);color:var(--gold);padding:.5rem 1rem;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;backdrop-filter:blur(4px);border-radius:2px">
+      📷 <span lc="es">Ver 15 fotos</span><span lc="en">View 15 photos</span>
     </div>
   </div>
 </section>
@@ -369,51 +458,52 @@ body.en [lc="en"]{display:revert}
     <h2 class="sec-h rv-a"><span lc="es">Diseño moderno,<br>alma <em>andaluza</em></span><span lc="en">Modern design,<br><em>Andalusian</em> soul</span></h2>
   </div>
 
-  <!-- 1 foto hero grande -->
-  <div class="gal-hero rv-a" onclick="openLb(0)">
-    <img src="img/01-salon-cocina.jpg" alt="Salón y cocina abierta">
-    <div class="gal-hero-label">
-      <h3 lc="es">Salón · Cocina abierta</h3>
-      <h3 lc="en">Living room · Open kitchen</h3>
-      <p lc="es">Toca para ver todas las fotos</p>
-      <p lc="en">Tap to view all photos</p>
-    </div>
-    <div class="gal-count">
-      <span>📷</span>
-      <span lc="es">15 fotos</span>
-      <span lc="en">15 photos</span>
+  <!-- 1 SOLA FOTO GRANDE -->
+  <div class="gal-single rv-a" onclick="openGalModal()">
+    <img src="img/01-salon-cocina.jpg" alt="Salón y cocina">
+    <div class="gal-single-overlay">
+      <div class="gal-single-text">
+        <h3 lc="es">Salón · Cocina abierta</h3>
+        <h3 lc="en">Living room · Open kitchen</h3>
+        <p lc="es">Toca para ver todas las fotos</p>
+        <p lc="en">Tap to view all photos</p>
+      </div>
+      <div class="gal-single-badge">
+        <span>📷</span>
+        <span lc="es">15 fotos</span>
+        <span lc="en">15 photos</span>
+      </div>
     </div>
   </div>
 
-  <!-- Botón ver todas -->
-  <button class="gal-more-btn rv-a" onclick="openModal()">
+  <button class="gal-more-btn rv-a" onclick="openGalModal()">
     <span lc="es">Ver las 15 fotos del apartamento →</span>
     <span lc="en">View all 15 apartment photos →</span>
   </button>
 </section>
 
-<!-- MODAL GALERÍA COMPLETA -->
+<!-- MODAL GALERÍA — pantalla emergente con fotos uniformes -->
 <div class="gal-modal" id="galModal">
   <div class="gm-header">
-    <span class="gm-title">Vega Granada ✦ <span lc="es">Todas las fotos</span><span lc="en">All photos</span></span>
-    <button class="gm-close" onclick="closeModal()">✕</button>
+    <span class="gm-title">Vega Granada ✦ <span lc="es">Fotos del apartamento</span><span lc="en">Apartment photos</span></span>
+    <button class="gm-close" onclick="closeGalModal()">✕</button>
   </div>
   <div class="gm-grid">
-    <div class="gm-item" onclick="openLb(0)"><img src="img/01-salon-cocina.jpg" alt="Salón"></div>
-    <div class="gm-item" onclick="openLb(1)"><img src="img/14-habitacion1.jpg" alt="Habitación 1"></div>
-    <div class="gm-item" onclick="openLb(2)"><img src="img/10-bano1.jpg" alt="Baño 1"></div>
-    <div class="gm-item" onclick="openLb(3)"><img src="img/15-vistas-sierra.jpg" alt="Sierra Nevada"></div>
-    <div class="gm-item" onclick="openLb(4)"><img src="img/05-cocina-completa.jpg" alt="Cocina"></div>
-    <div class="gm-item" onclick="openLb(5)"><img src="img/02-cocina.jpg" alt="Cocina 2"></div>
-    <div class="gm-item" onclick="openLb(6)"><img src="img/03-suelo-radiante.jpg" alt="Suelo radiante"></div>
-    <div class="gm-item" onclick="openLb(7)"><img src="img/04-salon-vista.jpg" alt="Salón vista"></div>
-    <div class="gm-item" onclick="openLb(8)"><img src="img/12-habitacion2.jpg" alt="Habitación 2"></div>
-    <div class="gm-item" onclick="openLb(9)"><img src="img/11-habitacion3.jpg" alt="Habitación 3"></div>
-    <div class="gm-item" onclick="openLb(10)"><img src="img/09-bano2.jpg" alt="Baño 2"></div>
-    <div class="gm-item" onclick="openLb(11)"><img src="img/13-vestidor.jpg" alt="Vestidor"></div>
-    <div class="gm-item" onclick="openLb(12)"><img src="img/06-lavadero.jpg" alt="Lavandería"></div>
-    <div class="gm-item" onclick="openLb(13)"><img src="img/07-cocina-noche.jpg" alt="Cocina noche"></div>
-    <div class="gm-item" onclick="openLb(14)"><img src="img/08-salon-tv.jpg" alt="Salón TV"></div>
+    <div class="gm-item" onclick="openLb(0)"><img src="img/01-salon-cocina.jpg" alt="Salón · Cocina"><div class="gm-lbl" lc="es">Salón · Cocina</div><div class="gm-lbl" lc="en">Living · Kitchen</div></div>
+    <div class="gm-item" onclick="openLb(1)"><img src="img/14-habitacion1.jpg" alt="Habitación 1"><div class="gm-lbl" lc="es">Habitación 1</div><div class="gm-lbl" lc="en">Bedroom 1</div></div>
+    <div class="gm-item" onclick="openLb(2)"><img src="img/10-bano1.jpg" alt="Baño principal"><div class="gm-lbl" lc="es">Baño principal</div><div class="gm-lbl" lc="en">Main bathroom</div></div>
+    <div class="gm-item" onclick="openLb(3)"><img src="img/15-vistas-sierra.jpg" alt="Sierra Nevada"><div class="gm-lbl" lc="es">Vistas Sierra Nevada</div><div class="gm-lbl" lc="en">Sierra Nevada views</div></div>
+    <div class="gm-item" onclick="openLb(4)"><img src="img/05-cocina-completa.jpg" alt="Cocina"><div class="gm-lbl" lc="es">Cocina equipada</div><div class="gm-lbl" lc="en">Equipped kitchen</div></div>
+    <div class="gm-item" onclick="openLb(5)"><img src="img/02-cocina.jpg" alt="Cocina 2"><div class="gm-lbl" lc="es">Cocina · Mesa alta</div><div class="gm-lbl" lc="en">Kitchen · High table</div></div>
+    <div class="gm-item" onclick="openLb(6)"><img src="img/03-suelo-radiante.jpg" alt="Suelo radiante"><div class="gm-lbl" lc="es">Suelo radiante</div><div class="gm-lbl" lc="en">Underfloor heating</div></div>
+    <div class="gm-item" onclick="openLb(7)"><img src="img/04-salon-vista.jpg" alt="Salón"><div class="gm-lbl" lc="es">Salón · Vista completa</div><div class="gm-lbl" lc="en">Living room · Full view</div></div>
+    <div class="gm-item" onclick="openLb(8)"><img src="img/12-habitacion2.jpg" alt="Habitación 2"><div class="gm-lbl" lc="es">Habitación 2</div><div class="gm-lbl" lc="en">Bedroom 2</div></div>
+    <div class="gm-item" onclick="openLb(9)"><img src="img/11-habitacion3.jpg" alt="Habitación 3"><div class="gm-lbl" lc="es">Habitación 3</div><div class="gm-lbl" lc="en">Bedroom 3</div></div>
+    <div class="gm-item" onclick="openLb(10)"><img src="img/09-bano2.jpg" alt="Baño 2"><div class="gm-lbl" lc="es">Segundo baño</div><div class="gm-lbl" lc="en">Second bathroom</div></div>
+    <div class="gm-item" onclick="openLb(11)"><img src="img/13-vestidor.jpg" alt="Vestidor"><div class="gm-lbl" lc="es">Vestidor</div><div class="gm-lbl" lc="en">Walk-in wardrobe</div></div>
+    <div class="gm-item" onclick="openLb(12)"><img src="img/06-lavadero.jpg" alt="Lavandería"><div class="gm-lbl" lc="es">Lavandería</div><div class="gm-lbl" lc="en">Laundry room</div></div>
+    <div class="gm-item" onclick="openLb(13)"><img src="img/07-cocina-noche.jpg" alt="Cocina noche"><div class="gm-lbl" lc="es">Cocina · Noche</div><div class="gm-lbl" lc="en">Kitchen · Evening</div></div>
+    <div class="gm-item" onclick="openLb(14)"><img src="img/08-salon-tv.jpg" alt="Salón TV"><div class="gm-lbl" lc="es">Salón · Smart TV</div><div class="gm-lbl" lc="en">Living · Smart TV</div></div>
   </div>
 </div>
 
@@ -522,7 +612,7 @@ body.en [lc="en"]{display:revert}
   <div class="rv-wrap">
     <div class="rv rv-a"><div class="rv-q">"</div><div class="rv-stars">★★★★★</div><p class="rv-txt" lc="es">Apartamento increíble, todo nuevo y moderno. La ubicación es perfecta para visitar Granada. El anfitrión respondió siempre enseguida.</p><p class="rv-txt" lc="en">Incredible apartment, all new and modern. The location is perfect for visiting Granada. The host always responded immediately.</p><div class="rv-aut" lc="es">— Huésped verificado · Booking.com</div><div class="rv-aut" lc="en">— Verified guest · Booking.com</div></div>
     <div class="rv rv-a"><div class="rv-q">"</div><div class="rv-stars">★★★★★</div><p class="rv-txt" lc="es">El suelo radiante es un lujo en invierno. Todo tal como se muestra. El parking privado es un plus enorme. Sin duda volveremos.</p><p class="rv-txt" lc="en">The underfloor heating is a luxury in winter. Everything exactly as shown. The private parking is a huge plus. We'll definitely be back.</p><div class="rv-aut" lc="es">— Huésped verificado · Airbnb</div><div class="rv-aut" lc="en">— Verified guest · Airbnb</div></div>
-    <div class="rv rv-a"><div class="rv-q">"</div><div class="rv-stars">★★★★★</div><p class="rv-txt" lc="es">Las vistas a Sierra Nevada desde la habitación son espectaculares. Cocina completísima, baños de lujo. Para 6 personas perfectísimo.</p><p class="rv-txt" lc="en">The views of Sierra Nevada from the bedroom are spectacular. Fully equipped kitchen, luxury bathrooms. Perfect for 6 people.</p><div class="rv-aut" lc="es">— Huésped verificado · Booking.com</div><div class="rv-aut" lc="en">— Verified guest · Booking.com</div></div>
+    <div class="rv rv-a"><div class="rv-q">"</div><div class="rv-stars">★★★★★</div><p class="rv-txt" lc="es">Las vistas a Sierra Nevada desde la habitación son espectaculares. Cocina completísima, baños de lujo. Para 5 personas perfectísimo.</p><p class="rv-txt" lc="en">The views of Sierra Nevada from the bedroom are spectacular. Fully equipped kitchen, luxury bathrooms. Perfect for 6 people.</p><div class="rv-aut" lc="es">— Huésped verificado · Booking.com</div><div class="rv-aut" lc="en">— Verified guest · Booking.com</div></div>
   </div>
   <p style="margin-top:1rem;font-size:.68rem;color:var(--stone);opacity:.6" lc="es">💡 Sustituye por reseñas reales de Booking o Airbnb</p>
   <p style="margin-top:1rem;font-size:.68rem;color:var(--stone);opacity:.6" lc="en">💡 Replace with real reviews from Booking or Airbnb</p>
@@ -535,10 +625,10 @@ body.en [lc="en"]{display:revert}
   <h2 class="sec-h rv-a"><span lc="es">¿Tienes alguna <em>pregunta</em>?</span><span lc="en">Any <em>questions</em>?</span></h2>
   <div class="ct-inner">
     <div class="ct-left">
-      <div class="rv-a"><div class="ct-lbl">WhatsApp</div><a href="https://wa.me/34XXXXXXXXX" class="ct-val">+34 XXX XXX XXX</a></div>
+      <div class="rv-a"><div class="ct-lbl">WhatsApp</div><a href="https://wa.me/34674071443" class="ct-val">+34 674 07 14 43</a></div>
       <div class="rv-a"><div class="ct-lbl">Email</div><a href="mailto:info@vegagranada.com" class="ct-val">info@vegagranada.com</a></div>
       <div class="rv-a"><div class="ct-lbl" lc="es">Dirección</div><div class="ct-lbl" lc="en">Address</div><span class="ct-val" style="font-size:1rem;cursor:default">C/ Sevilla esq. C/ Alicante<br>Churriana de la Vega, Granada</span></div>
-      <a href="https://wa.me/34XXXXXXXXX" class="wa-btn rv-a" target="_blank">💬 <span lc="es">Escribir por WhatsApp</span><span lc="en">Message on WhatsApp</span></a>
+      <a href="https://wa.me/34674071443" class="wa-btn rv-a" target="_blank">💬 <span lc="es">Escribir por WhatsApp</span><span lc="en">Message on WhatsApp</span></a>
     </div>
     <form class="cf" name="contact" method="POST" data-netlify="true">
       <input type="hidden" name="form-name" value="contact">
@@ -550,12 +640,205 @@ body.en [lc="en"]{display:revert}
         <div class="fg"><label class="fl" lc="es">Llegada</label><label class="fl" lc="en">Check-in</label><input type="date" name="llegada" class="fi"></div>
         <div class="fg"><label class="fl" lc="es">Salida</label><label class="fl" lc="en">Check-out</label><input type="date" name="salida" class="fi"></div>
       </div>
-      <div class="fg"><label class="fl" lc="es">Huéspedes (máx. 6)</label><label class="fl" lc="en">Guests (max. 6)</label><input type="number" name="huespedes" min="1" max="6" class="fi" placeholder="1 – 6"></div>
+      <div class="fg"><label class="fl" lc="es">Huéspedes (máx. 6)</label><label class="fl" lc="en">Guests (max. 6)</label><input type="number" name="huespedes" min="1" max="5" class="fi" placeholder="1 – 6"></div>
       <div class="fg"><label class="fl" lc="es">Mensaje</label><label class="fl" lc="en">Message</label><textarea name="mensaje" class="fta" lc="es" placeholder="Cuéntanos sobre tu estancia..."></textarea><textarea name="mensaje" class="fta" lc="en" placeholder="Tell us about your stay..."></textarea></div>
       <button type="submit" class="fsub"><span lc="es">Enviar consulta →</span><span lc="en">Send enquiry →</span></button>
     </form>
   </div>
 </section>
+
+<!-- Stripe JS -->
+<script src="https://js.stripe.com/v3/"></script>
+
+<!-- MODAL RESERVA -->
+<div class="res-modal" id="resModal">
+  <div class="res-box">
+    <div class="res-header">
+      <div class="res-title"><em lc="es">Reservar</em><em lc="en">Book</em> · Vega Granada</div>
+      <button class="res-close" onclick="closeResModal()">✕</button>
+    </div>
+    <div class="res-body">
+
+      <!-- Steps indicator -->
+      <div class="res-steps">
+        <div class="res-step active" id="step-ind-1" lc="es">1 · Fechas</div>
+        <div class="res-step active" id="step-ind-1" lc="en">1 · Dates</div>
+        <div class="res-step" id="step-ind-2" lc="es">2 · Datos</div>
+        <div class="res-step" id="step-ind-2" lc="en">2 · Details</div>
+        <div class="res-step" id="step-ind-3" lc="es">3 · Pago</div>
+        <div class="res-step" id="step-ind-3" lc="en">3 · Payment</div>
+      </div>
+
+      <!-- STEP 1: Fechas y disponibilidad (Smoobu) -->
+      <div class="res-panel active" id="res-step-1">
+        <p class="sec-lbl" style="margin-bottom:1rem" lc="es">Selecciona tus fechas</p>
+        <p class="sec-lbl" style="margin-bottom:1rem" lc="en">Select your dates</p>
+
+        <!-- ═══════════════════════════════════════════════
+             SMOOBU WIDGET — MAÑANA PEGAS AQUÍ TU CÓDIGO
+             ═══════════════════════════════════════════════
+             1. Ve a smoobu.com → Canales → Página de reservas
+             2. Copia el widget embed code
+             3. Reemplaza este bloque por tu código de Smoobu
+             ═══════════════════════════════════════════════ -->
+        <div class="smoobu-wrap" id="smoobu-container">
+          <!-- 👇 PEGA AQUÍ TU WIDGET DE SMOOBU -->
+          <!-- <script src="https://login.smoobu.com/js/Booking/BookingTool.js"
+               data-apartment-id="TU_ID_AQUI"
+               data-token="TU_TOKEN_AQUI">
+          </script> -->
+          <div class="smoobu-placeholder">
+            <div class="sp-icon">📅</div>
+            <p lc="es">Calendario de disponibilidad<br><strong style="color:var(--gold-dk)">Mañana:</strong> pega aquí tu widget de Smoobu<br>con tu <code>apartment-id</code></p>
+            <p lc="en">Availability calendar<br><strong style="color:var(--gold-dk)">Tomorrow:</strong> paste your Smoobu widget here<br>with your <code>apartment-id</code></p>
+          </div>
+        </div>
+
+        <div class="frow2">
+          <div class="rf">
+            <label class="rl" lc="es">Llegada</label>
+            <label class="rl" lc="en">Check-in</label>
+            <input type="date" id="r-checkin" class="ri" onchange="calcPrice()">
+          </div>
+          <div class="rf">
+            <label class="rl" lc="es">Salida</label>
+            <label class="rl" lc="en">Check-out</label>
+            <input type="date" id="r-checkout" class="ri" onchange="calcPrice()">
+          </div>
+        </div>
+        <div class="rf">
+          <label class="rl" lc="es">Huéspedes</label>
+          <label class="rl" lc="en">Guests</label>
+          <select id="r-guests" class="rs">
+            <option value="1">1</option><option value="2">2</option>
+            <option value="3">3</option><option value="4">4</option>
+            <option value="5" selected>5</option><option value="6">6</option>
+          </select>
+        </div>
+
+        <!-- Resumen precio -->
+        <div class="price-box" id="price-box" style="display:none">
+          <div class="price-row"><span lc="es">Noches</span><span lc="en">Nights</span><span id="p-nights">—</span></div>
+          <div class="price-row"><span lc="es">Precio por noche</span><span lc="en">Price per night</span><span id="p-rate">—</span></div>
+          <div class="price-row"><span lc="es">Subtotal</span><span lc="en">Subtotal</span><span id="p-sub">—</span></div>
+          <div class="price-row"><span lc="es">Fianza (retenida)</span><span lc="en">Deposit (held)</span><span id="p-dep">300 €</span></div>
+          <div class="price-row total">
+            <span lc="es">Total a pagar ahora</span><span lc="en">Total to pay now</span>
+            <span id="p-total">—</span>
+          </div>
+          <p class="price-note" lc="es"><strong>Fianza:</strong> Los 300€ quedan retenidos en tu tarjeta y se liberan automáticamente 48h después del checkout si no hay incidencias.</p>
+          <p class="price-note" lc="en"><strong>Deposit:</strong> The €300 deposit is held on your card and automatically released 48h after checkout if there are no issues.</p>
+        </div>
+
+        <button class="res-btn" onclick="goStep(2)" id="btn-step1" lc="es">Continuar →</button>
+        <button class="res-btn" onclick="goStep(2)" id="btn-step1" lc="en">Continue →</button>
+      </div>
+
+      <!-- STEP 2: Datos del huésped -->
+      <div class="res-panel" id="res-step-2">
+        <p class="sec-lbl" style="margin-bottom:1rem" lc="es">Tus datos</p>
+        <p class="sec-lbl" style="margin-bottom:1rem" lc="en">Your details</p>
+        <div class="frow2">
+          <div class="rf">
+            <label class="rl" lc="es">Nombre</label><label class="rl" lc="en">First name</label>
+            <input type="text" id="r-fname" class="ri" placeholder="María">
+          </div>
+          <div class="rf">
+            <label class="rl" lc="es">Apellidos</label><label class="rl" lc="en">Last name</label>
+            <input type="text" id="r-lname" class="ri" placeholder="García">
+          </div>
+        </div>
+        <div class="rf">
+          <label class="rl">Email</label>
+          <input type="email" id="r-email" class="ri" placeholder="maria@email.com">
+        </div>
+        <div class="rf">
+          <label class="rl" lc="es">Teléfono</label><label class="rl" lc="en">Phone</label>
+          <input type="tel" id="r-phone" class="ri" placeholder="+34 600 000 000">
+        </div>
+        <div class="rf">
+          <label class="rl" lc="es">Mensaje (opcional)</label><label class="rl" lc="en">Message (optional)</label>
+          <input type="text" id="r-msg" class="ri" placeholder="...">
+        </div>
+        <button class="res-btn" onclick="goStep(3)" lc="es">Continuar al pago →</button>
+        <button class="res-btn" onclick="goStep(3)" lc="en">Continue to payment →</button>
+        <button class="res-btn-back" onclick="goStep(1)" lc="es">← Volver</button>
+        <button class="res-btn-back" onclick="goStep(1)" lc="en">← Back</button>
+      </div>
+
+      <!-- STEP 3: Pago Stripe -->
+      <div class="res-panel" id="res-step-3">
+        <p class="sec-lbl" style="margin-bottom:1rem" lc="es">Pago seguro</p>
+        <p class="sec-lbl" style="margin-bottom:1rem" lc="en">Secure payment</p>
+
+        <!-- Resumen compacto -->
+        <div class="price-box" style="margin-bottom:1.5rem">
+          <div class="price-row total">
+            <span lc="es">Total (incl. fianza 300€)</span><span lc="en">Total (incl. €300 deposit)</span>
+            <span id="p-total-2">—</span>
+          </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════
+             STRIPE — MAÑANA PEGAS AQUÍ TU CLAVE PÚBLICA
+             ═══════════════════════════════════════════════
+             1. Ve a dashboard.stripe.com → Desarrolladores → Claves API
+             2. Copia tu "Publishable key" (empieza por pk_live_...)
+             3. Reemplaza 'pk_test_PEGA_TU_CLAVE_AQUI' con tu clave real
+             ═══════════════════════════════════════════════ -->
+        <div class="stripe-wrap">
+          <div class="stripe-placeholder" id="stripe-placeholder">
+            <div class="sp-icon">💳</div>
+            <p lc="es"><strong style="color:var(--gold-dk)">Mañana:</strong> pega tu clave de Stripe<br><code>pk_live_TU_CLAVE_AQUI</code><br>y el formulario de tarjeta aparecerá aquí</p>
+            <p lc="en"><strong style="color:var(--gold-dk)">Tomorrow:</strong> paste your Stripe key<br><code>pk_live_YOUR_KEY_HERE</code><br>and the card form will appear here</p>
+          </div>
+          <!-- Cuando tengas la clave, esto se activa automáticamente -->
+          <div id="card-element" style="display:none"></div>
+          <div id="card-errors"></div>
+        </div>
+
+        <div class="stripe-secure">
+          🔒 <span lc="es">Pago seguro con Stripe · Datos encriptados · No guardamos tu tarjeta</span>
+          <span lc="en">Secure payment with Stripe · Encrypted data · We never store your card</span>
+        </div>
+
+        <button class="res-btn" id="pay-btn" onclick="processPayment()" lc="es">💳 Pagar y confirmar reserva</button>
+        <button class="res-btn" id="pay-btn" onclick="processPayment()" lc="en">💳 Pay and confirm booking</button>
+        <button class="res-btn-back" onclick="goStep(2)" lc="es">← Volver</button>
+        <button class="res-btn-back" onclick="goStep(2)" lc="en">← Back</button>
+      </div>
+
+      <!-- STEP 4: Confirmación -->
+      <div class="res-panel" id="res-step-4">
+        <div class="res-success">
+          <div class="res-success-icon">✅</div>
+          <h3 lc="es">¡Reserva confirmada!</h3>
+          <h3 lc="en">Booking confirmed!</h3>
+          <p lc="es">Te hemos enviado un email de confirmación. Nos pondremos en contacto contigo antes de tu llegada con todos los detalles del check-in.</p>
+          <p lc="en">We've sent you a confirmation email. We'll be in touch before your arrival with all check-in details.</p>
+          <div style="margin-top:1.5rem;padding:1rem;background:#161209;border-radius:2px;border:1px solid rgba(201,168,76,.15)">
+            <p style="font-size:.72rem;color:var(--stone);line-height:1.7" lc="es">📍 C/ Sevilla esq. C/ Alicante, Churriana de la Vega<br>📞 WhatsApp para cualquier duda</p>
+            <p style="font-size:.72rem;color:var(--stone);line-height:1.7" lc="en">📍 C/ Sevilla esq. C/ Alicante, Churriana de la Vega<br>📞 WhatsApp for any questions</p>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /res-body -->
+  </div><!-- /res-box -->
+</div><!-- /res-modal -->
+
+<!-- BOTONES FLOTANTES -->
+<div class="float-btns">
+  <button class="float-btn float-btn-reservar" onclick="openResModal()">
+    <span class="float-icon">✦</span>
+    <span class="float-label" lc="es">Reservar</span>
+    <span class="float-label" lc="en">Book</span>
+  </button>
+  <a class="float-btn float-btn-wa" href="https://wa.me/34674071443" target="_blank">
+    <span class="float-icon">💬</span>
+    <span class="float-label">WhatsApp</span>
+  </a>
+</div>
 
 <!-- FOOTER -->
 <footer>
@@ -592,8 +875,8 @@ function closeMenu(){
 }
 
 // Gallery modal
-function openModal(){document.getElementById('galModal').classList.add('open');document.body.style.overflow='hidden'}
-function closeModal(){document.getElementById('galModal').classList.remove('open');document.body.style.overflow=''}
+function openGalModal(){document.getElementById('galModal').classList.add('open');document.body.style.overflow='hidden'}
+function closeGalModal(){document.getElementById('galModal').classList.remove('open');document.body.style.overflow=''}
 
 // Lightbox
 const lbImgs=[
@@ -613,8 +896,120 @@ function openLb(i){
 function closeLb(){document.getElementById('lb').classList.remove('open');document.body.style.overflow=''}
 function closeLbOutside(e){if(e.target===document.getElementById('lb'))closeLb()}
 function lbNav(d){lbIdx=(lbIdx+d+lbImgs.length)%lbImgs.length;document.getElementById('lbImg').src=lbImgs[lbIdx]}
+// ═══════════════════════════════════════════════════════
+// CONFIGURACIÓN — MAÑANA RELLENA ESTOS DATOS
+// ═══════════════════════════════════════════════════════
+const CONFIG = {
+  // 1. Tu clave pública de Stripe (dashboard.stripe.com → Claves API)
+  STRIPE_KEY: 'pk_live_PEGA_TU_CLAVE_AQUI',
+
+  // 2. Tu precio por noche en euros
+  PRECIO_NOCHE: 90,
+
+  // 3. Fianza que se retiene (no se cobra, solo se bloquea)
+  FIANZA: 300,
+
+  // 4. Tu email para recibir notificaciones de reserva
+  EMAIL_ANFITRION: 'roscas87@gmail.com',
+
+  // 5. Tu número de WhatsApp (con prefijo, sin espacios)
+  WHATSAPP: '34674071443'
+};
+// ═══════════════════════════════════════════════════════
+
+// Modal reserva
+function openResModal(){
+  document.getElementById('resModal').classList.add('open');
+  document.body.style.overflow='hidden';
+  // Inicializar Stripe si la clave ya está configurada
+  if(CONFIG.STRIPE_KEY !== 'pk_live_PEGA_TU_CLAVE_AQUI') initStripe();
+}
+function closeResModal(){
+  document.getElementById('resModal').classList.remove('open');
+  document.body.style.overflow='';
+}
+document.getElementById('resModal').addEventListener('click', e=>{
+  if(e.target===document.getElementById('resModal')) closeResModal();
+});
+
+// Steps navigation
+function goStep(n){
+  document.querySelectorAll('.res-panel').forEach((p,i)=>{
+    p.classList.toggle('active', i===n-1);
+  });
+  document.querySelectorAll('.res-step').forEach((s,i)=>{
+    s.classList.remove('active','done');
+    if(i===n-1) s.classList.add('active');
+    if(i<n-1) s.classList.add('done');
+  });
+  document.querySelector('.res-box').scrollTop=0;
+}
+
+// Price calculator
+function calcPrice(){
+  const ci=document.getElementById('r-checkin').value;
+  const co=document.getElementById('r-checkout').value;
+  if(!ci||!co) return;
+  const nights=Math.round((new Date(co)-new Date(ci))/(1000*60*60*24));
+  if(nights<1) return;
+  const sub=nights*CONFIG.PRECIO_NOCHE;
+  const total=sub+CONFIG.FIANZA;
+  document.getElementById('p-nights').textContent=nights+' noches';
+  document.getElementById('p-rate').textContent=CONFIG.PRECIO_NOCHE+'€';
+  document.getElementById('p-sub').textContent=sub+'€';
+  document.getElementById('p-total').textContent=total+'€';
+  document.getElementById('p-total-2').textContent=total+'€';
+  document.getElementById('price-box').style.display='block';
+}
+
+// Stripe init (se activa cuando pegas tu clave)
+let stripe, cardElement;
+function initStripe(){
+  try{
+    stripe=Stripe(CONFIG.STRIPE_KEY);
+    const elements=stripe.elements({
+      appearance:{theme:'night',variables:{colorPrimary:'#c9a84c',colorBackground:'#0e0c09',fontFamily:'DM Sans, sans-serif'}}
+    });
+    cardElement=elements.create('card');
+    document.getElementById('card-element').style.display='block';
+    document.getElementById('stripe-placeholder').style.display='none';
+    cardElement.mount('#card-element');
+  } catch(e){ console.log('Stripe: añade tu clave en CONFIG.STRIPE_KEY') }
+}
+
+// Process payment
+async function processPayment(){
+  const btn=document.getElementById('pay-btn');
+  btn.disabled=true;
+  btn.textContent='Procesando...';
+  if(!stripe||!cardElement){
+    // Sin Stripe configurado → redirige a WhatsApp con los datos
+    const ci=document.getElementById('r-checkin').value;
+    const co=document.getElementById('r-checkout').value;
+    const g=document.getElementById('r-guests').value;
+    const name=document.getElementById('r-fname').value+' '+document.getElementById('r-lname').value;
+    const msg=`Hola, quiero reservar el apartamento. Nombre: ${name}. Fechas: ${ci} al ${co}. Huéspedes: ${g}.`;
+    window.open(`https://wa.me/${CONFIG.WHATSAPP}?text=${encodeURIComponent(msg)}`,'_blank');
+    btn.disabled=false;
+    btn.textContent='Pagar y confirmar reserva';
+    return;
+  }
+  try{
+    // Cuando Stripe esté configurado, aquí va la llamada a tu backend
+    // Por ahora confirma la reserva y muestra el paso 4
+    goStep(4);
+  } catch(e){
+    document.getElementById('card-errors').textContent=e.message;
+    btn.disabled=false;
+    btn.textContent='Pagar y confirmar reserva';
+  }
+}
+
+// Escape key closes modal
 document.addEventListener('keydown',e=>{
-  if(e.key==='Escape'){closeLb();closeModal();}
+  if(e.key==='Escape'){
+    closeLb();closeGalModal();closeResModal();
+  }
   if(e.key==='ArrowRight')lbNav(1);
   if(e.key==='ArrowLeft')lbNav(-1);
 });
@@ -622,6 +1017,46 @@ document.addEventListener('keydown',e=>{
 // Scroll reveal
 const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')}),{threshold:.1});
 document.querySelectorAll('.rv-a').forEach(el=>obs.observe(el));
+
+// ── COOKIES ──
+function initCookieBanner(){
+  if(localStorage.getItem('pvg_cookies')) return;
+  document.getElementById('cookieBanner').classList.add('show');
+}
+function acceptCookies(){
+  localStorage.setItem('pvg_cookies','accepted');
+  document.getElementById('cookieBanner').classList.remove('show');
+}
+function rejectCookies(){
+  localStorage.setItem('pvg_cookies','rejected');
+  document.getElementById('cookieBanner').classList.remove('show');
+}
+window.addEventListener('load', initCookieBanner);
 </script>
+
+<!-- BANNER COOKIES -->
+<div id="cookieBanner" class="cookie-banner">
+  <div class="cookie-inner">
+    <div class="cookie-text">
+      <p class="cookie-title" lc="es">🍪 Usamos cookies</p>
+      <p class="cookie-title" lc="en">🍪 We use cookies</p>
+      <p class="cookie-desc" lc="es">Utilizamos cookies propias y de terceros (Google Maps, Google Fonts, Stripe) para mejorar tu experiencia. Puedes aceptarlas o rechazar las no esenciales.</p>
+      <p class="cookie-desc" lc="en">We use our own and third-party cookies (Google Maps, Google Fonts, Stripe) to improve your experience. You can accept or reject non-essential cookies.</p>
+    </div>
+    <div class="cookie-btns">
+      <button class="cookie-btn-accept" onclick="acceptCookies()">
+        <span lc="es">Aceptar todas</span>
+        <span lc="en">Accept all</span>
+      </button>
+      <button class="cookie-btn-reject" onclick="rejectCookies()">
+        <span lc="es">Solo esenciales</span>
+        <span lc="en">Essential only</span>
+      </button>
+      <a href="privacidad.html" class="cookie-link" lc="es">Política de cookies</a>
+      <a href="privacidad.html" class="cookie-link" lc="en">Cookie policy</a>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
