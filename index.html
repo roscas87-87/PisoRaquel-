@@ -450,32 +450,6 @@ body.en [lc="en"]{display:revert}
   <div class="strip-item"><span class="strip-icon">🏔️</span><span lc="es">Vistas Sierra Nevada</span><span lc="en">Sierra Nevada views</span></div>
 </div>
 
-<!-- GALLERY -->
-<section class="gal-section" id="galeria">
-  <div class="gal-head">
-    <p class="sec-lbl rv-a" lc="es">El apartamento</p>
-    <p class="sec-lbl rv-a" lc="en">The apartment</p>
-    <h2 class="sec-h rv-a"><span lc="es">Diseño moderno,<br>alma <em>andaluza</em></span><span lc="en">Modern design,<br><em>Andalusian</em> soul</span></h2>
-  </div>
-
-  <!-- 1 SOLA FOTO GRANDE — toca para ver todas -->
-  <div class="gal-single rv-a" onclick="openGalModal()">
-    <img src="img/01-salon-cocina.jpg" alt="Salón y cocina">
-    <div class="gal-single-overlay">
-      <div class="gal-single-text">
-        <h3 lc="es">Salón · Cocina abierta</h3>
-        <h3 lc="en">Living room · Open kitchen</h3>
-        <p lc="es">Toca para ver todas las fotos</p>
-        <p lc="en">Tap to view all photos</p>
-      </div>
-      <div class="gal-single-badge">
-        <span>📷</span>
-        <span lc="es">Ver las 15 fotos</span>
-        <span lc="en">View all 15 photos</span>
-      </div>
-    </div>
-  </div>
-</section>
 
 <!-- MODAL GALERÍA — pantalla emergente con fotos uniformes -->
 <div class="gal-modal" id="galModal">
@@ -635,7 +609,7 @@ body.en [lc="en"]{display:revert}
         <div class="fg"><label class="fl" lc="es">Llegada</label><label class="fl" lc="en">Check-in</label><input type="date" name="llegada" class="fi"></div>
         <div class="fg"><label class="fl" lc="es">Salida</label><label class="fl" lc="en">Check-out</label><input type="date" name="salida" class="fi"></div>
       </div>
-      <div class="fg"><label class="fl" lc="es">Huéspedes (máx. 6)</label><label class="fl" lc="en">Guests (max. 6)</label><input type="number" name="huespedes" min="1" max="5" class="fi" placeholder="1 – 6"></div>
+      <div class="fg"><label class="fl" lc="es">Huéspedes (máx. 6)</label><label class="fl" lc="en">Guests (max. 6)</label><input type="number" name="huespedes" min="1" max="5" class="fi" placeholder="1 – 5"></div>
       <div class="fg"><label class="fl" lc="es">Mensaje</label><label class="fl" lc="en">Message</label><textarea name="mensaje" class="fta" lc="es" placeholder="Cuéntanos sobre tu estancia..."></textarea><textarea name="mensaje" class="fta" lc="en" placeholder="Tell us about your stay..."></textarea></div>
       <button type="submit" class="fsub"><span lc="es">Enviar consulta →</span><span lc="en">Send enquiry →</span></button>
     </form>
@@ -707,7 +681,7 @@ body.en [lc="en"]{display:revert}
           <select id="r-guests" class="rs">
             <option value="1">1</option><option value="2">2</option>
             <option value="3">3</option><option value="4">4</option>
-            <option value="5" selected>5</option><option value="6">6</option>
+            <option value="5" selected>5</option>
           </select>
         </div>
 
