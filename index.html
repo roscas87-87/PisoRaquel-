@@ -88,8 +88,8 @@ h1 em{font-style:italic;color:var(--gold)}
 .hn-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.8rem,7vw,5.5rem);font-weight:300;line-height:1.0;color:var(--ink);margin-bottom:.5rem}
 .hn-title em{font-style:italic;color:var(--gold)}
 .hn-sub{font-family:'Cormorant Garamond',serif;font-size:clamp(.9rem,2.5vw,1.3rem);font-style:italic;color:var(--stone);margin-bottom:2rem}
-.hn-score{display:inline-flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:.5rem;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.25);padding:.6rem 1.25rem;border-radius:2px;font-size:.78rem;color:var(--bark);margin-bottom:2rem}
-.hn-num{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:600;color:var(--gold);line-height:1}
+.hn-score{display:block;text-align:center;background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.22);padding:.6rem 1.2rem;border-radius:2px;font-size:.72rem;color:var(--bark);margin-bottom:2rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hn-num{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:600;color:var(--gold)}
 .hn-sep{opacity:.3}
 .hn-btns{display:flex;gap:.9rem;justify-content:center;flex-wrap:wrap;margin-bottom:2.5rem}
 .hn-stats{display:flex;justify-content:center;border-top:1px solid rgba(201,168,76,.15);padding-top:1.5rem}
@@ -97,8 +97,9 @@ h1 em{font-style:italic;color:var(--gold)}
 .hn-stat:last-child{border-right:none}
 .hn-sn{font-family:'Cormorant Garamond',serif;font-size:2rem;color:var(--gold);line-height:1}
 .hn-sl{font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:var(--stone);margin-top:.25rem}
-.hn-scroll{position:absolute;bottom:1.5rem;left:50%;transform:translateX(-50%);z-index:5;font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--stone);opacity:.45;display:flex;flex-direction:column;align-items:center;gap:.4rem}
+.hn-scroll{position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);z-index:5;font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--stone);opacity:.45;display:flex;flex-direction:column;align-items:center;gap:.4rem}
 .hn-scroll::after{content:'';width:1px;height:32px;background:linear-gradient(to bottom,var(--gold),transparent)}
+@media(max-width:700px){.hn-scroll{display:none}}
 @media(max-width:600px){
   .hn-stat{padding:0 1rem}
   .hn-sn{font-size:1.6rem}
@@ -396,6 +397,8 @@ body.en [lc="en"]{display:revert}
 .pc-alta{border-top:3px solid #ff9a9a}
 .pc-media{border-top:3px solid #ffd97a}
 .pc-baja{border-top:3px solid #9affb4}
+.pc-from{font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--stone);margin-bottom:.2rem}
+.price-note-global{font-size:.7rem;color:var(--stone);opacity:.6;text-align:center;margin-top:1.25rem;line-height:1.6;font-style:italic}
 .pc-season{display:flex;align-items:center;justify-content:center;gap:.5rem;margin-bottom:1.25rem}
 .pc-season-name{font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--stone)}
 .pc-amount{font-family:'Cormorant Garamond',serif;font-size:3.5rem;font-weight:300;color:var(--gold);line-height:1;margin-bottom:.4rem}
@@ -508,11 +511,7 @@ body.en [lc="en"]{display:revert}
     <h1 class="hn-title" lc="en">Live <em>Granada</em><br>from La Vega</h1>
     <p class="hn-sub" lc="es">Apartamento turístico · Tierra de la Alhambra</p>
     <p class="hn-sub" lc="en">Holiday apartment · Land of the Alhambra</p>
-    <div class="hn-score">
-      <span class="hn-num">9,8</span><span lc="es">Booking · Excepcional</span><span lc="en">Booking · Exceptional</span>
-      <span class="hn-sep">·</span>
-      <span class="hn-num">4,95★</span><span>Airbnb · 🏅</span>
-    </div>
+    <div class="hn-score">9,8 Booking &nbsp;·&nbsp; 4,95★ Airbnb &nbsp;·&nbsp; 🏅 <span lc="es">Superanfitrión</span><span lc="en">Superhost</span></div>
     <div class="hn-btns">
       <button onclick="openResModal()" class="btn-primary" lc="es">✦ Reservar ahora</button>
       <button onclick="openResModal()" class="btn-primary" lc="en">✦ Book now</button>
@@ -525,7 +524,6 @@ body.en [lc="en"]{display:revert}
       <div class="hn-stat"><div class="hn-sn">5'</div><div class="hn-sl" lc="es">Al centro</div><div class="hn-sl" lc="en">To centre</div></div>
     </div>
   </div>
-  <div class="hn-scroll">Scroll</div>
 </section>
 
 <!-- STRIP -->
@@ -647,11 +645,10 @@ body.en [lc="en"]{display:revert}
         <span class="pc-season-name" lc="es">Temporada Alta</span>
         <span class="pc-season-name" lc="en">High Season</span>
       </div>
-      <div class="pc-amount">90€<span class="pc-unit" lc="es">/noche</span><span class="pc-unit" lc="en">/night</span></div>
+      <div class="pc-from" lc="es">desde</div><div class="pc-from" lc="en">from</div><div class="pc-amount">90€<span class="pc-unit" lc="es">/noche</span><span class="pc-unit" lc="en">/night</span></div>
       <div class="pc-months" lc="es">Julio · Agosto · Semana Santa · Navidad</div>
       <div class="pc-months" lc="en">July · August · Easter · Christmas</div>
-      <div class="pc-min" lc="es">Mín. 2 noches</div>
-      <div class="pc-min" lc="en">Min. 2 nights</div>
+
     </div>
     <div class="price-card pc-media">
       <div class="pc-season">
@@ -659,11 +656,10 @@ body.en [lc="en"]{display:revert}
         <span class="pc-season-name" lc="es">Temporada Media</span>
         <span class="pc-season-name" lc="en">Mid Season</span>
       </div>
-      <div class="pc-amount">70€<span class="pc-unit" lc="es">/noche</span><span class="pc-unit" lc="en">/night</span></div>
+      <div class="pc-from" lc="es">desde</div><div class="pc-from" lc="en">from</div><div class="pc-amount">70€<span class="pc-unit" lc="es">/noche</span><span class="pc-unit" lc="en">/night</span></div>
       <div class="pc-months" lc="es">Abril · Mayo · Junio · Septiembre · Octubre</div>
       <div class="pc-months" lc="en">April · May · June · September · October</div>
-      <div class="pc-min" lc="es">Mín. 2 noches</div>
-      <div class="pc-min" lc="en">Min. 2 nights</div>
+
     </div>
     <div class="price-card pc-baja">
       <div class="pc-season">
@@ -671,14 +667,15 @@ body.en [lc="en"]{display:revert}
         <span class="pc-season-name" lc="es">Temporada Baja</span>
         <span class="pc-season-name" lc="en">Low Season</span>
       </div>
-      <div class="pc-amount">50€<span class="pc-unit" lc="es">/noche</span><span class="pc-unit" lc="en">/night</span></div>
+      <div class="pc-from" lc="es">desde</div><div class="pc-from" lc="en">from</div><div class="pc-amount">50€<span class="pc-unit" lc="es">/noche</span><span class="pc-unit" lc="en">/night</span></div>
       <div class="pc-months" lc="es">Enero · Febrero · Marzo · Noviembre · Diciembre</div>
       <div class="pc-months" lc="en">January · February · March · November · December</div>
-      <div class="pc-min" lc="es">Mín. 2 noches</div>
-      <div class="pc-min" lc="en">Min. 2 nights</div>
+
     </div>
   </div>
 
+  <p class="price-note-global" lc="es">* Precios orientativos. El precio final depende de las fechas y disponibilidad. Calcúlalo exactamente en el formulario de reserva.</p>
+  <p class="price-note-global" lc="en">* Indicative prices. Final price depends on dates and availability. Calculate exactly in the booking form.</p>
   <!-- Extras info -->
   <div class="pt-extras rv-a">
     <div class="pt-extra-item">
@@ -760,7 +757,7 @@ body.en [lc="en"]{display:revert}
 <section class="rv-section sp-sm">
   <p class="sec-lbl rv-a" lc="es">Lo que dicen nuestros huéspedes</p>
   <p class="sec-lbl rv-a" lc="en">What our guests say</p>
-  <h2 class="sec-h rv-a">
+  <h2 class="sec-h rv-a" style="font-size:clamp(1.4rem,3vw,2rem);margin-bottom:1.5rem">
     <span lc="es"><em>9,8</em> Booking · <em>4,95★</em> Airbnb</span>
     <span lc="en"><em>9.8</em> Booking · <em>4.95★</em> Airbnb</span>
   </h2>
