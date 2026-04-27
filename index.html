@@ -53,15 +53,15 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;background:rgba(14,12,9,0.92
 h1{font-family:'Cormorant Garamond',serif;font-size:clamp(3rem,5.5vw,5.2rem);font-weight:300;line-height:1.0;color:var(--ink);margin-bottom:1rem}
 h1 em{font-style:italic;color:var(--gold)}
 .hero-desc{font-size:.92rem;color:var(--stone);line-height:1.8;max-width:420px;margin-bottom:1.8rem}
-.hero-score{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem;background:rgba(184,145,58,.08);border:1px solid rgba(184,145,58,.2);padding:.55rem 1rem;border-radius:2px;font-size:.72rem;color:var(--bark);margin-bottom:2rem;width:100%}
+.hero-score{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:.5rem;background:rgba(184,145,58,.08);border:1px solid rgba(184,145,58,.2);padding:.65rem 1rem;border-radius:2px;font-size:.78rem;color:var(--bark);margin-bottom:2rem;text-align:center}
 .score-n{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:600;color:var(--gold);line-height:1}
 .hero-btns{display:flex;gap:.9rem;flex-wrap:wrap;margin-bottom:3rem}
 .btn-primary{display:inline-flex;align-items:center;gap:.5rem;background:var(--gold);color:white;text-decoration:none;padding:.85rem 2rem;font-size:.75rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;border-radius:2px;transition:.2s}
 .btn-primary:hover{background:var(--gold-dk);transform:translateY(-1px)}
 .btn-secondary{display:inline-flex;align-items:center;gap:.5rem;background:transparent;color:var(--ink);text-decoration:none;padding:.85rem 2rem;font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;border:1px solid rgba(28,23,16,.2);border-radius:2px;transition:.2s}
 .btn-secondary:hover{border-color:var(--ink);transform:translateY(-1px)}
-.hero-stats{display:flex;gap:0;padding-top:1.5rem;border-top:1px solid rgba(184,145,58,.15);overflow:hidden;width:100%}
-.hstat{flex:1;text-align:center;border-right:1px solid rgba(184,145,58,.15);min-width:0;overflow:hidden}
+.hero-stats{display:flex;gap:0;padding-top:1.5rem;border-top:1px solid rgba(184,145,58,.15);width:100%}
+.hstat{flex:1;text-align:center;border-right:1px solid rgba(184,145,58,.15)}
 .hstat:last-child{border-right:none}
 .hstat-n{font-family:'Cormorant Garamond',serif;font-size:2.2rem;color:var(--gold);line-height:1}
 .hstat-l{font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--stone);margin-top:.3rem}
@@ -290,12 +290,7 @@ footer{background:#161209;border-top:1px solid rgba(201,168,76,.12);color:rgba(2
 .res-success-icon{font-size:3.5rem;margin-bottom:1rem}
 .res-success h3{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:300;color:var(--ink);margin-bottom:.75rem}
 .res-success p{font-size:.85rem;color:var(--stone);line-height:1.7;max-width:340px;margin:0 auto}
-.rv-a{opacity:0;transform:translateY(24px);transition:opacity .75s ease,transform .75s ease}
-.rv-a.in{opacity:1;transform:none}
-.rv-a:nth-child(2){transition-delay:.08s}.rv-a:nth-child(3){transition-delay:.16s}
-.rv-a:nth-child(4){transition-delay:.24s}.rv-a:nth-child(5){transition-delay:.32s}
-.rv-a:nth-child(6){transition-delay:.40s}.rv-a:nth-child(7){transition-delay:.48s}
-.rv-a:nth-child(8){transition-delay:.56s}
+.rv-a{opacity:1;transform:none}
 
 /* ── LANG ── */
 [lc="en"]{display:none}
@@ -467,9 +462,9 @@ body.en [lc="en"]{display:revert}
     <p class="hero-desc" lc="es">Apartamento completamente reformado con suelo radiante, cocina de diseño y vistas a Sierra Nevada. A 5 minutos del centro de Granada, con parking privado incluido.</p>
     <p class="hero-desc" lc="en">Fully renovated apartment with underfloor heating, designer kitchen and views of Sierra Nevada. 5 minutes from Granada city centre, with private parking included.</p>
     <div class="hero-score">
-      <span class="score-n">9,8</span><span style="opacity:.6;font-size:.8rem">Booking</span>
-      <span style="opacity:.3;font-size:.8rem">·</span>
-      <span class="score-n">4,95★</span><span style="opacity:.6;font-size:.8rem">Airbnb</span>
+      <span class="score-n">9,8</span><span lc="es">Booking · Excepcional</span><span lc="en">Booking · Exceptional</span>
+      <span style="opacity:.3">·</span>
+      <span class="score-n">4,95★</span><span>Airbnb · 🏅</span>
     </div>
     <div class="hero-btns">
       <a onclick="openResModal()" class="btn-primary" href="#" lc="es">✦ Reservar ahora</a>
@@ -1251,9 +1246,7 @@ document.addEventListener('keydown',e=>{
 const igUrl = 'https://instagram.com/' + CONFIG.INSTAGRAM;
 document.querySelectorAll('#ig-float-btn, #ig-footer').forEach(el => el.href = igUrl);
 
-// Scroll reveal
-const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')}),{threshold:.1});
-document.querySelectorAll('.rv-a').forEach(el=>obs.observe(el));
+// Animaciones desactivadas — contenido visible directamente
 
 // ── COOKIES ──
 function initCookieBanner(){
