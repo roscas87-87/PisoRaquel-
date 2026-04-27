@@ -74,6 +74,39 @@ h1 em{font-style:italic;color:var(--gold)}
 .hg-thumb{position:relative;overflow:hidden}
 .hg-badge{position:absolute;bottom:1.25rem;left:1.25rem;background:var(--gold);color:white;padding:.5rem .9rem;font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;border-radius:2px}
 
+/* ── HERO NAZARÍ ── */
+.hero-naz{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;padding-top:68px}
+.hn-bg{position:absolute;inset:0;background:linear-gradient(160deg,#1a1208 0%,#0e0c09 45%,#180a0a 100%)}
+.hn-photo{position:absolute;inset:0;z-index:1}
+.hn-photo img{width:100%;height:100%;object-fit:cover;opacity:.15;filter:saturate(.5)}
+.hn-pattern{position:absolute;inset:0;z-index:2;background-image:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg stroke='%23c9a84c' stroke-width='0.4' fill='none' opacity='0.2'%3E%3Cpolygon points='30,2 58,30 30,58 2,30'/%3E%3Cpolygon points='30,12 48,30 30,48 12,30'/%3E%3Crect x='18' y='18' width='24' height='24'/%3E%3C/g%3E%3C/svg%3E");pointer-events:none}
+.hn-overlay{position:absolute;inset:0;z-index:3;background:radial-gradient(ellipse at 50% 80%,rgba(201,168,76,.05) 0%,transparent 65%),linear-gradient(to top,rgba(14,12,9,.95) 0%,transparent 55%)}
+.hn-content{position:relative;z-index:4;text-align:center;padding:2rem 1.5rem;max-width:780px;width:100%}
+.hn-tag{font-size:.65rem;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);margin-bottom:1.25rem;display:flex;align-items:center;justify-content:center;gap:.7rem}
+.hn-tag::before,.hn-tag::after{content:'';display:block;width:30px;height:1px;background:linear-gradient(to right,transparent,var(--gold))}
+.hn-tag::after{transform:scaleX(-1)}
+.hn-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.8rem,7vw,5.5rem);font-weight:300;line-height:1.0;color:var(--ink);margin-bottom:.5rem}
+.hn-title em{font-style:italic;color:var(--gold)}
+.hn-sub{font-family:'Cormorant Garamond',serif;font-size:clamp(.9rem,2.5vw,1.3rem);font-style:italic;color:var(--stone);margin-bottom:2rem}
+.hn-score{display:inline-flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:.5rem;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.25);padding:.6rem 1.25rem;border-radius:2px;font-size:.78rem;color:var(--bark);margin-bottom:2rem}
+.hn-num{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:600;color:var(--gold);line-height:1}
+.hn-sep{opacity:.3}
+.hn-btns{display:flex;gap:.9rem;justify-content:center;flex-wrap:wrap;margin-bottom:2.5rem}
+.hn-stats{display:flex;justify-content:center;border-top:1px solid rgba(201,168,76,.15);padding-top:1.5rem}
+.hn-stat{padding:0 2rem;text-align:center;border-right:1px solid rgba(201,168,76,.15)}
+.hn-stat:last-child{border-right:none}
+.hn-sn{font-family:'Cormorant Garamond',serif;font-size:2rem;color:var(--gold);line-height:1}
+.hn-sl{font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:var(--stone);margin-top:.25rem}
+.hn-scroll{position:absolute;bottom:1.5rem;left:50%;transform:translateX(-50%);z-index:5;font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--stone);opacity:.45;display:flex;flex-direction:column;align-items:center;gap:.4rem}
+.hn-scroll::after{content:'';width:1px;height:32px;background:linear-gradient(to bottom,var(--gold),transparent)}
+@media(max-width:600px){
+  .hn-stat{padding:0 1rem}
+  .hn-sn{font-size:1.6rem}
+  .hn-sl{font-size:.5rem}
+  .hn-btns{flex-direction:column;align-items:center}
+  .hn-btns .btn-primary,.hn-btns .btn-secondary{width:100%;max-width:280px;justify-content:center}
+}
+
 /* ── STRIP ── */
 .strip{background:#231d13;color:rgba(232,220,200,.7);padding:1.3rem 4rem;display:flex;align-items:center;justify-content:center;gap:2.5rem;flex-wrap:wrap;border-top:1px solid rgba(201,168,76,.12);border-bottom:1px solid rgba(201,168,76,.12)}
 .strip-item{display:flex;align-items:center;gap:.55rem;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;white-space:nowrap}
@@ -463,155 +496,36 @@ body.en [lc="en"]{display:revert}
 </div>
 
 <!-- HERO -->
-<section class="hero">
-  <div class="hero-left">
-    <p class="hero-tag" lc="es">Churriana de la Vega · Granada</p>
-    <p class="hero-tag" lc="en">Churriana de la Vega · Granada, Spain</p>
-    <h1 lc="es">Vive <em>Granada</em><br>como en casa</h1>
-    <h1 lc="en">Live <em>Granada</em><br>like home</h1>
-    <p class="hero-desc" lc="es">Apartamento completamente reformado con suelo radiante, cocina de diseño y vistas a Sierra Nevada. A 5 minutos del centro de Granada, con parking privado incluido.</p>
-    <p class="hero-desc" lc="en">Fully renovated apartment with underfloor heating, designer kitchen and views of Sierra Nevada. 5 minutes from Granada city centre, with private parking included.</p>
-    <div class="hero-score">
-      <span class="score-n">9,8</span><span lc="es">Booking · Excepcional</span><span lc="en">Booking · Exceptional</span>
-      <span style="opacity:.3">·</span>
-      <span class="score-n">4,95★</span><span>Airbnb · 🏅</span>
+<section class="hero-naz">
+  <div class="hn-bg"></div>
+  <div class="hn-photo"><img src="img/01-salon-cocina.jpg" alt="Salón" loading="eager"></div>
+  <div class="hn-pattern"></div>
+  <div class="hn-overlay"></div>
+  <div class="hn-content">
+    <p class="hn-tag" lc="es">Churriana de la Vega · Granada, Andalucía</p>
+    <p class="hn-tag" lc="en">Churriana de la Vega · Granada, Andalusia</p>
+    <h1 class="hn-title" lc="es">Vive <em>Granada</em><br>desde la Vega</h1>
+    <h1 class="hn-title" lc="en">Live <em>Granada</em><br>from La Vega</h1>
+    <p class="hn-sub" lc="es">Apartamento turístico · Tierra de la Alhambra</p>
+    <p class="hn-sub" lc="en">Holiday apartment · Land of the Alhambra</p>
+    <div class="hn-score">
+      <span class="hn-num">9,8</span><span lc="es">Booking · Excepcional</span><span lc="en">Booking · Exceptional</span>
+      <span class="hn-sep">·</span>
+      <span class="hn-num">4,95★</span><span>Airbnb · 🏅</span>
     </div>
-    <div class="hero-btns">
-      <a onclick="openResModal()" class="btn-primary" href="#" lc="es">✦ Reservar ahora</a>
-      <a onclick="openResModal()" class="btn-primary" href="#" lc="en">✦ Book now</a>
+    <div class="hn-btns">
+      <button onclick="openResModal()" class="btn-primary" lc="es">✦ Reservar ahora</button>
+      <button onclick="openResModal()" class="btn-primary" lc="en">✦ Book now</button>
       <a href="#galeria" class="btn-secondary" lc="es">Ver el apartamento</a>
       <a href="#galeria" class="btn-secondary" lc="en">View apartment</a>
     </div>
-    <div class="hero-stats">
-      <div class="hstat"><div class="hstat-n">3</div><div class="hstat-l" lc="es">Habitaciones</div><div class="hstat-l" lc="en">Bedrooms</div></div>
-      <div class="hstat"><div class="hstat-n">5</div><div class="hstat-l" lc="es">Huéspedes</div><div class="hstat-l" lc="en">Guests</div></div>
-      <div class="hstat"><div class="hstat-n">5'</div><div class="hstat-l" lc="es">A Granada</div><div class="hstat-l" lc="en">To Granada</div></div>
-      <div class="hstat"><div class="hstat-n">4,95</div><div class="hstat-l">Airbnb ★</div></div>
-      <div class="hstat"><div class="hstat-n">🏅</div><div class="hstat-l" lc="es">Superanfitrión</div><div class="hstat-l" lc="en">Superhost</div></div>
+    <div class="hn-stats">
+      <div class="hn-stat"><div class="hn-sn">3</div><div class="hn-sl" lc="es">Habitaciones</div><div class="hn-sl" lc="en">Bedrooms</div></div>
+      <div class="hn-stat"><div class="hn-sn">5</div><div class="hn-sl" lc="es">Huéspedes máx.</div><div class="hn-sl" lc="en">Max. guests</div></div>
+      <div class="hn-stat"><div class="hn-sn">5'</div><div class="hn-sl" lc="es">Al centro</div><div class="hn-sl" lc="en">To centre</div></div>
     </div>
   </div>
-  <div class="hero-right" onclick="openGalModal()" style="cursor:pointer">
-    <img src="img/01-salon-cocina.jpg" alt="Salón y cocina" style="width:100%;height:100%;object-fit:cover;opacity:.88;transition:opacity .3s">
-    <div style="position:absolute;bottom:1.5rem;right:1.5rem;background:rgba(14,12,9,.75);border:1px solid rgba(201,168,76,.35);color:var(--gold);padding:.5rem 1rem;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;backdrop-filter:blur(4px);border-radius:2px">
-      📷 <span lc="es">Ver 15 fotos</span><span lc="en">View 15 photos</span>
-    </div>
-  </div>
-</section>
-
-<!-- STRIP -->
-<div class="strip">
-  <div class="strip-item"><span class="strip-icon">🔑</span><span lc="es">Check-in flexible</span><span lc="en">Flexible check-in</span></div>
-  <div class="strip-item"><span class="strip-icon">🅿️</span><span lc="es">Parking privado gratis</span><span lc="en">Free private parking</span></div>
-  <div class="strip-item"><span class="strip-icon">🌡️</span><span lc="es">Suelo radiante</span><span lc="en">Underfloor heating</span></div>
-  <div class="strip-item"><span class="strip-icon">📶</span>WiFi Fibra</div>
-  <div class="strip-item"><span class="strip-icon">🏔️</span><span lc="es">Vistas Sierra Nevada</span><span lc="en">Sierra Nevada views</span></div>
-</div>
-
-
-<!-- MODAL GALERÍA — carrusel 1 foto a la vez -->
-<div class="gal-modal" id="galModal">
-  <div class="gm-header">
-    <span class="gm-title">Vega Granada ✦ <span lc="es">Fotos del apartamento</span><span lc="en">Apartment photos</span></span>
-    <button class="gm-close" onclick="closeGalModal()">✕</button>
-  </div>
-  <!-- Preload images -->
-  <div style="display:none"><img id="gm-img-0" src="img/01-salon-cocina.jpg" alt="Salón · Cocina abierta" style="display:none;max-width:100%;max-height:72vh;object-fit:contain;border-radius:2px">
-    <img id="gm-img-1" src="img/14-habitacion1.jpg" alt="Habitación principal" style="display:none;max-width:100%;max-height:72vh;object-fit:contain;border-radius:2px">
-    <img id="gm-img-2" src="img/10-bano1.jpg" alt="Baño principal" style="display:none;max-width:100%;max-height:72vh;object-fit:contain;border-radius:2px">
-    <img id="gm-img-3" src="img/15-vistas-sierra.jpg" alt="Vistas Sierra Nevada" style="display:none;max-width:100%;max-height:72vh;object-fit:contain;border-radius:2px">
-    <img id="gm-img-4" src="img/05-cocina-completa.jpg" alt="Cocina equipada" style="display:none;max-width:100%;max-height:72vh;object-fit:contain;border-radius:2px">
-    <img id="gm-img-5" src="img/02-cocina.jpg" alt="Cocina · Mesa alta" style="display:none;max-width:100%;max-height:72vh;object-fit:contain;border-radius:2px">
-    <img id="gm-img-6" src="img/03-suelo-radiante.jpg" alt="Suelo radiante" style="display:none;max-width:100%;max-height:72vh;object-fit:contain;border-radius:2px">
-    <img id="gm-img-7" src="img/04-salon-vista.jpg" alt="Salón · Vista completa" style="display:none;max-width:100%;max-height:72vh;object-fit:contain;border-radius:2px">
-    <img id="gm-img-8" src="img/12-habitacion2.jpg" alt="Habitación 2" style="display:none;max-width:100%;max-height:72vh;object-fit:contain;border-radius:2px">
-    <img id="gm-img-9" src="img/11-habitacion3.jpg" alt="Habitación 3" style="display:none;max-width:100%;max-height:72vh;object-fit:contain;border-radius:2px">
-    <img id="gm-img-10" src="img/09-bano2.jpg" alt="Baño · Vista 2" style="display:none;max-width:100%;max-height:72vh;object-fit:contain;border-radius:2px">
-    <img id="gm-img-11" src="img/13-vestidor.jpg" alt="Vestidor" style="display:none;max-width:100%;max-height:72vh;object-fit:contain;border-radius:2px">
-    <img id="gm-img-12" src="img/06-lavadero.jpg" alt="Lavandería" style="display:none;max-width:100%;max-height:72vh;object-fit:contain;border-radius:2px">
-    <img id="gm-img-13" src="img/07-cocina-noche.jpg" alt="Cocina · Noche" style="display:none;max-width:100%;max-height:72vh;object-fit:contain;border-radius:2px">
-    <img id="gm-img-14" src="img/08-salon-tv.jpg" alt="Salón · Smart TV" style="display:none;max-width:100%;max-height:72vh;object-fit:contain;border-radius:2px"></div>
-  <div class="gm-carousel">
-    <button class="gm-arrow gm-prev" onclick="galPrev()">‹</button>
-    <div class="gm-slide">
-      <img id="gm-current" src="img/01-salon-cocina.jpg" alt="Salón · Cocina abierta" style="max-width:100%;max-height:72vh;object-fit:contain;border-radius:2px">
-    </div>
-    <button class="gm-arrow gm-next" onclick="galNext()">›</button>
-  </div>
-  <div id="gm-caption" class="gm-caption" lc="es">Salón · Cocina abierta</div>
-  <div id="gm-counter" class="gm-counter">1 / 15</div>
-  <div class="gm-dots">
-    <button class="gm-dot  active" onclick="goSlide(0)"></button>
-    <button class="gm-dot" onclick="goSlide(1)"></button>
-    <button class="gm-dot" onclick="goSlide(2)"></button>
-    <button class="gm-dot" onclick="goSlide(3)"></button>
-    <button class="gm-dot" onclick="goSlide(4)"></button>
-    <button class="gm-dot" onclick="goSlide(5)"></button>
-    <button class="gm-dot" onclick="goSlide(6)"></button>
-    <button class="gm-dot" onclick="goSlide(7)"></button>
-    <button class="gm-dot" onclick="goSlide(8)"></button>
-    <button class="gm-dot" onclick="goSlide(9)"></button>
-    <button class="gm-dot" onclick="goSlide(10)"></button>
-    <button class="gm-dot" onclick="goSlide(11)"></button>
-    <button class="gm-dot" onclick="goSlide(12)"></button>
-    <button class="gm-dot" onclick="goSlide(13)"></button>
-    <button class="gm-dot" onclick="goSlide(14)"></button>
-  </div>
-</div>
-      <button class="hamburger" id="ham" onclick="toggleMenu()" aria-label="Menú">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-  </div>
-</nav>
-
-<!-- MOBILE MENU -->
-<div class="mobile-menu" id="mobileMenu">
-  <a href="#galeria" onclick="closeMenu()" lc="es">Galería</a>
-  <a href="#galeria" onclick="closeMenu()" lc="en">Gallery</a>
-  <a href="#comodidades" onclick="closeMenu()" lc="es">Comodidades</a>
-  <a href="#comodidades" onclick="closeMenu()" lc="en">Amenities</a>
-  <a href="#ubicacion" onclick="closeMenu()" lc="es">Ubicación</a>
-  <a href="#ubicacion" onclick="closeMenu()" lc="en">Location</a>
-  <a href="granada.html" onclick="closeMenu()" lc="es">Guía de Granada</a>
-  <a href="granada.html" onclick="closeMenu()" lc="en">Granada Guide</a>
-  <a href="#reservar" onclick="closeMenu()" class="m-book" lc="es">Reservar ahora</a>
-  <a href="#reservar" onclick="closeMenu()" class="m-book" lc="en">Book now</a>
-</div>
-
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-left">
-    <p class="hero-tag" lc="es">Churriana de la Vega · Granada</p>
-    <p class="hero-tag" lc="en">Churriana de la Vega · Granada, Spain</p>
-    <h1 lc="es">Vive <em>Granada</em><br>como en casa</h1>
-    <h1 lc="en">Live <em>Granada</em><br>like home</h1>
-    <p class="hero-desc" lc="es">Apartamento completamente reformado con suelo radiante, cocina de diseño y vistas a Sierra Nevada. A 5 minutos del centro de Granada, con parking privado incluido.</p>
-    <p class="hero-desc" lc="en">Fully renovated apartment with underfloor heating, designer kitchen and views of Sierra Nevada. 5 minutes from Granada city centre, with private parking included.</p>
-    <div class="hero-score">
-      <span class="score-n">9,8</span><span lc="es">Booking · Excepcional</span><span lc="en">Booking · Exceptional</span>
-      <span style="opacity:.3">·</span>
-      <span class="score-n">4,95★</span><span>Airbnb · 🏅</span>
-    </div>
-    <div class="hero-btns">
-      <a onclick="openResModal()" class="btn-primary" href="#" lc="es">✦ Reservar ahora</a>
-      <a onclick="openResModal()" class="btn-primary" href="#" lc="en">✦ Book now</a>
-      <a href="#galeria" class="btn-secondary" lc="es">Ver el apartamento</a>
-      <a href="#galeria" class="btn-secondary" lc="en">View apartment</a>
-    </div>
-    <div class="hero-stats">
-      <div class="hstat"><div class="hstat-n">3</div><div class="hstat-l" lc="es">Habitaciones</div><div class="hstat-l" lc="en">Bedrooms</div></div>
-      <div class="hstat"><div class="hstat-n">5</div><div class="hstat-l" lc="es">Huéspedes</div><div class="hstat-l" lc="en">Guests</div></div>
-      <div class="hstat"><div class="hstat-n">5'</div><div class="hstat-l" lc="es">A Granada</div><div class="hstat-l" lc="en">To Granada</div></div>
-      <div class="hstat"><div class="hstat-n">4,95</div><div class="hstat-l">Airbnb ★</div></div>
-      <div class="hstat"><div class="hstat-n">🏅</div><div class="hstat-l" lc="es">Superanfitrión</div><div class="hstat-l" lc="en">Superhost</div></div>
-    </div>
-  </div>
-  <div class="hero-right" onclick="openGalModal()" style="cursor:pointer">
-    <img src="img/01-salon-cocina.jpg" alt="Salón y cocina" style="width:100%;height:100%;object-fit:cover;opacity:.88;transition:opacity .3s">
-    <div style="position:absolute;bottom:1.5rem;right:1.5rem;background:rgba(14,12,9,.75);border:1px solid rgba(201,168,76,.35);color:var(--gold);padding:.5rem 1rem;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;backdrop-filter:blur(4px);border-radius:2px">
-      📷 <span lc="es">Ver 15 fotos</span><span lc="en">View 15 photos</span>
-    </div>
-  </div>
+  <div class="hn-scroll">Scroll</div>
 </section>
 
 <!-- STRIP -->
@@ -994,23 +908,33 @@ body.en [lc="en"]{display:revert}
         <p class="sec-lbl" style="margin-bottom:1rem" lc="es">Selecciona tus fechas</p>
         <p class="sec-lbl" style="margin-bottom:1rem" lc="en">Select your dates</p>
 
-        <!-- ═══════════════════════════════════════════════
-             SMOOBU WIDGET — MAÑANA PEGAS AQUÍ TU CÓDIGO
-             ═══════════════════════════════════════════════
-             1. Ve a smoobu.com → Canales → Página de reservas
-             2. Copia el widget embed code
-             3. Reemplaza este bloque por tu código de Smoobu
-             ═══════════════════════════════════════════════ -->
+        <!-- ═══════════════════════════════════════════════════
+             SMOOBU — CÓMO ACTIVARLO (5 minutos)
+             ═══════════════════════════════════════════════════
+             1. Ve a smoobu.com → crear cuenta gratuita
+             2. Conecta tu iCal de Airbnb y Booking
+             3. Ve a Canales → Página de reservas directas
+             4. Copia el "Apartment ID" y el "API Key"
+             5. Reemplaza en el script de abajo y descomenta
+             ═══════════════════════════════════════════════════ -->
         <div class="smoobu-wrap" id="smoobu-container">
-          <!-- 👇 PEGA AQUÍ TU WIDGET DE SMOOBU -->
-          <!-- <script src="https://login.smoobu.com/js/Booking/BookingTool.js"
-               data-apartment-id="TU_ID_AQUI"
-               data-token="TU_TOKEN_AQUI">
-          </script> -->
-          <div class="smoobu-placeholder">
+          <!-- PASO 1: Descomenta y rellena con tus datos de Smoobu -->
+          <!--
+          <script
+            src="https://login.smoobu.com/js/Booking/BookingTool.js"
+            data-apartment-id="PEGA_TU_APARTMENT_ID"
+            data-show-page-type="1"
+            data-show-full-calendar="1">
+          </script>
+          -->
+          <div class="smoobu-placeholder" id="smoobu-placeholder">
             <div class="sp-icon">📅</div>
-            <p lc="es">Calendario de disponibilidad<br><strong style="color:var(--gold-dk)">Mañana:</strong> pega aquí tu widget de Smoobu<br>con tu <code>apartment-id</code></p>
-            <p lc="en">Availability calendar<br><strong style="color:var(--gold-dk)">Tomorrow:</strong> paste your Smoobu widget here<br>with your <code>apartment-id</code></p>
+            <p lc="es"><strong style="color:var(--gold)">Smoobu</strong> — Calendario sincronizado<br>
+            Cuando actives tu cuenta, el calendario aparecerá aquí<br>
+            y se sincronizará automáticamente con Airbnb y Booking</p>
+            <p lc="en"><strong style="color:var(--gold)">Smoobu</strong> — Synced calendar<br>
+            Once you activate your account, the calendar will appear here<br>
+            and sync automatically with Airbnb and Booking</p>
           </div>
         </div>
 
