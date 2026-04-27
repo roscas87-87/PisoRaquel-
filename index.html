@@ -78,6 +78,9 @@ h1 em{font-style:italic;color:var(--gold)}
 .nav-logo-img{height:44px;width:auto;display:block;filter:brightness(1)}
 .hn-logo{width:min(280px,70vw);height:auto;margin:0 auto 1.5rem;display:block;filter:drop-shadow(0 0 20px rgba(201,168,76,.3))}
 /* ── HERO NAZARÍ ── */
+.hn-logo-bg{position:absolute;inset:0;z-index:2;display:flex;align-items:center;justify-content:center;pointer-events:none}
+.hn-logo-bg img{width:min(420px,75vw);height:auto;opacity:.07;filter:brightness(1.2)}
+
 .hero-naz{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;padding-top:68px}
 .hn-bg{position:absolute;inset:0;background:linear-gradient(160deg,#1a1208 0%,#0e0c09 45%,#180a0a 100%)}
 .hn-photo{position:absolute;inset:0;z-index:1}
@@ -504,6 +507,7 @@ body.en [lc="en"]{display:revert}
 <section class="hero-naz">
   <div class="hn-bg"></div>
   <div class="hn-pattern"></div>
+  <div class="hn-logo-bg"><img src="img/logo.png" alt=""></div>
   <div class="hn-overlay"></div>
   <div class="hn-content">
     <p class="hn-tag" lc="es">Churriana de la Vega · Granada, Andalucía</p>
