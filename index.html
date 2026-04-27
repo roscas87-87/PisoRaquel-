@@ -16,7 +16,7 @@
   --red:#c0392b;
 }
 html{scroll-behavior:smooth}
-body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);overflow-x:hidden}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);overflow-x:hidden;max-width:100vw}
 
 /* ── NAV ── */
 nav{position:fixed;top:0;left:0;right:0;z-index:300;background:rgba(14,12,9,0.92);backdrop-filter:blur(14px);border-bottom:1px solid rgba(201,168,76,0.18);transition:.3s}
@@ -467,11 +467,9 @@ body.en [lc="en"]{display:revert}
     <p class="hero-desc" lc="es">Apartamento completamente reformado con suelo radiante, cocina de diseño y vistas a Sierra Nevada. A 5 minutos del centro de Granada, con parking privado incluido.</p>
     <p class="hero-desc" lc="en">Fully renovated apartment with underfloor heating, designer kitchen and views of Sierra Nevada. 5 minutes from Granada city centre, with private parking included.</p>
     <div class="hero-score">
-      <span class="score-n" style="font-size:1.2rem">9,8</span>
-      <span lc="es">Booking · </span><span lc="en">Booking · </span>
-      <span class="score-n" style="font-size:1.2rem">4,95★</span>
-      <span lc="es">Airbnb · 🏅 Superanfitrión</span>
-      <span lc="en">Airbnb · 🏅 Superhost</span>
+      <span class="score-n">9,8</span><span style="opacity:.6;font-size:.8rem">Booking</span>
+      <span style="opacity:.3;font-size:.8rem">·</span>
+      <span class="score-n">4,95★</span><span style="opacity:.6;font-size:.8rem">Airbnb</span>
     </div>
     <div class="hero-btns">
       <a onclick="openResModal()" class="btn-primary" href="#" lc="es">✦ Reservar ahora</a>
@@ -817,71 +815,7 @@ body.en [lc="en"]{display:revert}
     </a>
   </div>
 </section>
-    <div class="rv-score-item">
-      <span class="rv-score-label" lc="es">Ubicación</span>
-      <span class="rv-score-label" lc="en">Location</span>
-      <div class="rv-score-bar"><div class="rv-score-fill" style="width:93%"></div></div>
-      <span class="rv-score-num">9,3</span>
-    </div>
-    <div class="rv-score-item">
-      <span class="rv-score-label" lc="es">Limpieza</span>
-      <span class="rv-score-label" lc="en">Cleanliness</span>
-      <div class="rv-score-bar"><div class="rv-score-fill" style="width:98%"></div></div>
-      <span class="rv-score-num">9,8</span>
-    </div>
-    <div class="rv-score-item">
-      <span class="rv-score-label" lc="es">Calidad-precio</span>
-      <span class="rv-score-label" lc="en">Value for money</span>
-      <div class="rv-score-bar"><div class="rv-score-fill" style="width:95%"></div></div>
-      <span class="rv-score-num">9,5</span>
-    </div>
-  </div>
 
-  <div class="rv-wrap">
-    <div class="rv rv-a">
-      <div class="rv-q">"</div>
-      <div class="rv-stars">★★★★★</div>
-      <p class="rv-txt">Piso muy amplio y limpio, cercano a Granada, totalmente recomendable.</p>
-      <div class="rv-aut">— Arturo · 🇪🇸 España · Booking.com</div>
-    </div>
-    <div class="rv rv-a">
-      <div class="rv-q">"</div>
-      <div class="rv-stars">★★★★★</div>
-      <p class="rv-txt">Recién reformado, limpísimo, camas súper cómodas, lugar tranquilo, buena comunicación con Granada capital y los dueños un encanto.</p>
-      <div class="rv-aut">— Cristina · 🇪🇸 España · Booking.com</div>
-    </div>
-    <div class="rv rv-a">
-      <div class="rv-q">"</div>
-      <div class="rv-stars">★★★★★</div>
-      <p class="rv-txt">Un dulce, maravilloso con todas las comodidades, el trato ha sido de lujo por parte del personal que fue encantador.</p>
-      <div class="rv-aut">— Marco · 🇪🇸 España · Booking.com</div>
-    </div>
-    <div class="rv rv-a">
-      <div class="rv-q">"</div>
-      <div class="rv-stars">★★★★★</div>
-      <p class="rv-txt">El apartamento es súper acogedor y el trato muy bien, volveremos a repetir sin duda.</p>
-      <div class="rv-aut">— Desiree · 🇪🇸 España · Booking.com</div>
-    </div>
-    <div class="rv rv-a">
-      <div class="rv-q">"</div>
-      <div class="rv-stars">★★★★★</div>
-      <p class="rv-txt">La casa es muy limpia, acogedora, luminosa, grande con 3 habitaciones.</p>
-      <div class="rv-aut">— Molina · 🇪🇸 España · Booking.com</div>
-    </div>
-    <div class="rv rv-a">
-      <div class="rv-q">"</div>
-      <div class="rv-stars">★★★★★</div>
-      <p class="rv-txt">La limpieza, la amabilidad de Raquel y todo nuevo y reformado.</p>
-      <div class="rv-aut">— Lidiajose · 🇪🇸 España · Booking.com</div>
-    </div>
-  </div>
-  <div style="text-align:center;margin-top:2rem">
-    <a href="https://www.booking.com/hotel/es/piso-turistico-granada.es.html" target="_blank" class="btn-secondary" style="display:inline-flex">
-      <span lc="es">Ver las 39 valoraciones en Booking →</span>
-      <span lc="en">View all 39 reviews on Booking →</span>
-    </a>
-  </div>
-</section>
 
 <!-- CONTACT -->
 <section class="ct-section sp" id="contacto">
