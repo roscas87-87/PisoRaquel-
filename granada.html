@@ -54,7 +54,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;background:rgba(14,12,9,.92)
 .gh-sub{font-size:.9rem;color:rgba(250,246,239,.6);max-width:540px;line-height:1.7}
 
 /* INTRO STRIP */
-.intro-strip{background:var(--gold);color:#0e0c09;font-weight:500;padding:1.2rem 4rem;display:flex;align-items:center;justify-content:center;gap:3rem;flex-wrap:wrap}
+.intro-strip{background:var(--gold);color:#0e0c09;padding:1.2rem 4rem;display:flex;align-items:center;justify-content:center;gap:3rem;flex-wrap:wrap}
 .is-item{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;font-weight:500;display:flex;align-items:center;gap:.5rem}
 
 /* LAYOUT */
@@ -146,17 +146,17 @@ body.en [lc="en"]{display:revert}
 
 /* Responsive */
 @media(max-width:1100px){
+  .nav-links{display:none}.hamburger{display:flex}.nav-inner{padding:0 1.5rem}
+  .gh-content{padding:3.5rem 1.8rem}
+  .guide-body{grid-template-columns:1fr;padding:3rem 1.8rem;gap:2.5rem}
+  .sidebar{position:static}
   .place-grid,.tips-grid{grid-template-columns:1fr}
+  .food-grid{grid-template-columns:1fr 1fr}
+  .intro-strip{padding:1.2rem 1.8rem;gap:1.5rem}
   footer{padding:2rem 1.8rem;flex-direction:column;text-align:center}
+  .cta-banner{flex-direction:column}
 }
 @media(max-width:600px){.food-grid{grid-template-columns:1fr}}
-footer{background:#161209;border-top:1px solid rgba(201,168,76,.12);color:rgba(232,220,200,.5);padding:2.5rem 3rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1.5rem}
-.f-logo{font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--gold)}
-.f-links{display:flex;gap:2rem;flex-wrap:wrap}
-.f-links a{font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(232,220,200,.4);text-decoration:none;transition:.2s}
-.f-links a:hover{color:var(--gold)}
-.f-copy{font-size:.65rem;opacity:.4}
-@media(max-width:600px){footer{flex-direction:column;text-align:center;padding:2rem 1.5rem}}
 </style>
 </head>
 <body>
@@ -165,8 +165,7 @@ footer{background:#161209;border-top:1px solid rgba(201,168,76,.12);color:rgba(2
 <nav>
   <div class="nav-inner">
     <a href="index.html" class="nav-logo">
-      <span class="nav-logo-main">Vega Granada</span>
-      <span class="nav-logo-sub">Piso Turístico · Churriana de la Vega</span>
+      <img src="img/logo.png" alt="Vega Granada" style="height:48px;width:auto;max-width:220px;object-fit:contain;display:block">
     </a>
     <ul class="nav-links">
       <li><a href="index.html" lc="es">Inicio</a><a href="index.html" lc="en">Home</a></li>
@@ -194,18 +193,18 @@ footer{background:#161209;border-top:1px solid rgba(201,168,76,.12);color:rgba(2
   <a href="index.html#reservar" onclick="closeMenu()" class="m-book" lc="es">Reservar ahora</a><a href="index.html#reservar" onclick="closeMenu()" class="m-book" lc="en">Book now</a>
 </div>
 
-<!-- HERO NAZARÍ -->
+<!-- HERO -->
 <div class="guide-hero">
   <div class="gh-bg"></div>
   <div class="gh-pattern"></div>
   <div class="gh-overlay"></div>
   <div class="gh-content">
     <a href="index.html" class="gh-back">← <span lc="es">Volver al apartamento</span><span lc="en">Back to apartment</span></a>
-    <p class="gh-tag" lc="es">Tu guía de viaje personalizada · Vega Granada</p>
-    <p class="gh-tag" lc="en">Your personalised travel guide · Vega Granada</p>
+    <p class="gh-tag" lc="es">Tu guía de viaje personalizada</p>
+    <p class="gh-tag" lc="en">Your personalised travel guide</p>
     <h1 class="gh-title"><span lc="es">Descubre <em>Granada</em></span><span lc="en">Discover <em>Granada</em></span></h1>
-    <p class="gh-sub" lc="es">La ciudad de la Alhambra · Tapas gratis · Sierra Nevada</p>
-    <p class="gh-sub" lc="en">City of the Alhambra · Free tapas · Sierra Nevada</p>
+    <p class="gh-sub" lc="es">Todo lo que necesitas saber para aprovechar al máximo tu estancia. Desde la Alhambra hasta las mejores tapas gratuitas.</p>
+    <p class="gh-sub" lc="en">Everything you need to know to make the most of your stay. From the Alhambra to the best free tapas.</p>
   </div>
 </div>
 
@@ -489,18 +488,5 @@ function closeMenu(){document.getElementById('ham').classList.remove('open');doc
 const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')}),{threshold:.08});
 document.querySelectorAll('.rv-a').forEach(el=>obs.observe(el));
 </script>
-
-<!-- FOOTER -->
-<footer>
-  <div class="f-logo">Vega Granada ✦</div>
-  <div class="f-links">
-    <a href="index.html" lc="es">Inicio</a><a href="index.html" lc="en">Home</a>
-    <a href="index.html#galeria" lc="es">Galería</a><a href="index.html#galeria" lc="en">Gallery</a>
-    <a href="index.html#precios" lc="es">Precios</a><a href="index.html#precios" lc="en">Rates</a>
-    <a href="index.html#reservar" lc="es">Reservar</a><a href="index.html#reservar" lc="en">Book</a>
-  </div>
-  <div class="f-copy">© 2026 Vega Granada · Churriana de la Vega, Granada</div>
-</footer>
-
 </body>
 </html>
