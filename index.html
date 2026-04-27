@@ -535,28 +535,37 @@ body.en [lc="en"]{display:revert}
 </div>
 
 
-<!-- MODAL GALERÍA — pantalla emergente con fotos uniformes -->
+<!-- MODAL GALERÍA — carrusel -->
 <div class="gal-modal" id="galModal">
   <div class="gm-header">
     <span class="gm-title">Vega Granada ✦ <span lc="es">Fotos del apartamento</span><span lc="en">Apartment photos</span></span>
     <button class="gm-close" onclick="closeGalModal()">✕</button>
   </div>
-  <div class="gm-grid">
-    <div class="gm-item" onclick="openLb(0)"><img src="img/01-salon-cocina.jpg" alt="Salón · Cocina"><div class="gm-lbl" lc="es">Salón · Cocina</div><div class="gm-lbl" lc="en">Living · Kitchen</div></div>
-    <div class="gm-item" onclick="openLb(1)"><img src="img/14-habitacion1.jpg" alt="Habitación 1"><div class="gm-lbl" lc="es">Habitación 1</div><div class="gm-lbl" lc="en">Bedroom 1</div></div>
-    <div class="gm-item" onclick="openLb(2)"><img src="img/10-bano1.jpg" alt="Baño principal"><div class="gm-lbl" lc="es">Baño principal</div><div class="gm-lbl" lc="en">Main bathroom</div></div>
-    <div class="gm-item" onclick="openLb(3)"><img src="img/15-vistas-sierra.jpg" alt="Sierra Nevada"><div class="gm-lbl" lc="es">Vistas Sierra Nevada</div><div class="gm-lbl" lc="en">Sierra Nevada views</div></div>
-    <div class="gm-item" onclick="openLb(4)"><img src="img/05-cocina-completa.jpg" alt="Cocina"><div class="gm-lbl" lc="es">Cocina equipada</div><div class="gm-lbl" lc="en">Equipped kitchen</div></div>
-    <div class="gm-item" onclick="openLb(5)"><img src="img/02-cocina.jpg" alt="Cocina 2"><div class="gm-lbl" lc="es">Cocina · Mesa alta</div><div class="gm-lbl" lc="en">Kitchen · High table</div></div>
-    <div class="gm-item" onclick="openLb(6)"><img src="img/03-suelo-radiante.jpg" alt="Suelo radiante"><div class="gm-lbl" lc="es">Suelo radiante</div><div class="gm-lbl" lc="en">Underfloor heating</div></div>
-    <div class="gm-item" onclick="openLb(7)"><img src="img/04-salon-vista.jpg" alt="Salón"><div class="gm-lbl" lc="es">Salón · Vista completa</div><div class="gm-lbl" lc="en">Living room · Full view</div></div>
-    <div class="gm-item" onclick="openLb(8)"><img src="img/12-habitacion2.jpg" alt="Habitación 2"><div class="gm-lbl" lc="es">Habitación 2</div><div class="gm-lbl" lc="en">Bedroom 2</div></div>
-    <div class="gm-item" onclick="openLb(9)"><img src="img/11-habitacion3.jpg" alt="Habitación 3"><div class="gm-lbl" lc="es">Habitación 3</div><div class="gm-lbl" lc="en">Bedroom 3</div></div>
-    <div class="gm-item" onclick="openLb(10)"><img src="img/09-bano2.jpg" alt="Baño 2"><div class="gm-lbl" lc="es">Baño · Vista 2</div><div class="gm-lbl" lc="en">Bathroom · View 2</div></div>
-    <div class="gm-item" onclick="openLb(11)"><img src="img/13-vestidor.jpg" alt="Vestidor"><div class="gm-lbl" lc="es">Vestidor</div><div class="gm-lbl" lc="en">Walk-in wardrobe</div></div>
-    <div class="gm-item" onclick="openLb(12)"><img src="img/06-lavadero.jpg" alt="Lavandería"><div class="gm-lbl" lc="es">Lavandería</div><div class="gm-lbl" lc="en">Laundry room</div></div>
-    <div class="gm-item" onclick="openLb(13)"><img src="img/07-cocina-noche.jpg" alt="Cocina noche"><div class="gm-lbl" lc="es">Cocina · Noche</div><div class="gm-lbl" lc="en">Kitchen · Evening</div></div>
-    <div class="gm-item" onclick="openLb(14)"><img src="img/08-salon-tv.jpg" alt="Salón TV"><div class="gm-lbl" lc="es">Salón · Smart TV</div><div class="gm-lbl" lc="en">Living · Smart TV</div></div>
+  <div class="gm-carousel">
+    <button class="gm-arrow gm-prev" onclick="galPrev()">‹</button>
+    <div class="gm-slide">
+      <img id="gm-current" src="img/01-salon-cocina.jpg" alt="Salón" style="max-width:100%;max-height:72vh;object-fit:contain;border-radius:2px">
+    </div>
+    <button class="gm-arrow gm-next" onclick="galNext()">›</button>
+  </div>
+  <div id="gm-caption" class="gm-caption">Salón · Cocina abierta</div>
+  <div id="gm-counter" class="gm-counter">1 / 15</div>
+  <div class="gm-dots">
+    <button class="gm-dot active" onclick="goSlide(0)"></button>
+    <button class="gm-dot" onclick="goSlide(1)"></button>
+    <button class="gm-dot" onclick="goSlide(2)"></button>
+    <button class="gm-dot" onclick="goSlide(3)"></button>
+    <button class="gm-dot" onclick="goSlide(4)"></button>
+    <button class="gm-dot" onclick="goSlide(5)"></button>
+    <button class="gm-dot" onclick="goSlide(6)"></button>
+    <button class="gm-dot" onclick="goSlide(7)"></button>
+    <button class="gm-dot" onclick="goSlide(8)"></button>
+    <button class="gm-dot" onclick="goSlide(9)"></button>
+    <button class="gm-dot" onclick="goSlide(10)"></button>
+    <button class="gm-dot" onclick="goSlide(11)"></button>
+    <button class="gm-dot" onclick="goSlide(12)"></button>
+    <button class="gm-dot" onclick="goSlide(13)"></button>
+    <button class="gm-dot" onclick="goSlide(14)"></button>
   </div>
 </div>
 
