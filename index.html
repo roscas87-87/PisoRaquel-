@@ -106,18 +106,28 @@ h1 em{font-style:italic;color:var(--gold)}
 .gal-more-btn:hover{background:rgba(201,168,76,.12);border-color:var(--gold);transform:translateY(-1px)}
 
 /* Modal galería — fotos TODAS del mismo tamaño */
-.gal-modal{display:none;position:fixed;inset:0;z-index:500;background:rgba(8,6,3,.97);flex-direction:column}
+.gal-modal{display:none;position:fixed;inset:0;z-index:500;background:rgba(8,6,3,.98);flex-direction:column}
 .gal-modal.open{display:flex}
-.gm-header{display:flex;align-items:center;justify-content:space-between;padding:1.1rem 1.5rem;border-bottom:1px solid rgba(201,168,76,.15);flex-shrink:0}
-.gm-title{font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--gold);letter-spacing:.05em}
-.gm-close{background:none;border:none;color:rgba(232,220,200,.5);font-size:1.5rem;cursor:pointer;transition:.2s;line-height:1;padding:.25rem .6rem}
+.gm-header{display:flex;align-items:center;justify-content:space-between;padding:1rem 1.5rem;border-bottom:1px solid rgba(201,168,76,.12);flex-shrink:0}
+.gm-title{font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--gold)}
+.gm-close{background:none;border:none;color:rgba(232,220,200,.5);font-size:1.8rem;cursor:pointer;line-height:1;padding:.25rem .6rem;transition:.2s}
 .gm-close:hover{color:var(--gold)}
-.gm-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;padding:3px;overflow-y:auto;flex:1}
-.gm-item{position:relative;overflow:hidden;cursor:pointer;aspect-ratio:4/3;background:#1e1810}
-.gm-item img{width:100%;height:100%;object-fit:cover;transition:transform .4s,opacity .3s;opacity:.85;display:block}
-.gm-item:hover img{transform:scale(1.05);opacity:1}
-.gm-lbl{position:absolute;bottom:0;left:0;right:0;padding:.5rem .75rem;background:linear-gradient(to top,rgba(14,12,9,.85),transparent);font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(232,220,200,.9);opacity:0;transition:.3s}
-.gm-item:hover .gm-lbl{opacity:1}
+/* Carrusel */
+.gm-carousel{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;padding:0 70px}
+.gm-slide{width:100%;max-height:75vh;display:flex;align-items:center;justify-content:center}
+.gm-slide img{max-width:100%;max-height:72vh;object-fit:contain;border-radius:2px}
+.gm-caption{text-align:center;font-size:.65rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-top:1rem;opacity:.8}
+.gm-counter{text-align:center;font-size:.7rem;color:var(--stone);margin-top:.4rem}
+.gm-arrow{position:absolute;top:50%;transform:translateY(-50%);background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.2);color:var(--gold);font-size:1.8rem;cursor:pointer;padding:.6rem .9rem;border-radius:2px;transition:.2s;line-height:1}
+.gm-arrow:hover{background:rgba(201,168,76,.25)}
+.gm-prev{left:0}.gm-next{right:0}
+.gm-dots{display:flex;gap:.4rem;justify-content:center;padding:.8rem;flex-wrap:wrap}
+.gm-dot{width:6px;height:6px;border-radius:50%;background:rgba(201,168,76,.25);cursor:pointer;transition:.2s;border:none}
+.gm-dot.active{background:var(--gold);transform:scale(1.3)}
+@media(max-width:500px){
+  .gm-carousel{padding:0 50px}
+  .gm-arrow{font-size:1.4rem;padding:.5rem .7rem}
+}
 
 /* Lightbox */
 .lightbox{display:none;position:fixed;inset:0;z-index:600;background:rgba(6,4,2,.97);align-items:center;justify-content:center}
@@ -431,6 +441,122 @@ body.en [lc="en"]{display:revert}
         <span style="color:var(--mist);font-size:.7rem">|</span>
         <button class="lang-btn" onclick="setLang('en')">EN</button>
       </div>
+      <button class="hamburger" id="ham" onclick="toggleMenu()" aria-label="Menú">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#galeria" onclick="closeMenu()" lc="es">Galería</a>
+  <a href="#galeria" onclick="closeMenu()" lc="en">Gallery</a>
+  <a href="#comodidades" onclick="closeMenu()" lc="es">Comodidades</a>
+  <a href="#comodidades" onclick="closeMenu()" lc="en">Amenities</a>
+  <a href="#ubicacion" onclick="closeMenu()" lc="es">Ubicación</a>
+  <a href="#ubicacion" onclick="closeMenu()" lc="en">Location</a>
+  <a href="granada.html" onclick="closeMenu()" lc="es">Guía de Granada</a>
+  <a href="granada.html" onclick="closeMenu()" lc="en">Granada Guide</a>
+  <a href="#reservar" onclick="closeMenu()" class="m-book" lc="es">Reservar ahora</a>
+  <a href="#reservar" onclick="closeMenu()" class="m-book" lc="en">Book now</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <p class="hero-tag" lc="es">Churriana de la Vega · Granada</p>
+    <p class="hero-tag" lc="en">Churriana de la Vega · Granada, Spain</p>
+    <h1 lc="es">Vive <em>Granada</em><br>como en casa</h1>
+    <h1 lc="en">Live <em>Granada</em><br>like home</h1>
+    <p class="hero-desc" lc="es">Apartamento completamente reformado con suelo radiante, cocina de diseño y vistas a Sierra Nevada. A 5 minutos del centro de Granada, con parking privado incluido.</p>
+    <p class="hero-desc" lc="en">Fully renovated apartment with underfloor heating, designer kitchen and views of Sierra Nevada. 5 minutes from Granada city centre, with private parking included.</p>
+    <div class="hero-score">
+      <span class="score-n">9,8</span><span lc="es">Booking · Excepcional</span><span lc="en">Booking · Exceptional</span>
+      <span style="opacity:.3">·</span>
+      <span class="score-n">4,95★</span><span>Airbnb · 🏅</span>
+    </div>
+    <div class="hero-btns">
+      <a onclick="openResModal()" class="btn-primary" href="#" lc="es">✦ Reservar ahora</a>
+      <a onclick="openResModal()" class="btn-primary" href="#" lc="en">✦ Book now</a>
+      <a href="#galeria" class="btn-secondary" lc="es">Ver el apartamento</a>
+      <a href="#galeria" class="btn-secondary" lc="en">View apartment</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hstat"><div class="hstat-n">3</div><div class="hstat-l" lc="es">Habitaciones</div><div class="hstat-l" lc="en">Bedrooms</div></div>
+      <div class="hstat"><div class="hstat-n">5</div><div class="hstat-l" lc="es">Huéspedes</div><div class="hstat-l" lc="en">Guests</div></div>
+      <div class="hstat"><div class="hstat-n">5'</div><div class="hstat-l" lc="es">A Granada</div><div class="hstat-l" lc="en">To Granada</div></div>
+      <div class="hstat"><div class="hstat-n">4,95</div><div class="hstat-l">Airbnb ★</div></div>
+      <div class="hstat"><div class="hstat-n">🏅</div><div class="hstat-l" lc="es">Superanfitrión</div><div class="hstat-l" lc="en">Superhost</div></div>
+    </div>
+  </div>
+  <div class="hero-right" onclick="openGalModal()" style="cursor:pointer">
+    <img src="img/01-salon-cocina.jpg" alt="Salón y cocina" style="width:100%;height:100%;object-fit:cover;opacity:.88;transition:opacity .3s">
+    <div style="position:absolute;bottom:1.5rem;right:1.5rem;background:rgba(14,12,9,.75);border:1px solid rgba(201,168,76,.35);color:var(--gold);padding:.5rem 1rem;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;backdrop-filter:blur(4px);border-radius:2px">
+      📷 <span lc="es">Ver 15 fotos</span><span lc="en">View 15 photos</span>
+    </div>
+  </div>
+</section>
+
+<!-- STRIP -->
+<div class="strip">
+  <div class="strip-item"><span class="strip-icon">🔑</span><span lc="es">Check-in flexible</span><span lc="en">Flexible check-in</span></div>
+  <div class="strip-item"><span class="strip-icon">🅿️</span><span lc="es">Parking privado gratis</span><span lc="en">Free private parking</span></div>
+  <div class="strip-item"><span class="strip-icon">🌡️</span><span lc="es">Suelo radiante</span><span lc="en">Underfloor heating</span></div>
+  <div class="strip-item"><span class="strip-icon">📶</span>WiFi Fibra</div>
+  <div class="strip-item"><span class="strip-icon">🏔️</span><span lc="es">Vistas Sierra Nevada</span><span lc="en">Sierra Nevada views</span></div>
+</div>
+
+
+<!-- MODAL GALERÍA — carrusel 1 foto a la vez -->
+<div class="gal-modal" id="galModal">
+  <div class="gm-header">
+    <span class="gm-title">Vega Granada ✦ <span lc="es">Fotos del apartamento</span><span lc="en">Apartment photos</span></span>
+    <button class="gm-close" onclick="closeGalModal()">✕</button>
+  </div>
+  <!-- Preload images -->
+  <div style="display:none"><img id="gm-img-0" src="img/01-salon-cocina.jpg" alt="Salón · Cocina abierta" style="display:none;max-width:100%;max-height:72vh;object-fit:contain;border-radius:2px">
+    <img id="gm-img-1" src="img/14-habitacion1.jpg" alt="Habitación principal" style="display:none;max-width:100%;max-height:72vh;object-fit:contain;border-radius:2px">
+    <img id="gm-img-2" src="img/10-bano1.jpg" alt="Baño principal" style="display:none;max-width:100%;max-height:72vh;object-fit:contain;border-radius:2px">
+    <img id="gm-img-3" src="img/15-vistas-sierra.jpg" alt="Vistas Sierra Nevada" style="display:none;max-width:100%;max-height:72vh;object-fit:contain;border-radius:2px">
+    <img id="gm-img-4" src="img/05-cocina-completa.jpg" alt="Cocina equipada" style="display:none;max-width:100%;max-height:72vh;object-fit:contain;border-radius:2px">
+    <img id="gm-img-5" src="img/02-cocina.jpg" alt="Cocina · Mesa alta" style="display:none;max-width:100%;max-height:72vh;object-fit:contain;border-radius:2px">
+    <img id="gm-img-6" src="img/03-suelo-radiante.jpg" alt="Suelo radiante" style="display:none;max-width:100%;max-height:72vh;object-fit:contain;border-radius:2px">
+    <img id="gm-img-7" src="img/04-salon-vista.jpg" alt="Salón · Vista completa" style="display:none;max-width:100%;max-height:72vh;object-fit:contain;border-radius:2px">
+    <img id="gm-img-8" src="img/12-habitacion2.jpg" alt="Habitación 2" style="display:none;max-width:100%;max-height:72vh;object-fit:contain;border-radius:2px">
+    <img id="gm-img-9" src="img/11-habitacion3.jpg" alt="Habitación 3" style="display:none;max-width:100%;max-height:72vh;object-fit:contain;border-radius:2px">
+    <img id="gm-img-10" src="img/09-bano2.jpg" alt="Baño · Vista 2" style="display:none;max-width:100%;max-height:72vh;object-fit:contain;border-radius:2px">
+    <img id="gm-img-11" src="img/13-vestidor.jpg" alt="Vestidor" style="display:none;max-width:100%;max-height:72vh;object-fit:contain;border-radius:2px">
+    <img id="gm-img-12" src="img/06-lavadero.jpg" alt="Lavandería" style="display:none;max-width:100%;max-height:72vh;object-fit:contain;border-radius:2px">
+    <img id="gm-img-13" src="img/07-cocina-noche.jpg" alt="Cocina · Noche" style="display:none;max-width:100%;max-height:72vh;object-fit:contain;border-radius:2px">
+    <img id="gm-img-14" src="img/08-salon-tv.jpg" alt="Salón · Smart TV" style="display:none;max-width:100%;max-height:72vh;object-fit:contain;border-radius:2px"></div>
+  <div class="gm-carousel">
+    <button class="gm-arrow gm-prev" onclick="galPrev()">‹</button>
+    <div class="gm-slide">
+      <img id="gm-current" src="img/01-salon-cocina.jpg" alt="Salón · Cocina abierta" style="max-width:100%;max-height:72vh;object-fit:contain;border-radius:2px">
+    </div>
+    <button class="gm-arrow gm-next" onclick="galNext()">›</button>
+  </div>
+  <div id="gm-caption" class="gm-caption" lc="es">Salón · Cocina abierta</div>
+  <div id="gm-counter" class="gm-counter">1 / 15</div>
+  <div class="gm-dots">
+    <button class="gm-dot  active" onclick="goSlide(0)"></button>
+    <button class="gm-dot" onclick="goSlide(1)"></button>
+    <button class="gm-dot" onclick="goSlide(2)"></button>
+    <button class="gm-dot" onclick="goSlide(3)"></button>
+    <button class="gm-dot" onclick="goSlide(4)"></button>
+    <button class="gm-dot" onclick="goSlide(5)"></button>
+    <button class="gm-dot" onclick="goSlide(6)"></button>
+    <button class="gm-dot" onclick="goSlide(7)"></button>
+    <button class="gm-dot" onclick="goSlide(8)"></button>
+    <button class="gm-dot" onclick="goSlide(9)"></button>
+    <button class="gm-dot" onclick="goSlide(10)"></button>
+    <button class="gm-dot" onclick="goSlide(11)"></button>
+    <button class="gm-dot" onclick="goSlide(12)"></button>
+    <button class="gm-dot" onclick="goSlide(13)"></button>
+    <button class="gm-dot" onclick="goSlide(14)"></button>
+  </div>
+</div>
       <button class="hamburger" id="ham" onclick="toggleMenu()" aria-label="Menú">
         <span></span><span></span><span></span>
       </button>
@@ -1074,9 +1200,49 @@ function closeMenu(){
   document.body.style.overflow='';
 }
 
-// Gallery modal
-function openGalModal(){document.getElementById('galModal').classList.add('open');document.body.style.overflow='hidden'}
-function closeGalModal(){document.getElementById('galModal').classList.remove('open');document.body.style.overflow=''}
+// Gallery modal carousel
+let galIdx = 0;
+const galImgs = [
+  {src:'img/01-salon-cocina.jpg', es:'Salón · Cocina abierta', en:'Living room · Open kitchen'},
+  {src:'img/14-habitacion1.jpg', es:'Habitación principal', en:'Master bedroom'},
+  {src:'img/10-bano1.jpg', es:'Baño principal', en:'Main bathroom'},
+  {src:'img/15-vistas-sierra.jpg', es:'Vistas Sierra Nevada', en:'Sierra Nevada views'},
+  {src:'img/05-cocina-completa.jpg', es:'Cocina equipada', en:'Equipped kitchen'},
+  {src:'img/02-cocina.jpg', es:'Cocina · Mesa alta', en:'Kitchen · High table'},
+  {src:'img/03-suelo-radiante.jpg', es:'Suelo radiante', en:'Underfloor heating'},
+  {src:'img/04-salon-vista.jpg', es:'Salón · Vista completa', en:'Living room · Full view'},
+  {src:'img/12-habitacion2.jpg', es:'Habitación 2', en:'Bedroom 2'},
+  {src:'img/11-habitacion3.jpg', es:'Habitación 3', en:'Bedroom 3'},
+  {src:'img/09-bano2.jpg', es:'Baño · Vista 2', en:'Bathroom · View 2'},
+  {src:'img/13-vestidor.jpg', es:'Vestidor', en:'Walk-in wardrobe'},
+  {src:'img/06-lavadero.jpg', es:'Lavandería', en:'Laundry room'},
+  {src:'img/07-cocina-noche.jpg', es:'Cocina · Noche', en:'Kitchen · Evening'},
+  {src:'img/08-salon-tv.jpg', es:'Salón · Smart TV', en:'Living · Smart TV'},
+];
+
+function updateGal() {
+  const p = galImgs[galIdx];
+  const isEN = document.body.classList.contains('en');
+  document.getElementById('gm-current').src = p.src;
+  document.getElementById('gm-current').alt = p.es;
+  document.getElementById('gm-caption').textContent = isEN ? p.en : p.es;
+  document.getElementById('gm-counter').textContent = (galIdx+1) + ' / ' + galImgs.length;
+  document.querySelectorAll('.gm-dot').forEach((d,i) => d.classList.toggle('active', i===galIdx));
+}
+function galNext() { galIdx = (galIdx+1) % galImgs.length; updateGal(); }
+function galPrev() { galIdx = (galIdx-1+galImgs.length) % galImgs.length; updateGal(); }
+function goSlide(i) { galIdx = i; updateGal(); }
+
+function openGalModal(startIdx=0) {
+  galIdx = startIdx;
+  updateGal();
+  document.getElementById('galModal').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeGalModal() {
+  document.getElementById('galModal').classList.remove('open');
+  document.body.style.overflow='';
+}
 
 // Lightbox
 const lbImgs=[
@@ -1233,13 +1399,21 @@ async function processPayment(){
   }
 }
 
+// Swipe support for gallery
+let touchStartX = 0;
+document.getElementById('galModal').addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; });
+document.getElementById('galModal').addEventListener('touchend', e => {
+  const diff = touchStartX - e.changedTouches[0].clientX;
+  if(Math.abs(diff) > 50) { if(diff > 0) galNext(); else galPrev(); }
+});
+
 // Escape key closes modal
 document.addEventListener('keydown',e=>{
-  if(e.key==='Escape'){
-    closeLb();closeGalModal();closeResModal();
-  }
-  if(e.key==='ArrowRight')lbNav(1);
-  if(e.key==='ArrowLeft')lbNav(-1);
+  if(e.key==='Escape'){closeLb();closeGalModal();closeResModal();}
+  const galOpen=document.getElementById('galModal').classList.contains('open');
+  const lbOpen=document.getElementById('lb').classList.contains('open');
+  if(e.key==='ArrowRight'){if(lbOpen)lbNav(1);else if(galOpen)galNext();}
+  if(e.key==='ArrowLeft'){if(lbOpen)lbNav(-1);else if(galOpen)galPrev();}
 });
 
 // Set Instagram links from CONFIG
