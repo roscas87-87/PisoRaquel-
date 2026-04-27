@@ -184,12 +184,18 @@ h1 em{font-style:italic;color:var(--gold)}
 
 /* ── REVIEWS ── */
 .rv-section{background:#161209}
-.rv-wrap{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem}
-.rv{background:#231d13;border:1px solid rgba(201,168,76,.1);padding:2rem;border-radius:2px;position:relative}
+.rv-scores{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin:2rem 0 2.5rem;padding:1.75rem 2rem;background:#231d13;border:1px solid rgba(201,168,76,.12);border-radius:2px}
+.rv-score-item{display:flex;align-items:center;gap:.75rem;flex-wrap:wrap}
+.rv-score-label{font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--stone);width:100%}
+.rv-score-bar{flex:1;height:4px;background:rgba(201,168,76,.15);border-radius:2px;overflow:hidden}
+.rv-score-fill{height:100%;background:var(--gold);border-radius:2px}
+.rv-score-num{font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--gold);font-weight:600;flex-shrink:0}
+.rv-wrap{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:2rem}
+.rv{background:#231d13;border:1px solid rgba(201,168,76,.1);padding:1.75rem;border-radius:2px;position:relative}
 .rv-q{font-family:'Cormorant Garamond',serif;font-size:3rem;color:var(--gold);opacity:.2;position:absolute;top:.8rem;right:1.2rem;line-height:1}
 .rv-stars{color:var(--gold);font-size:.75rem;margin-bottom:.6rem;letter-spacing:.1em}
 .rv-txt{font-size:.85rem;line-height:1.75;color:var(--stone);font-style:italic;margin-bottom:1.2rem}
-.rv-aut{font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--bark)}
+.rv-aut{font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;color:var(--bark)}
 
 /* ── CONTACT ── */
 .ct-section{background:#0e0c09}
@@ -312,6 +318,7 @@ body.en [lc="en"]{display:revert}
   .loc-map{min-height:280px}
   .loc-left{padding:3rem 1.8rem}
   .bk-cards,.rv-wrap{grid-template-columns:1fr}
+  .rv-scores{grid-template-columns:1fr}
   .ct-inner{grid-template-columns:1fr;gap:2.5rem}
   .strip{padding:1.2rem 1.5rem;gap:1.2rem}
   footer{padding:2rem 1.8rem;flex-direction:column;text-align:center}
@@ -354,7 +361,8 @@ body.en [lc="en"]{display:revert}
 .float-btn-reservar:hover{background:var(--gold-lt)}
 .float-btn-wa{background:#25d366;color:white}
 .float-btn-wa:hover{background:#1fb355}
-.float-icon{font-size:1rem;line-height:1}
+.float-btn-ig{background:linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);color:white}
+.float-btn-ig:hover{opacity:.9}
 @media(max-width:600px){
   .float-btns{bottom:1.25rem;right:1rem;gap:.6rem}
   .float-btn{padding:.85rem;border-radius:50%;width:54px;height:54px;justify-content:center}
@@ -577,14 +585,74 @@ body.en [lc="en"]{display:revert}
 <section class="rv-section sp-sm">
   <p class="sec-lbl rv-a" lc="es">Lo que dicen nuestros huéspedes</p>
   <p class="sec-lbl rv-a" lc="en">What our guests say</p>
-  <h2 class="sec-h rv-a"><span lc="es"><em>9,8</em> Excepcional en Booking.com</span><span lc="en"><em>9.8</em> Exceptional on Booking.com</span></h2>
-  <div class="rv-wrap">
-    <div class="rv rv-a"><div class="rv-q">"</div><div class="rv-stars">★★★★★</div><p class="rv-txt" lc="es">Apartamento increíble, todo nuevo y moderno. La ubicación es perfecta para visitar Granada. El anfitrión respondió siempre enseguida.</p><p class="rv-txt" lc="en">Incredible apartment, all new and modern. The location is perfect for visiting Granada. The host always responded immediately.</p><div class="rv-aut" lc="es">— Huésped verificado · Booking.com</div><div class="rv-aut" lc="en">— Verified guest · Booking.com</div></div>
-    <div class="rv rv-a"><div class="rv-q">"</div><div class="rv-stars">★★★★★</div><p class="rv-txt" lc="es">El suelo radiante es un lujo en invierno. Todo tal como se muestra. El parking privado es un plus enorme. Sin duda volveremos.</p><p class="rv-txt" lc="en">The underfloor heating is a luxury in winter. Everything exactly as shown. The private parking is a huge plus. We'll definitely be back.</p><div class="rv-aut" lc="es">— Huésped verificado · Airbnb</div><div class="rv-aut" lc="en">— Verified guest · Airbnb</div></div>
-    <div class="rv rv-a"><div class="rv-q">"</div><div class="rv-stars">★★★★★</div><p class="rv-txt" lc="es">Las vistas a Sierra Nevada desde la habitación son espectaculares. Cocina completísima, baño de lujo. Para 5 personas perfectísimo.</p><p class="rv-txt" lc="en">The views of Sierra Nevada from the bedroom are spectacular. Fully equipped kitchen, luxury bathroom. Perfect for 6 people.</p><div class="rv-aut" lc="es">— Huésped verificado · Booking.com</div><div class="rv-aut" lc="en">— Verified guest · Booking.com</div></div>
+  <h2 class="sec-h rv-a"><span lc="es"><em>9,8</em> Excepcional · Booking.com</span><span lc="en"><em>9.8</em> Exceptional · Booking.com</span></h2>
+
+  <!-- Puntuaciones detalladas -->
+  <div class="rv-scores rv-a">
+    <div class="rv-score-item">
+      <span class="rv-score-label" lc="es">Ubicación</span>
+      <span class="rv-score-label" lc="en">Location</span>
+      <div class="rv-score-bar"><div class="rv-score-fill" style="width:93%"></div></div>
+      <span class="rv-score-num">9,3</span>
+    </div>
+    <div class="rv-score-item">
+      <span class="rv-score-label" lc="es">Limpieza</span>
+      <span class="rv-score-label" lc="en">Cleanliness</span>
+      <div class="rv-score-bar"><div class="rv-score-fill" style="width:98%"></div></div>
+      <span class="rv-score-num">9,8</span>
+    </div>
+    <div class="rv-score-item">
+      <span class="rv-score-label" lc="es">Calidad-precio</span>
+      <span class="rv-score-label" lc="en">Value for money</span>
+      <div class="rv-score-bar"><div class="rv-score-fill" style="width:95%"></div></div>
+      <span class="rv-score-num">9,5</span>
+    </div>
   </div>
-  <p style="margin-top:1rem;font-size:.68rem;color:var(--stone);opacity:.6" lc="es">💡 Sustituye por reseñas reales de Booking o Airbnb</p>
-  <p style="margin-top:1rem;font-size:.68rem;color:var(--stone);opacity:.6" lc="en">💡 Replace with real reviews from Booking or Airbnb</p>
+
+  <div class="rv-wrap">
+    <div class="rv rv-a">
+      <div class="rv-q">"</div>
+      <div class="rv-stars">★★★★★</div>
+      <p class="rv-txt">Piso muy amplio y limpio, cercano a Granada, totalmente recomendable.</p>
+      <div class="rv-aut">— Arturo · 🇪🇸 España · Booking.com</div>
+    </div>
+    <div class="rv rv-a">
+      <div class="rv-q">"</div>
+      <div class="rv-stars">★★★★★</div>
+      <p class="rv-txt">Recién reformado, limpísimo, camas súper cómodas, lugar tranquilo, buena comunicación con Granada capital y los dueños un encanto.</p>
+      <div class="rv-aut">— Cristina · 🇪🇸 España · Booking.com</div>
+    </div>
+    <div class="rv rv-a">
+      <div class="rv-q">"</div>
+      <div class="rv-stars">★★★★★</div>
+      <p class="rv-txt">Un dulce, maravilloso con todas las comodidades, el trato ha sido de lujo por parte del personal que fue encantador.</p>
+      <div class="rv-aut">— Marco · 🇪🇸 España · Booking.com</div>
+    </div>
+    <div class="rv rv-a">
+      <div class="rv-q">"</div>
+      <div class="rv-stars">★★★★★</div>
+      <p class="rv-txt">El apartamento es súper acogedor y el trato muy bien, volveremos a repetir sin duda.</p>
+      <div class="rv-aut">— Desiree · 🇪🇸 España · Booking.com</div>
+    </div>
+    <div class="rv rv-a">
+      <div class="rv-q">"</div>
+      <div class="rv-stars">★★★★★</div>
+      <p class="rv-txt">La casa es muy limpia, acogedora, luminosa, grande con 3 habitaciones.</p>
+      <div class="rv-aut">— Molina · 🇪🇸 España · Booking.com</div>
+    </div>
+    <div class="rv rv-a">
+      <div class="rv-q">"</div>
+      <div class="rv-stars">★★★★★</div>
+      <p class="rv-txt">La limpieza, la amabilidad de Raquel y todo nuevo y reformado.</p>
+      <div class="rv-aut">— Lidiajose · 🇪🇸 España · Booking.com</div>
+    </div>
+  </div>
+  <div style="text-align:center;margin-top:2rem">
+    <a href="https://www.booking.com/hotel/es/piso-turistico-granada.es.html" target="_blank" class="btn-secondary" style="display:inline-flex">
+      <span lc="es">Ver las 39 valoraciones en Booking →</span>
+      <span lc="en">View all 39 reviews on Booking →</span>
+    </a>
+  </div>
 </section>
 
 <!-- CONTACT -->
@@ -807,6 +875,10 @@ body.en [lc="en"]{display:revert}
     <span class="float-icon">💬</span>
     <span class="float-label">WhatsApp</span>
   </a>
+  <a class="float-btn float-btn-ig" href="https://instagram.com/INSTAGRAM_AQUI" target="_blank" id="ig-float-btn">
+    <span class="float-icon">📸</span>
+    <span class="float-label">Instagram</span>
+  </a>
 </div>
 
 <!-- FOOTER -->
@@ -818,6 +890,8 @@ body.en [lc="en"]{display:revert}
     <a href="#ubicacion" lc="es">Ubicación</a><a href="#ubicacion" lc="en">Location</a>
     <a href="granada.html" lc="es">Guía Granada</a><a href="granada.html" lc="en">Granada Guide</a>
     <a href="#reservar" lc="es">Reservar</a><a href="#reservar" lc="en">Book</a>
+    <a href="https://instagram.com/INSTAGRAM_AQUI" target="_blank" id="ig-footer">📸 Instagram</a>
+    <a href="privacidad.html" lc="es">Privacidad</a><a href="privacidad.html" lc="en">Privacy</a>
   </div>
   <div class="f-copy">© 2026 Piso Turístico Vega Granada · Churriana de la Vega</div>
 </footer>
@@ -866,25 +940,50 @@ function closeLb(){document.getElementById('lb').classList.remove('open');docume
 function closeLbOutside(e){if(e.target===document.getElementById('lb'))closeLb()}
 function lbNav(d){lbIdx=(lbIdx+d+lbImgs.length)%lbImgs.length;document.getElementById('lbImg').src=lbImgs[lbIdx]}
 // ═══════════════════════════════════════════════════════
-// CONFIGURACIÓN — MAÑANA RELLENA ESTOS DATOS
+// CONFIGURACIÓN — RELLENA TUS DATOS AQUÍ
 // ═══════════════════════════════════════════════════════
 const CONFIG = {
-  // 1. Tu clave pública de Stripe (dashboard.stripe.com → Claves API)
+  // 1. Tu clave pública de Stripe
   STRIPE_KEY: 'pk_live_PEGA_TU_CLAVE_AQUI',
 
-  // 2. Tu precio por noche en euros
-  PRECIO_NOCHE: 90,
+  // 2. Precios por temporada (€/noche)
+  PRECIOS: {
+    alta:  120,  // Jul, Ago, Semana Santa, Navidad, Año Nuevo
+    media:  90,  // Abr, May, Jun, Sep, Oct
+    baja:   70,  // Ene, Feb, Mar, Nov, Dic
+  },
 
-  // 3. Fianza que se retiene (no se cobra, solo se bloquea)
+  // 3. Meses de temporada alta (1=Ene ... 12=Dic)
+  MESES_ALTA:  [4, 7, 8, 12],   // Semana Santa(abr), Jul, Ago, Dic(Navidad)
+  MESES_MEDIA: [5, 6, 9, 10],   // May, Jun, Sep, Oct
+
+  // 4. Fianza retenida (no se cobra)
   FIANZA: 300,
 
-  // 4. Tu email para recibir notificaciones de reserva
+  // 5. Tu email
   EMAIL_ANFITRION: 'roscas87@gmail.com',
 
-  // 5. Tu número de WhatsApp (con prefijo, sin espacios)
-  WHATSAPP: '34674071443'
+  // 6. WhatsApp
+  WHATSAPP: '34674071443',
+
+  // 7. Instagram
+  INSTAGRAM: 'vegagranada_piso'  // ← cambia por tu usuario real cuando lo tengas
 };
 // ═══════════════════════════════════════════════════════
+
+function getPrecioNoche(fecha) {
+  const mes = new Date(fecha).getMonth() + 1;
+  if (CONFIG.MESES_ALTA.includes(mes))  return CONFIG.PRECIOS.alta;
+  if (CONFIG.MESES_MEDIA.includes(mes)) return CONFIG.PRECIOS.media;
+  return CONFIG.PRECIOS.baja;
+}
+
+function getTemporada(fecha) {
+  const mes = new Date(fecha).getMonth() + 1;
+  if (CONFIG.MESES_ALTA.includes(mes))  return { es: '🔴 Temporada alta', en: '🔴 High season' };
+  if (CONFIG.MESES_MEDIA.includes(mes)) return { es: '🟡 Temporada media', en: '🟡 Mid season' };
+  return { es: '🟢 Temporada baja', en: '🟢 Low season' };
+}
 
 // Modal reserva
 function openResModal(){
@@ -914,17 +1013,20 @@ function goStep(n){
   document.querySelector('.res-box').scrollTop=0;
 }
 
-// Price calculator
+// Price calculator con temporadas
 function calcPrice(){
   const ci=document.getElementById('r-checkin').value;
   const co=document.getElementById('r-checkout').value;
   if(!ci||!co) return;
   const nights=Math.round((new Date(co)-new Date(ci))/(1000*60*60*24));
   if(nights<1) return;
-  const sub=nights*CONFIG.PRECIO_NOCHE;
+  const precio=getPrecioNoche(ci);
+  const temp=getTemporada(ci);
+  const sub=nights*precio;
   const total=sub+CONFIG.FIANZA;
-  document.getElementById('p-nights').textContent=nights+' noches';
-  document.getElementById('p-rate').textContent=CONFIG.PRECIO_NOCHE+'€';
+  const isEN=document.body.classList.contains('en');
+  document.getElementById('p-nights').textContent=nights+(isEN?' nights':' noches');
+  document.getElementById('p-rate').textContent=precio+'€ / '+(isEN?'night':'noche')+' · '+(isEN?temp.en:temp.es);
   document.getElementById('p-sub').textContent=sub+'€';
   document.getElementById('p-total').textContent=total+'€';
   document.getElementById('p-total-2').textContent=total+'€';
@@ -982,6 +1084,10 @@ document.addEventListener('keydown',e=>{
   if(e.key==='ArrowRight')lbNav(1);
   if(e.key==='ArrowLeft')lbNav(-1);
 });
+
+// Set Instagram links from CONFIG
+const igUrl = 'https://instagram.com/' + CONFIG.INSTAGRAM;
+document.querySelectorAll('#ig-float-btn, #ig-footer').forEach(el => el.href = igUrl);
 
 // Scroll reveal
 const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')}),{threshold:.1});
