@@ -182,6 +182,12 @@ h1 em{font-style:italic;color:var(--gold)}
 .bkl-d{background:rgba(201,168,76,.1);color:var(--gold);border:1px solid rgba(201,168,76,.32)}
 .bkl-d:hover{background:var(--gold);color:#0e0c09}
 
+/* ── SUPERHOST ── */
+.superhost-badge{display:flex;align-items:flex-start;gap:1.25rem;background:#231d13;border:1px solid rgba(201,168,76,.2);border-radius:2px;padding:1.4rem 1.75rem;margin:1.5rem 0;max-width:600px}
+.sh-icon{font-size:2rem;flex-shrink:0}
+.sh-title{font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:var(--gold);margin-bottom:.3rem}
+.sh-desc{font-size:.75rem;color:var(--stone);line-height:1.65}
+
 /* ── REVIEWS ── */
 .rv-section{background:#161209}
 .rv-scores{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin:2rem 0 2.5rem;padding:1.75rem 2rem;background:#231d13;border:1px solid rgba(201,168,76,.12);border-radius:2px}
@@ -333,6 +339,36 @@ body.en [lc="en"]{display:revert}
   .gi{height:65vw}
   .gm-grid{grid-template-columns:1fr}
   .strip-item{font-size:.62rem}
+/* ── PRECIO TABLE ── */
+.price-table{margin-top:2.5rem;border:1px solid rgba(201,168,76,.15);border-radius:2px;overflow:hidden}
+.pt-row{display:grid;grid-template-columns:1.2fr 2fr 1fr 1fr;align-items:center}
+.pt-head{background:rgba(201,168,76,.08);border-bottom:1px solid rgba(201,168,76,.15)}
+.pt-head .pt-cell{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);padding:.9rem 1.25rem;font-weight:500}
+.pt-cell{padding:1.1rem 1.25rem;font-size:.85rem;color:var(--stone);border-bottom:1px solid rgba(201,168,76,.07)}
+.pt-row:last-child .pt-cell{border-bottom:none}
+.pt-alta{background:rgba(201,168,76,.04)}
+.pt-media{background:rgba(201,168,76,.02)}
+.pt-baja{}
+.pt-price{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:400;color:var(--gold)}
+.pt-badge{font-size:.7rem;font-weight:500;letter-spacing:.06em;display:inline-flex;align-items:center;gap:.3rem}
+.pt-badge-alta{color:#ff9a9a}
+.pt-badge-media{color:#ffd97a}
+.pt-badge-baja{color:#9affb4}
+.pt-extras{display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem;margin-top:1.5rem}
+.pt-extra-item{background:#231d13;border:1px solid rgba(201,168,76,.1);border-radius:2px;padding:1.4rem;display:flex;gap:.9rem;align-items:flex-start}
+.pt-extra-ico{font-size:1.4rem;flex-shrink:0}
+.pt-extra-title{font-size:.75rem;font-weight:500;color:var(--ink);margin-bottom:.3rem}
+.pt-extra-desc{font-size:.72rem;color:var(--stone);line-height:1.6}
+@media(max-width:1100px){
+  .pt-row{grid-template-columns:1fr 1.5fr 1fr}
+  .pt-extras{grid-template-columns:1fr 1fr}
+}
+@media(max-width:600px){
+  .pt-row{grid-template-columns:1fr 1fr}
+  .pt-head .pt-cell:nth-child(4),.pt-cell:nth-child(4){display:none}
+  .pt-extras{grid-template-columns:1fr}
+}
+
 /* ── COOKIE BANNER ── */
 .cookie-banner{position:fixed;bottom:0;left:0;right:0;z-index:400;background:#1e1810;border-top:1px solid rgba(201,168,76,.2);padding:1.25rem 2rem;transform:translateY(100%);transition:transform .4s ease;box-shadow:0 -4px 24px rgba(0,0,0,.4)}
 .cookie-banner.show{transform:translateY(0)}
@@ -384,6 +420,7 @@ body.en [lc="en"]{display:revert}
       <li><a href="#galeria" lc="es">Galería</a><a href="#galeria" lc="en">Gallery</a></li>
       <li><a href="#comodidades" lc="es">Comodidades</a><a href="#comodidades" lc="en">Amenities</a></li>
       <li><a href="#ubicacion" lc="es">Ubicación</a><a href="#ubicacion" lc="en">Location</a></li>
+      <li><a href="#precios" lc="es">Precios</a><a href="#precios" lc="en">Rates</a></li>
       <li><a href="granada.html" lc="es">Guía Granada</a><a href="granada.html" lc="en">Granada Guide</a></li>
       <li><a onclick="openResModal()" class="nav-book" href="#" lc="es">Reservar</a><a onclick="openResModal()" class="nav-book" href="#" lc="en">Book Now</a></li>
     </ul>
@@ -424,9 +461,11 @@ body.en [lc="en"]{display:revert}
     <p class="hero-desc" lc="es">Apartamento completamente reformado con suelo radiante, cocina de diseño y vistas a Sierra Nevada. A 5 minutos del centro de Granada, con parking privado incluido.</p>
     <p class="hero-desc" lc="en">Fully renovated apartment with underfloor heating, designer kitchen and views of Sierra Nevada. 5 minutes from Granada city centre, with private parking included.</p>
     <div class="hero-score">
-      <span class="score-n">9,8</span>
-      <span lc="es">Excepcional · 39 valoraciones · Booking.com</span>
-      <span lc="en">Exceptional · 39 reviews · Booking.com</span>
+      <span class="score-n" style="font-size:1.2rem">9,8</span>
+      <span lc="es">Booking · </span><span lc="en">Booking · </span>
+      <span class="score-n" style="font-size:1.2rem">4,95★</span>
+      <span lc="es">Airbnb · 🏅 Superanfitrión</span>
+      <span lc="en">Airbnb · 🏅 Superhost</span>
     </div>
     <div class="hero-btns">
       <a onclick="openResModal()" class="btn-primary" href="#" lc="es">✦ Reservar ahora</a>
@@ -438,7 +477,8 @@ body.en [lc="en"]{display:revert}
       <div class="hstat"><div class="hstat-n">3</div><div class="hstat-l" lc="es">Habitaciones</div><div class="hstat-l" lc="en">Bedrooms</div></div>
       <div class="hstat"><div class="hstat-n">5</div><div class="hstat-l" lc="es">Huéspedes</div><div class="hstat-l" lc="en">Guests</div></div>
       <div class="hstat"><div class="hstat-n">5'</div><div class="hstat-l" lc="es">A Granada</div><div class="hstat-l" lc="en">To Granada</div></div>
-      <div class="hstat"><div class="hstat-n">9.8</div><div class="hstat-l" lc="es">Puntuación</div><div class="hstat-l" lc="en">Score</div></div>
+      <div class="hstat"><div class="hstat-n">4,95</div><div class="hstat-l">Airbnb ★</div></div>
+      <div class="hstat"><div class="hstat-n">🏅</div><div class="hstat-l" lc="es">Superanfitrión</div><div class="hstat-l" lc="en">Superhost</div></div>
     </div>
   </div>
   <div class="hero-right" onclick="openGalModal()" style="cursor:pointer">
@@ -552,6 +592,99 @@ body.en [lc="en"]{display:revert}
   </div>
 </section>
 
+<!-- PRECIOS -->
+<section style="background:#0e0c09;" class="sp" id="precios">
+  <p class="sec-lbl rv-a" lc="es">Tarifas</p>
+  <p class="sec-lbl rv-a" lc="en">Rates</p>
+  <h2 class="sec-h rv-a"><span lc="es">Precios por <em>temporada</em></span><span lc="en">Seasonal <em>rates</em></span></h2>
+  <p class="sec-p rv-a" lc="es">El precio se calcula automáticamente según tus fechas al reservar. Fianza de 150€ retenida en tarjeta y devuelta tras el checkout.</p>
+  <p class="sec-p rv-a" lc="en">Price is calculated automatically based on your dates when booking. €150 deposit held on card and returned after checkout.</p>
+
+  <!-- Tabla de precios -->
+  <div class="price-table rv-a">
+    <div class="pt-row pt-head">
+      <div class="pt-cell" lc="es">Temporada</div><div class="pt-cell" lc="en">Season</div>
+      <div class="pt-cell" lc="es">Meses</div><div class="pt-cell" lc="en">Months</div>
+      <div class="pt-cell" lc="es">Precio / noche</div><div class="pt-cell" lc="en">Price / night</div>
+      <div class="pt-cell" lc="es">Mín. noches</div><div class="pt-cell" lc="en">Min. nights</div>
+    </div>
+    <div class="pt-row pt-alta">
+      <div class="pt-cell">
+        <span class="pt-badge pt-badge-alta">🔴 <span lc="es">Alta</span><span lc="en">High</span></span>
+      </div>
+      <div class="pt-cell" lc="es">Jul · Ago · Semana Santa · Navidad</div>
+      <div class="pt-cell" lc="en">Jul · Aug · Easter · Christmas</div>
+      <div class="pt-cell pt-price">120€</div>
+      <div class="pt-cell">2</div>
+    </div>
+    <div class="pt-row pt-media">
+      <div class="pt-cell">
+        <span class="pt-badge pt-badge-media">🟡 <span lc="es">Media</span><span lc="en">Mid</span></span>
+      </div>
+      <div class="pt-cell" lc="es">Abr · May · Jun · Sep · Oct</div>
+      <div class="pt-cell" lc="en">Apr · May · Jun · Sep · Oct</div>
+      <div class="pt-cell pt-price">90€</div>
+      <div class="pt-cell">2</div>
+    </div>
+    <div class="pt-row pt-baja">
+      <div class="pt-cell">
+        <span class="pt-badge pt-badge-baja">🟢 <span lc="es">Baja</span><span lc="en">Low</span></span>
+      </div>
+      <div class="pt-cell" lc="es">Ene · Feb · Mar · Nov · Dic</div>
+      <div class="pt-cell" lc="en">Jan · Feb · Mar · Nov · Dec</div>
+      <div class="pt-cell pt-price">70€</div>
+      <div class="pt-cell">2</div>
+    </div>
+  </div>
+
+  <!-- Extras info -->
+  <div class="pt-extras rv-a">
+    <div class="pt-extra-item">
+      <div class="pt-extra-ico">🔑</div>
+      <div>
+        <div class="pt-extra-title" lc="es">Check-in / Check-out</div>
+        <div class="pt-extra-title" lc="en">Check-in / Check-out</div>
+        <div class="pt-extra-desc" lc="es">Entrada: 16:00h · Salida: 11:00h<br>Check-in tardío bajo petición</div>
+        <div class="pt-extra-desc" lc="en">Check-in: 4pm · Check-out: 11am<br>Late check-in on request</div>
+      </div>
+    </div>
+    <div class="pt-extra-item">
+      <div class="pt-extra-ico">🛡️</div>
+      <div>
+        <div class="pt-extra-title" lc="es">Fianza</div>
+        <div class="pt-extra-title" lc="en">Deposit</div>
+        <div class="pt-extra-desc" lc="es">150€ retenidos en tarjeta. Se liberan automáticamente 48h tras el checkout sin incidencias.</div>
+        <div class="pt-extra-desc" lc="en">€150 held on card. Automatically released 48h after checkout with no issues.</div>
+      </div>
+    </div>
+    <div class="pt-extra-item">
+      <div class="pt-extra-ico">🚫</div>
+      <div>
+        <div class="pt-extra-title" lc="es">Cancelación</div>
+        <div class="pt-extra-title" lc="en">Cancellation</div>
+        <div class="pt-extra-desc" lc="es">Cancelación gratuita hasta 7 días antes de la llegada.</div>
+        <div class="pt-extra-desc" lc="en">Free cancellation up to 7 days before arrival.</div>
+      </div>
+    </div>
+    <div class="pt-extra-item">
+      <div class="pt-extra-ico">👶</div>
+      <div>
+        <div class="pt-extra-title" lc="es">Niños y mascotas</div>
+        <div class="pt-extra-title" lc="en">Children & pets</div>
+        <div class="pt-extra-desc" lc="es">Niños bienvenidos. Mascotas consultar.</div>
+        <div class="pt-extra-desc" lc="en">Children welcome. Pets — please enquire.</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="text-align:center;margin-top:2.5rem">
+    <button onclick="openResModal()" class="btn-primary">
+      <span lc="es">✦ Calcular precio para mis fechas</span>
+      <span lc="en">✦ Calculate price for my dates</span>
+    </button>
+  </div>
+</section>
+
 <!-- BOOKING -->
 <section class="bk-section sp" id="reservar">
   <p class="sec-lbl rv-a" lc="es">Reserva tu estancia</p>
@@ -585,10 +718,96 @@ body.en [lc="en"]{display:revert}
 <section class="rv-section sp-sm">
   <p class="sec-lbl rv-a" lc="es">Lo que dicen nuestros huéspedes</p>
   <p class="sec-lbl rv-a" lc="en">What our guests say</p>
-  <h2 class="sec-h rv-a"><span lc="es"><em>9,8</em> Excepcional · Booking.com</span><span lc="en"><em>9.8</em> Exceptional · Booking.com</span></h2>
+  <h2 class="sec-h rv-a">
+    <span lc="es"><em>9,8</em> Booking · <em>4,95★</em> Airbnb</span>
+    <span lc="en"><em>9.8</em> Booking · <em>4.95★</em> Airbnb</span>
+  </h2>
 
-  <!-- Puntuaciones detalladas -->
+  <!-- Superanfitrión badge -->
+  <div class="superhost-badge rv-a">
+    <div class="sh-icon">🏅</div>
+    <div>
+      <div class="sh-title" lc="es">Raquel es Superanfitrión</div>
+      <div class="sh-title" lc="en">Raquel is a Superhost</div>
+      <div class="sh-desc" lc="es">Los Superanfitriones tienen una larga trayectoria de valoraciones de 5 estrellas, cancelaciones nulas y respuestas rápidas.</div>
+      <div class="sh-desc" lc="en">Superhosts have a long track record of 5-star reviews, zero cancellations and fast responses.</div>
+    </div>
+  </div>
+
+  <!-- Puntuaciones Booking -->
   <div class="rv-scores rv-a">
+    <div class="rv-score-item">
+      <span class="rv-score-label" lc="es">Ubicación</span>
+      <span class="rv-score-label" lc="en">Location</span>
+      <div class="rv-score-bar"><div class="rv-score-fill" style="width:93%"></div></div>
+      <span class="rv-score-num">9,3</span>
+    </div>
+    <div class="rv-score-item">
+      <span class="rv-score-label" lc="es">Limpieza</span>
+      <span class="rv-score-label" lc="en">Cleanliness</span>
+      <div class="rv-score-bar"><div class="rv-score-fill" style="width:98%"></div></div>
+      <span class="rv-score-num">9,8</span>
+    </div>
+    <div class="rv-score-item">
+      <span class="rv-score-label" lc="es">Calidad-precio</span>
+      <span class="rv-score-label" lc="en">Value for money</span>
+      <div class="rv-score-bar"><div class="rv-score-fill" style="width:95%"></div></div>
+      <span class="rv-score-num">9,5</span>
+    </div>
+  </div>
+
+  <div class="rv-wrap">
+    <!-- Airbnb reviews -->
+    <div class="rv rv-a">
+      <div class="rv-q">"</div>
+      <div class="rv-stars">★★★★★</div>
+      <p class="rv-txt">Hemos viajado mucho con AirB&B y esta es sin duda la casa más limpia y cuidada de todas las que hemos estado. Estaba hecha al detalle, pensando siempre en la comodidad del huésped. Raquel es muy amable y atenta. Es espaciosa, luminosa, tranquila... Inmejorable. 100% recomendable.</p>
+      <div class="rv-aut">— David · 🇪🇸 España · Airbnb · julio 2025</div>
+    </div>
+    <div class="rv rv-a">
+      <div class="rv-q">"</div>
+      <div class="rv-stars">★★★★★</div>
+      <p class="rv-txt">Nos hemos sentido como en casa. El piso es muy amplio y está nuevo. Todo muy limpio y ordenado, la calefacción en el suelo es perfecta para los días fríos. Raquel ha sido muy amable y respondía muy rápido. Nos encantará volver.</p>
+      <div class="rv-aut">— Laura · 🇪🇸 España · Airbnb · hace 2 semanas</div>
+    </div>
+    <div class="rv rv-a">
+      <div class="rv-q">"</div>
+      <div class="rv-stars">★★★★★</div>
+      <p class="rv-txt">Un apartamento estupendo, fuimos 5 personas y dormimos de lujo, las camas muy cómodas, el sofá enorme, super espacioso, incluso con suelo radiante para el frío. La cocina tiene de todo y un baño increíble. Super recomendado.</p>
+      <div class="rv-aut">— Anttonio · 🇪🇸 España · Airbnb · diciembre 2025</div>
+    </div>
+    <div class="rv rv-a">
+      <div class="rv-q">"</div>
+      <div class="rv-stars">★★★★★</div>
+      <p class="rv-txt">Hemos estado estupendamente en casa de Raquel. La casa cuenta con todas las comodidades y se nota que está recién restaurada. La atención y respuesta de Raquel es inmediata. Todo fantástico, la ubicación ideal. Volveremos.</p>
+      <div class="rv-aut">— Amelia · 🇪🇸 España · Airbnb · noviembre 2025</div>
+    </div>
+    <!-- Booking reviews -->
+    <div class="rv rv-a">
+      <div class="rv-q">"</div>
+      <div class="rv-stars">★★★★★</div>
+      <p class="rv-txt">Piso muy amplio y limpio, cercano a Granada, totalmente recomendable.</p>
+      <div class="rv-aut">— Arturo · 🇪🇸 España · Booking.com</div>
+    </div>
+    <div class="rv rv-a">
+      <div class="rv-q">"</div>
+      <div class="rv-stars">★★★★★</div>
+      <p class="rv-txt">Recién reformado, limpísimo, camas súper cómodas, lugar tranquilo, buena comunicación con Granada capital y los dueños un encanto.</p>
+      <div class="rv-aut">— Cristina · 🇪🇸 España · Booking.com</div>
+    </div>
+  </div>
+
+  <div style="text-align:center;margin-top:2rem;display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
+    <a href="https://www.booking.com/hotel/es/piso-turistico-granada.es.html" target="_blank" class="btn-secondary" style="display:inline-flex">
+      <span lc="es">Ver 39 valoraciones en Booking →</span>
+      <span lc="en">View 39 reviews on Booking →</span>
+    </a>
+    <a href="https://www.airbnb.es/rooms/1422916654816917450" target="_blank" class="btn-secondary" style="display:inline-flex">
+      <span lc="es">Ver 22 valoraciones en Airbnb →</span>
+      <span lc="en">View 22 reviews on Airbnb →</span>
+    </a>
+  </div>
+</section>
     <div class="rv-score-item">
       <span class="rv-score-label" lc="es">Ubicación</span>
       <span class="rv-score-label" lc="en">Location</span>
@@ -758,7 +977,7 @@ body.en [lc="en"]{display:revert}
           <div class="price-row"><span lc="es">Noches</span><span lc="en">Nights</span><span id="p-nights">—</span></div>
           <div class="price-row"><span lc="es">Precio por noche</span><span lc="en">Price per night</span><span id="p-rate">—</span></div>
           <div class="price-row"><span lc="es">Subtotal</span><span lc="en">Subtotal</span><span id="p-sub">—</span></div>
-          <div class="price-row"><span lc="es">Fianza (retenida)</span><span lc="en">Deposit (held)</span><span id="p-dep">300 €</span></div>
+          <div class="price-row"><span lc="es">Fianza (retenida)</span><span lc="en">Deposit (held)</span><span id="p-dep">150 €</span></div>
           <div class="price-row total">
             <span lc="es">Total a pagar ahora</span><span lc="en">Total to pay now</span>
             <span id="p-total">—</span>
@@ -958,7 +1177,7 @@ const CONFIG = {
   MESES_MEDIA: [5, 6, 9, 10],   // May, Jun, Sep, Oct
 
   // 4. Fianza retenida (no se cobra)
-  FIANZA: 300,
+  FIANZA: 150,
 
   // 5. Tu email
   EMAIL_ANFITRION: 'roscas87@gmail.com',
