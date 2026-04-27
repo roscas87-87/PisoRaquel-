@@ -326,10 +326,13 @@ body.en [lc="en"]{display:revert}
   .bk-cards,.rv-wrap{grid-template-columns:1fr}
   .rv-scores{grid-template-columns:1fr}
   .ct-inner{grid-template-columns:1fr;gap:2.5rem}
-  .strip{padding:1.2rem 1.5rem;gap:1.2rem}
+  /* Strip centrado en móvil */
+  .strip{padding:1.2rem 1.5rem;gap:.9rem;flex-direction:column;align-items:center}
+  .strip-item{justify-content:center}
+  /* Amenities 1 columna */
+  .am-grid{grid-template-columns:1fr!important}
   footer{padding:2rem 1.8rem;flex-direction:column;text-align:center}
   .frow{grid-template-columns:1fr}
-  /* modal mobile */
   .gm-grid{grid-template-columns:1fr 1fr}
 }
 @media(max-width:500px){
@@ -339,6 +342,7 @@ body.en [lc="en"]{display:revert}
   .gi{height:65vw}
   .gm-grid{grid-template-columns:1fr}
   .strip-item{font-size:.62rem}
+}
 /* ── PRECIO CARDS ── */
 .price-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-top:2.5rem}
 .price-card{background:#231d13;border:1px solid rgba(201,168,76,.15);border-radius:2px;padding:2rem 1.75rem;text-align:center;transition:.25s}
@@ -395,9 +399,9 @@ body.en [lc="en"]{display:revert}
 .float-btn-ig:hover{opacity:.9}
 @media(max-width:600px){
   .float-btns{bottom:1.25rem;right:1rem;gap:.6rem}
-  .float-btn{padding:.85rem;border-radius:50%;width:54px;height:54px;justify-content:center}
+  .float-btn{padding:.85rem;border-radius:50%;width:50px;height:50px;justify-content:center}
   .float-label{display:none}
-  .float-icon{font-size:1.3rem}
+  .float-icon{font-size:1.2rem}
 }
 </style>
 </head>
