@@ -196,7 +196,7 @@ h1 em{font-style:italic;color:var(--gold)}
 .rv-score-bar{flex:1;height:4px;background:rgba(201,168,76,.15);border-radius:2px;overflow:hidden}
 .rv-score-fill{height:100%;background:var(--gold);border-radius:2px}
 .rv-score-num{font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--gold);font-weight:600;flex-shrink:0}
-.rv-wrap{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:2rem}
+.rv-wrap{display:grid;grid-template-columns:repeat(2,1fr);gap:1.25rem;margin-top:2rem}
 .rv{background:#231d13;border:1px solid rgba(201,168,76,.1);padding:1.75rem;border-radius:2px;position:relative}
 .rv-q{font-family:'Cormorant Garamond',serif;font-size:3rem;color:var(--gold);opacity:.2;position:absolute;top:.8rem;right:1.2rem;line-height:1}
 .rv-stars{color:var(--gold);font-size:.75rem;margin-bottom:.6rem;letter-spacing:.1em}
@@ -339,36 +339,30 @@ body.en [lc="en"]{display:revert}
   .gi{height:65vw}
   .gm-grid{grid-template-columns:1fr}
   .strip-item{font-size:.62rem}
-/* ── PRECIO TABLE ── */
-.price-table{margin-top:2.5rem;border:1px solid rgba(201,168,76,.15);border-radius:2px;overflow:hidden}
-.pt-row{display:grid;grid-template-columns:1.2fr 2fr 1fr 1fr;align-items:center}
-.pt-head{background:rgba(201,168,76,.08);border-bottom:1px solid rgba(201,168,76,.15)}
-.pt-head .pt-cell{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);padding:.9rem 1.25rem;font-weight:500}
-.pt-cell{padding:1.1rem 1.25rem;font-size:.85rem;color:var(--stone);border-bottom:1px solid rgba(201,168,76,.07)}
-.pt-row:last-child .pt-cell{border-bottom:none}
-.pt-alta{background:rgba(201,168,76,.04)}
-.pt-media{background:rgba(201,168,76,.02)}
-.pt-baja{}
-.pt-price{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:400;color:var(--gold)}
-.pt-badge{font-size:.7rem;font-weight:500;letter-spacing:.06em;display:inline-flex;align-items:center;gap:.3rem}
-.pt-badge-alta{color:#ff9a9a}
-.pt-badge-media{color:#ffd97a}
-.pt-badge-baja{color:#9affb4}
+/* ── PRECIO CARDS ── */
+.price-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-top:2.5rem}
+.price-card{background:#231d13;border:1px solid rgba(201,168,76,.15);border-radius:2px;padding:2rem 1.75rem;text-align:center;transition:.25s}
+.price-card:hover{transform:translateY(-4px);border-color:rgba(201,168,76,.4);box-shadow:0 12px 32px rgba(0,0,0,.3)}
+.pc-alta{border-top:3px solid #ff9a9a}
+.pc-media{border-top:3px solid #ffd97a}
+.pc-baja{border-top:3px solid #9affb4}
+.pc-season{display:flex;align-items:center;justify-content:center;gap:.5rem;margin-bottom:1.25rem}
+.pc-season-name{font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--stone)}
+.pc-amount{font-family:'Cormorant Garamond',serif;font-size:3.5rem;font-weight:300;color:var(--gold);line-height:1;margin-bottom:.4rem}
+.pc-unit{font-size:1rem;color:var(--stone);font-family:'DM Sans',sans-serif}
+.pc-months{font-size:.75rem;color:var(--stone);line-height:1.6;margin:.75rem 0 .5rem;min-height:2.5rem}
+.pc-min{font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(201,168,76,.5);margin-top:.5rem}
+@media(max-width:700px){
+  .price-cards{grid-template-columns:1fr;max-width:360px;margin-left:auto;margin-right:auto}
+  .pc-months{min-height:auto}
+}
+
 .pt-extras{display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem;margin-top:1.5rem}
 .pt-extra-item{background:#231d13;border:1px solid rgba(201,168,76,.1);border-radius:2px;padding:1.4rem;display:flex;gap:.9rem;align-items:flex-start}
 .pt-extra-ico{font-size:1.4rem;flex-shrink:0}
 .pt-extra-title{font-size:.75rem;font-weight:500;color:var(--ink);margin-bottom:.3rem}
 .pt-extra-desc{font-size:.72rem;color:var(--stone);line-height:1.6}
-@media(max-width:1100px){
-  .pt-row{grid-template-columns:1fr 1.5fr 1fr}
-  .pt-extras{grid-template-columns:1fr 1fr}
-}
-@media(max-width:600px){
-  .pt-row{grid-template-columns:1fr 1fr}
-  .pt-head .pt-cell:nth-child(4),.pt-cell:nth-child(4){display:none}
-  .pt-extras{grid-template-columns:1fr}
-}
-
+@media(max-width:1100px){.pt-extras{grid-template-columns:1fr 1fr}}
 /* ── COOKIE BANNER ── */
 .cookie-banner{position:fixed;bottom:0;left:0;right:0;z-index:400;background:#1e1810;border-top:1px solid rgba(201,168,76,.2);padding:1.25rem 2rem;transform:translateY(100%);transition:transform .4s ease;box-shadow:0 -4px 24px rgba(0,0,0,.4)}
 .cookie-banner.show{transform:translateY(0)}
@@ -600,40 +594,43 @@ body.en [lc="en"]{display:revert}
   <p class="sec-p rv-a" lc="es">El precio se calcula automáticamente según tus fechas al reservar. Fianza de 150€ retenida en tarjeta y devuelta tras el checkout.</p>
   <p class="sec-p rv-a" lc="en">Price is calculated automatically based on your dates when booking. €150 deposit held on card and returned after checkout.</p>
 
-  <!-- Tabla de precios -->
-  <div class="price-table rv-a">
-    <div class="pt-row pt-head">
-      <div class="pt-cell" lc="es">Temporada</div><div class="pt-cell" lc="en">Season</div>
-      <div class="pt-cell" lc="es">Meses</div><div class="pt-cell" lc="en">Months</div>
-      <div class="pt-cell" lc="es">Precio / noche</div><div class="pt-cell" lc="en">Price / night</div>
-      <div class="pt-cell" lc="es">Mín. noches</div><div class="pt-cell" lc="en">Min. nights</div>
-    </div>
-    <div class="pt-row pt-alta">
-      <div class="pt-cell">
-        <span class="pt-badge pt-badge-alta">🔴 <span lc="es">Alta</span><span lc="en">High</span></span>
+  <!-- Tarjetas de precio -->
+  <div class="price-cards rv-a">
+    <div class="price-card pc-alta">
+      <div class="pc-season">
+        <span class="pc-dot">🔴</span>
+        <span class="pc-season-name" lc="es">Temporada Alta</span>
+        <span class="pc-season-name" lc="en">High Season</span>
       </div>
-      <div class="pt-cell" lc="es">Jul · Ago · Semana Santa · Navidad</div>
-      <div class="pt-cell" lc="en">Jul · Aug · Easter · Christmas</div>
-      <div class="pt-cell pt-price">120€</div>
-      <div class="pt-cell">2</div>
+      <div class="pc-amount">90€<span class="pc-unit" lc="es">/noche</span><span class="pc-unit" lc="en">/night</span></div>
+      <div class="pc-months" lc="es">Julio · Agosto · Semana Santa · Navidad</div>
+      <div class="pc-months" lc="en">July · August · Easter · Christmas</div>
+      <div class="pc-min" lc="es">Mín. 2 noches</div>
+      <div class="pc-min" lc="en">Min. 2 nights</div>
     </div>
-    <div class="pt-row pt-media">
-      <div class="pt-cell">
-        <span class="pt-badge pt-badge-media">🟡 <span lc="es">Media</span><span lc="en">Mid</span></span>
+    <div class="price-card pc-media">
+      <div class="pc-season">
+        <span class="pc-dot">🟡</span>
+        <span class="pc-season-name" lc="es">Temporada Media</span>
+        <span class="pc-season-name" lc="en">Mid Season</span>
       </div>
-      <div class="pt-cell" lc="es">Abr · May · Jun · Sep · Oct</div>
-      <div class="pt-cell" lc="en">Apr · May · Jun · Sep · Oct</div>
-      <div class="pt-cell pt-price">90€</div>
-      <div class="pt-cell">2</div>
+      <div class="pc-amount">70€<span class="pc-unit" lc="es">/noche</span><span class="pc-unit" lc="en">/night</span></div>
+      <div class="pc-months" lc="es">Abril · Mayo · Junio · Septiembre · Octubre</div>
+      <div class="pc-months" lc="en">April · May · June · September · October</div>
+      <div class="pc-min" lc="es">Mín. 2 noches</div>
+      <div class="pc-min" lc="en">Min. 2 nights</div>
     </div>
-    <div class="pt-row pt-baja">
-      <div class="pt-cell">
-        <span class="pt-badge pt-badge-baja">🟢 <span lc="es">Baja</span><span lc="en">Low</span></span>
+    <div class="price-card pc-baja">
+      <div class="pc-season">
+        <span class="pc-dot">🟢</span>
+        <span class="pc-season-name" lc="es">Temporada Baja</span>
+        <span class="pc-season-name" lc="en">Low Season</span>
       </div>
-      <div class="pt-cell" lc="es">Ene · Feb · Mar · Nov · Dic</div>
-      <div class="pt-cell" lc="en">Jan · Feb · Mar · Nov · Dec</div>
-      <div class="pt-cell pt-price">70€</div>
-      <div class="pt-cell">2</div>
+      <div class="pc-amount">50€<span class="pc-unit" lc="es">/noche</span><span class="pc-unit" lc="en">/night</span></div>
+      <div class="pc-months" lc="es">Enero · Febrero · Marzo · Noviembre · Diciembre</div>
+      <div class="pc-months" lc="en">January · February · March · November · December</div>
+      <div class="pc-min" lc="es">Mín. 2 noches</div>
+      <div class="pc-min" lc="en">Min. 2 nights</div>
     </div>
   </div>
 
@@ -1167,9 +1164,9 @@ const CONFIG = {
 
   // 2. Precios por temporada (€/noche)
   PRECIOS: {
-    alta:  120,  // Jul, Ago, Semana Santa, Navidad, Año Nuevo
-    media:  90,  // Abr, May, Jun, Sep, Oct
-    baja:   70,  // Ene, Feb, Mar, Nov, Dic
+    alta:   90,  // Jul, Ago, Semana Santa, Navidad
+    media:  70,  // Abr, May, Jun, Sep, Oct
+    baja:   50,  // Ene, Feb, Mar, Nov, Dic
   },
 
   // 3. Meses de temporada alta (1=Ene ... 12=Dic)
