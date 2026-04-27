@@ -407,8 +407,9 @@ body.en [lc="en"]{display:revert}
 .pc-months{font-size:.75rem;color:var(--stone);line-height:1.6;margin:.75rem 0 .5rem;min-height:2.5rem}
 .pc-min{font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(201,168,76,.5);margin-top:.5rem}
 @media(max-width:700px){
-  .price-cards{grid-template-columns:1fr;max-width:360px;margin-left:auto;margin-right:auto}
+  .price-cards{grid-template-columns:1fr;max-width:340px;margin-left:auto;margin-right:auto}
   .pc-months{min-height:auto}
+  .price-note-global{padding:0 1rem}
 }
 
 .pt-extras{display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem;margin-top:1.5rem}
@@ -461,7 +462,7 @@ body.en [lc="en"]{display:revert}
 <nav>
   <div class="nav-inner">
     <a href="index.html" class="nav-logo">
-      <img src="img/logo.png" alt="Vega Granada" class="nav-logo-img">
+      <img src="img/header.png" alt="Vega Granada" class="nav-logo-img" onerror="this.src='img/logo.png'">
     </a>
     <ul class="nav-links">
       <li><a href="#galeria" lc="es">Galería</a><a href="#galeria" lc="en">Gallery</a></li>
@@ -745,8 +746,8 @@ body.en [lc="en"]{display:revert}
     </div>
   </div>
 
-  <div style="text-align:center;margin-top:2.5rem">
-    <button onclick="openResModal()" class="btn-primary">
+  <div style="text-align:center;margin-top:2.5rem;padding:0 1rem">
+    <button onclick="openResModal()" class="btn-primary" style="max-width:100%;white-space:normal">
       <span lc="es">✦ Calcular precio para mis fechas</span>
       <span lc="en">✦ Calculate price for my dates</span>
     </button>
