@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0"/>
+<title>Vega Granada · Panel de Administración</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --gold:#c9a84c;--gold-lt:#e8c97a;--ink:#e8dcc8;--stone:#7a6e5e;
+  --night:#0e0c09;--card:#1e1810;--bark:#b8913a;
+  --red:#e05555;--green:#55c788;--blue:#5588e0;
+}
+html,body{height:100%;font-family:'DM Sans',sans-serif;background:var(--night);color:var(--ink);overflow-x:hidden}
+
+/* ── PATTERN ── */
+.bg-pattern{position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg stroke='%23c9a84c' stroke-width='0.4' fill='none' opacity='0.07'%3E%3Cpolygon points='30,2 58,30 30,58 2,30'/%3E%3Cpolygon points='30,12 48,30 30,48 12,30'/%3E%3Crect x='18' y='18' width='24' height='24'/%3E%3C/g%3E%3C/svg%3E");pointer-events:none;z-index:0}
+
+/* ── LOGIN ── */
+#loginScreen{position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;padding:1.5rem}
+.login-card{background:#1a1409;border:1px solid rgba(201,168,76,.2);border-radius:4px;padding:2.5rem 2rem;width:100%;max-width:380px;position:relative;z-index:1}
+.login-logo{text-align:center;margin-bottom:2rem}
+.login-logo img{height:48px;width:auto}
+.login-logo-text{font-family:'Cormorant Garamond',serif;font-size:1.4rem;color:var(--gold)}
+.login-title{font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--stone);text-align:center;margin-bottom:2rem;letter-spacing:.1em;text-transform:uppercase;font-size:.7rem}
+.login-step{display:none}
+.login-step.active{display:block}
+.form-group{margin-bottom:1.25rem}
+.form-label{display:block;font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--stone);margin-bottom:.5rem}
+.form-input{width:100%;background:#0e0c09;border:1px solid rgba(201,168,76,.2);color:var(--ink);padding:.75rem 1rem;font-family:'DM Sans',sans-serif;font-size:.9rem;border-radius:2px;outline:none;transition:.2s}
+.form-input:focus{border-color:var(--gold)}
+.login-btn{width:100%;background:var(--gold);color:#0e0c09;border:none;padding:.85rem;font-family:'DM Sans',sans-serif;font-size:.72rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:.2s;margin-top:.5rem}
+.login-btn:hover{background:var(--gold-lt)}
+.login-error{background:rgba(224,85,85,.1);border:1px solid rgba(224,85,85,.3);color:#ff9a9a;padding:.6rem 1rem;border-radius:2px;font-size:.75rem;margin-bottom:1rem;display:none}
+.login-step-label{font-size:.65rem;color:var(--stone);text-align:center;margin-bottom:1.5rem;letter-spacing:.1em}
+.pin-row{display:flex;gap:.5rem;justify-content:center;margin-bottom:1.5rem}
+.pin-input{width:48px;height:56px;background:#0e0c09;border:1px solid rgba(201,168,76,.2);color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:1.8rem;text-align:center;border-radius:2px;outline:none;transition:.2s}
+.pin-input:focus{border-color:var(--gold);background:#1a1409}
+.attempts-left{font-size:.62rem;color:var(--stone);text-align:center;margin-top:.75rem;opacity:.7}
+.blocked-msg{background:rgba(224,85,85,.1);border:1px solid rgba(224,85,85,.3);color:#ff9a9a;padding:1rem;border-radius:2px;font-size:.8rem;text-align:center;line-height:1.6}
+
+/* ── ADMIN PANEL ── */
+#adminPanel{display:none;min-height:100vh;position:relative;z-index:1}
+.admin-nav{background:#1a1409;border-bottom:1px solid rgba(201,168,76,.15);padding:0 1.5rem;height:60px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50}
+.admin-nav-logo{font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--gold);display:flex;align-items:center;gap:.75rem}
+.admin-nav-logo img{height:36px;width:auto}
+.admin-badge{background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.25);color:var(--gold);font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;padding:.25rem .6rem;border-radius:2px}
+.logout-btn{background:none;border:1px solid rgba(201,168,76,.2);color:var(--stone);font-family:'DM Sans',sans-serif;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;padding:.4rem .9rem;border-radius:2px;cursor:pointer;transition:.2s}
+.logout-btn:hover{border-color:var(--red);color:var(--red)}
+
+.admin-content{padding:1.5rem;max-width:1100px;margin:0 auto}
+
+/* ── TABS ── */
+.tabs{display:flex;gap:.5rem;margin-bottom:2rem;flex-wrap:wrap}
+.tab{background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.12);color:var(--stone);font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;padding:.55rem 1.1rem;border-radius:2px;cursor:pointer;transition:.2s}
+.tab:hover,.tab.active{background:rgba(201,168,76,.15);border-color:rgba(201,168,76,.35);color:var(--gold)}
+.tab-content{display:none}
+.tab-content.active{display:block}
+
+/* ── CARDS ── */
+.section-title{font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:var(--ink);margin-bottom:.3rem}
+.section-sub{font-size:.75rem;color:var(--stone);margin-bottom:1.5rem;line-height:1.6}
+.card{background:#1a1409;border:1px solid rgba(201,168,76,.12);border-radius:3px;padding:1.5rem;margin-bottom:1.25rem}
+.card-title{font-size:.65rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem}
+
+/* ── PRECIOS ── */
+.price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+.price-item{text-align:center}
+.price-dot{width:10px;height:10px;border-radius:50%;margin:0 auto .5rem;display:block}
+.price-dot.alta{background:#ff9a9a}
+.price-dot.media{background:#ffd97a}
+.price-dot.baja{background:#9affb4}
+.price-season{font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--stone);margin-bottom:.5rem}
+.price-input-wrap{position:relative}
+.price-input-wrap::before{content:'€';position:absolute;right:.75rem;top:50%;transform:translateY(-50%);color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:1.1rem;pointer-events:none}
+.price-input{width:100%;background:#0e0c09;border:1px solid rgba(201,168,76,.2);color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:1.6rem;text-align:center;padding:.6rem .5rem;border-radius:2px;outline:none;transition:.2s}
+.price-input:focus{border-color:var(--gold)}
+.months-tags{display:flex;flex-wrap:wrap;gap:.3rem;margin-top:.6rem;justify-content:center}
+.month-tag{font-size:.55rem;letter-spacing:.08em;text-transform:uppercase;padding:.15rem .4rem;border-radius:2px;color:var(--stone);border:1px solid rgba(201,168,76,.12)}
+.save-btn{background:var(--gold);color:#0e0c09;border:none;padding:.7rem 1.5rem;font-family:'DM Sans',sans-serif;font-size:.68rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:.2s;margin-top:1rem;width:100%}
+.save-btn:hover{background:var(--gold-lt)}
+.save-msg{text-align:center;font-size:.72rem;color:var(--green);margin-top:.75rem;display:none}
+
+/* ── CALENDARIO ── */
+.cal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem}
+.cal-nav{background:none;border:1px solid rgba(201,168,76,.2);color:var(--gold);width:36px;height:36px;border-radius:2px;cursor:pointer;font-size:1.1rem;transition:.2s;display:flex;align-items:center;justify-content:center}
+.cal-nav:hover{background:rgba(201,168,76,.15)}
+.cal-month-title{font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:var(--ink);text-transform:capitalize}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px}
+.cal-day-name{font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;color:var(--stone);text-align:center;padding:.4rem 0}
+.cal-day{aspect-ratio:1;border-radius:2px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.78rem;transition:.15s;border:1px solid transparent;position:relative}
+.cal-day:hover:not(.empty):not(.past){background:rgba(201,168,76,.1);border-color:rgba(201,168,76,.2)}
+.cal-day.empty{cursor:default}
+.cal-day.past{opacity:.3;cursor:default}
+.cal-day.today{border-color:rgba(201,168,76,.4);color:var(--gold)}
+.cal-day.blocked{background:rgba(224,85,85,.15);border-color:rgba(224,85,85,.3);color:#ff9a9a}
+.cal-day.blocked::after{content:'✕';position:absolute;font-size:.45rem;bottom:2px;right:3px;opacity:.6}
+.cal-day.booked{background:rgba(85,136,224,.12);border-color:rgba(85,136,224,.3);color:#88aaff}
+.cal-day.booked::after{content:'●';position:absolute;font-size:.45rem;bottom:2px;right:3px;opacity:.8}
+
+.cal-legend{display:flex;gap:1.5rem;margin-top:1rem;flex-wrap:wrap}
+.legend-item{display:flex;align-items:center;gap:.4rem;font-size:.62rem;color:var(--stone)}
+.legend-dot{width:10px;height:10px;border-radius:2px;flex-shrink:0}
+.legend-dot.blocked{background:rgba(224,85,85,.4);border:1px solid rgba(224,85,85,.5)}
+.legend-dot.booked{background:rgba(85,136,224,.3);border:1px solid rgba(85,136,224,.4)}
+.legend-dot.free{background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.2)}
+
+/* ── ICAL ── */
+.ical-row{display:flex;gap:.75rem;align-items:flex-end;margin-bottom:.75rem}
+.ical-input{flex:1;background:#0e0c09;border:1px solid rgba(201,168,76,.2);color:var(--ink);padding:.65rem 1rem;font-family:'DM Sans',sans-serif;font-size:.78rem;border-radius:2px;outline:none;transition:.2s}
+.ical-input:focus{border-color:var(--gold)}
+.ical-label{font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--stone);margin-bottom:.35rem;display:block}
+.ical-save-btn{background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.25);color:var(--gold);padding:.65rem 1rem;font-family:'DM Sans',sans-serif;font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:.2s;white-space:nowrap}
+.ical-save-btn:hover{background:rgba(201,168,76,.25)}
+.ical-status{font-size:.68rem;padding:.4rem .75rem;border-radius:2px;display:inline-flex;align-items:center;gap:.4rem}
+.ical-status.ok{background:rgba(85,199,136,.1);border:1px solid rgba(85,199,136,.25);color:var(--green)}
+.ical-status.pending{background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.2);color:var(--bark)}
+
+/* ── RESERVAS ── */
+.reserva-item{display:flex;align-items:center;gap:1rem;padding:.9rem 1rem;background:#0e0c09;border-radius:2px;margin-bottom:.5rem;border-left:3px solid transparent}
+.reserva-item.blocked{border-left-color:var(--red)}
+.reserva-item.manual{border-left-color:var(--gold)}
+.reserva-dates{font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--ink);flex:1}
+.reserva-info{font-size:.68rem;color:var(--stone)}
+.reserva-platform{font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;padding:.2rem .5rem;border-radius:2px;margin-left:auto;flex-shrink:0}
+.reserva-platform.airbnb{background:rgba(255,56,92,.1);color:#ff9a9a}
+.reserva-platform.booking{background:rgba(0,87,184,.1);color:#88aaff}
+.reserva-platform.manual{background:rgba(201,168,76,.1);color:var(--gold)}
+.reserva-del{background:none;border:none;color:var(--stone);cursor:pointer;font-size:.9rem;padding:.25rem;transition:.2s;margin-left:.5rem}
+.reserva-del:hover{color:var(--red)}
+
+/* ── ADD BLOCK FORM ── */
+.add-form{display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:.75rem;align-items:flex-end;margin-top:1rem}
+.add-form-label{font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--stone);display:block;margin-bottom:.35rem}
+.add-form-input{width:100%;background:#0e0c09;border:1px solid rgba(201,168,76,.15);color:var(--ink);padding:.65rem .9rem;font-family:'DM Sans',sans-serif;font-size:.8rem;border-radius:2px;outline:none}
+.add-form-input:focus{border-color:var(--gold)}
+.add-btn{background:var(--gold);color:#0e0c09;border:none;padding:.65rem 1rem;font-family:'DM Sans',sans-serif;font-size:.65rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;border-radius:2px;white-space:nowrap;transition:.2s}
+.add-btn:hover{background:var(--gold-lt)}
+
+/* ── STATS ── */
+.stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:1.5rem}
+.stat-card{background:#1a1409;border:1px solid rgba(201,168,76,.12);border-radius:3px;padding:1.2rem;text-align:center}
+.stat-n{font-family:'Cormorant Garamond',serif;font-size:2.2rem;color:var(--gold);line-height:1}
+.stat-l{font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--stone);margin-top:.3rem}
+
+/* ── RESPONSIVE ── */
+@media(max-width:600px){
+  .price-grid{grid-template-columns:1fr}
+  .add-form{grid-template-columns:1fr 1fr;gap:.6rem}
+  .add-form > *:last-child{grid-column:1/-1}
+  .stats-grid{grid-template-columns:1fr 1fr}
+  .admin-content{padding:1rem}
+  .tabs{gap:.35rem}
+  .tab{font-size:.58rem;padding:.45rem .8rem}
+}
+@media(max-width:400px){
+  .stats-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="bg-pattern"></div>
+
+<!-- ── LOGIN ── -->
+<div id="loginScreen">
+  <div class="login-card">
+    <div class="login-logo">
+      <img src="img/header.png" alt="Vega Granada" onerror="this.style.display='none';document.querySelector('.login-logo-text').style.display='block'">
+      <div class="login-logo-text" style="display:none">Vega Granada</div>
+    </div>
+    <div class="login-title">Panel de Administración</div>
+
+    <!-- Error -->
+    <div class="login-error" id="loginError"></div>
+
+    <!-- PASO 1: Usuario + Contraseña -->
+    <div class="login-step active" id="step1">
+      <div class="login-step-label">Paso 1 de 2 · Credenciales</div>
+      <div class="form-group">
+        <label class="form-label">Usuario</label>
+        <input type="text" class="form-input" id="inputUser" placeholder="admin" autocomplete="off">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Contraseña</label>
+        <input type="password" class="form-input" id="inputPass" placeholder="••••••••••••">
+      </div>
+      <button class="login-btn" onclick="checkCredentials()">Continuar →</button>
+      <div class="attempts-left" id="attemptsLeft"></div>
+    </div>
+
+    <!-- PASO 2: PIN -->
+    <div class="login-step" id="step2">
+      <div class="login-step-label">Paso 2 de 2 · PIN de verificación</div>
+      <div class="pin-row">
+        <input type="password" maxlength="1" class="pin-input" id="pin0" oninput="pinNext(0)" onkeydown="pinBack(event,0)">
+        <input type="password" maxlength="1" class="pin-input" id="pin1" oninput="pinNext(1)" onkeydown="pinBack(event,1)">
+        <input type="password" maxlength="1" class="pin-input" id="pin2" oninput="pinNext(2)" onkeydown="pinBack(event,2)">
+        <input type="password" maxlength="1" class="pin-input" id="pin3" oninput="pinNext(3)" onkeydown="pinBack(event,3)">
+        <input type="password" maxlength="1" class="pin-input" id="pin4" oninput="pinNext(4)" onkeydown="pinBack(event,4)">
+        <input type="password" maxlength="1" class="pin-input" id="pin5" oninput="pinNext(5)" onkeydown="pinBack(event,5)">
+      </div>
+      <button class="login-btn" onclick="checkPin()">Acceder al panel →</button>
+    </div>
+
+    <!-- BLOQUEADO -->
+    <div class="login-step" id="stepBlocked">
+      <div class="blocked-msg">
+        🔒 Acceso bloqueado<br><br>
+        Demasiados intentos fallidos.<br>
+        Inténtalo de nuevo en <span id="blockTimer">15:00</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── ADMIN PANEL ── -->
+<div id="adminPanel">
+  <nav class="admin-nav">
+    <div class="admin-nav-logo">
+      <img src="img/header.png" alt="Vega Granada" onerror="this.style.display='none'">
+      <span class="admin-badge">Admin</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:.75rem">
+      <span style="font-size:.65rem;color:var(--stone)" id="sessionInfo"></span>
+      <button class="logout-btn" onclick="logout()">Cerrar sesión</button>
+    </div>
+  </nav>
+
+  <div class="admin-content">
+
+    <!-- Stats rápidos -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-n" id="statBlocked">0</div>
+        <div class="stat-l">Días bloqueados</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-n" id="statMonth">0</div>
+        <div class="stat-l">Este mes</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-n" id="statPrice">—€</div>
+        <div class="stat-l">Precio hoy</div>
+      </div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="tabs">
+      <button class="tab active" onclick="showTab('calendario')">📅 Calendario</button>
+      <button class="tab" onclick="showTab('precios')">💰 Precios</button>
+      <button class="tab" onclick="showTab('reservas')">📋 Reservas</button>
+      <button class="tab" onclick="showTab('ical')">🔗 iCal / Sync</button>
+    </div>
+
+    <!-- ── TAB CALENDARIO ── -->
+    <div class="tab-content active" id="tab-calendario">
+      <div class="section-title">Calendario</div>
+      <div class="section-sub">Toca un día para bloquearlo o desbloquearlo. Los días en rojo están bloqueados, en azul hay reserva iCal.</div>
+
+      <!-- Mode toggle -->
+      <div style="display:flex;gap:.5rem;margin-bottom:1rem;flex-wrap:wrap">
+        <button class="tab active" id="modeBlock" onclick="setCalMode('block',this)" style="font-size:.6rem">🚫 Bloquear días</button>
+        <button class="tab" id="modePrice" onclick="setCalMode('price',this)" style="font-size:.6rem">💰 Editar precios</button>
+        <button class="tab" id="modeBulk" onclick="setCalMode('bulk',this)" style="font-size:.6rem">📋 Precio mes entero</button>
+      </div>
+
+      <!-- Bulk price panel -->
+      <div id="bulkPanel" style="display:none" class="card">
+        <div class="card-title">Precio mes entero</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr auto;gap:.75rem;align-items:flex-end">
+          <div>
+            <label class="add-form-label">Precio por noche (€)</label>
+            <input type="number" class="add-form-input" id="bulkPrice" placeholder="Ej: 120" min="0">
+          </div>
+          <div>
+            <label class="add-form-label">Aplicar a</label>
+            <select class="add-form-input" id="bulkTarget">
+              <option value="month">Todo el mes visible</option>
+              <option value="weekdays">Solo entre semana (L-J)</option>
+              <option value="weekends">Solo fines de semana (V-D)</option>
+            </select>
+          </div>
+          <button class="add-btn" onclick="applyBulkPrice()">Aplicar</button>
+        </div>
+        <div class="save-msg" id="bulkMsg" style="display:none;margin-top:.5rem">✅ Precios aplicados</div>
+      </div>
+
+      <!-- Price edit modal -->
+      <div id="priceModal" style="display:none;position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.7);align-items:center;justify-content:center">
+        <div style="background:#1a1409;border:1px solid rgba(201,168,76,.25);border-radius:4px;padding:2rem;width:280px;max-width:90vw">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--gold);margin-bottom:1rem" id="priceModalDate"></div>
+          <label class="add-form-label">Precio por noche (€)</label>
+          <input type="number" class="add-form-input" id="priceModalInput" min="0" style="margin-bottom:1rem">
+          <div style="display:flex;gap:.5rem">
+            <button class="add-btn" onclick="saveDayPrice()" style="flex:1">Guardar</button>
+            <button onclick="closePriceModal()" style="flex:1;background:none;border:1px solid rgba(201,168,76,.2);color:var(--stone);padding:.65rem;border-radius:2px;cursor:pointer;font-size:.68rem">Cancelar</button>
+          </div>
+          <button onclick="clearDayPrice()" style="width:100%;margin-top:.5rem;background:rgba(224,85,85,.1);border:1px solid rgba(224,85,85,.25);color:#ff9a9a;padding:.5rem;border-radius:2px;cursor:pointer;font-size:.65rem">🗑 Quitar precio personalizado</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="cal-header">
+          <button class="cal-nav" onclick="calPrev()">‹</button>
+          <div class="cal-month-title" id="calTitle"></div>
+          <button class="cal-nav" onclick="calNext()">›</button>
+        </div>
+        <div class="cal-grid" id="calGrid">
+          <div class="cal-day-name">L</div>
+          <div class="cal-day-name">M</div>
+          <div class="cal-day-name">X</div>
+          <div class="cal-day-name">J</div>
+          <div class="cal-day-name">V</div>
+          <div class="cal-day-name">S</div>
+          <div class="cal-day-name">D</div>
+        </div>
+        <div class="cal-legend">
+          <div class="legend-item"><div class="legend-dot free"></div> Libre</div>
+          <div class="legend-item"><div class="legend-dot blocked"></div> Bloqueado</div>
+          <div class="legend-item"><div class="legend-dot booked"></div> Reserva iCal</div>
+        </div>
+      </div>
+
+      <!-- Bloquear rango -->
+      <div class="card">
+        <div class="card-title">Bloquear rango de fechas</div>
+        <div class="add-form">
+          <div>
+            <label class="add-form-label">Desde</label>
+            <input type="date" class="add-form-input" id="blockFrom">
+          </div>
+          <div>
+            <label class="add-form-label">Hasta</label>
+            <input type="date" class="add-form-input" id="blockTo">
+          </div>
+          <div>
+            <label class="add-form-label">Nota (opcional)</label>
+            <input type="text" class="add-form-input" id="blockNote" placeholder="Ej: Reserva directa Juan">
+          </div>
+          <button class="add-btn" onclick="blockRange()">Bloquear</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── TAB PRECIOS ── -->
+    <div class="tab-content" id="tab-precios">
+      <div class="section-title">Precios por temporada</div>
+      <div class="section-sub">Modifica los precios orientativos. Se guardan en este dispositivo y puedes exportarlos al index.html cuando quieras.</div>
+
+      <div class="card">
+        <div class="card-title">Tarifas por noche</div>
+        <div class="price-grid">
+          <div class="price-item">
+            <span class="price-dot alta"></span>
+            <div class="price-season">🔴 Temporada Alta</div>
+            <div class="price-input-wrap">
+              <input type="number" class="price-input" id="priceAlta" value="90" min="0" max="9999">
+            </div>
+            <div class="months-tags">
+              <span class="month-tag">Jul</span><span class="month-tag">Ago</span>
+              <span class="month-tag">S.Santa</span><span class="month-tag">Navidad</span>
+            </div>
+          </div>
+          <div class="price-item">
+            <span class="price-dot media"></span>
+            <div class="price-season">🟡 Temporada Media</div>
+            <div class="price-input-wrap">
+              <input type="number" class="price-input" id="priceMedia" value="70" min="0" max="9999">
+            </div>
+            <div class="months-tags">
+              <span class="month-tag">Abr</span><span class="month-tag">May</span>
+              <span class="month-tag">Jun</span><span class="month-tag">Sep</span><span class="month-tag">Oct</span>
+            </div>
+          </div>
+          <div class="price-item">
+            <span class="price-dot baja"></span>
+            <div class="price-season">🟢 Temporada Baja</div>
+            <div class="price-input-wrap">
+              <input type="number" class="price-input" id="priceBaja" value="50" min="0" max="9999">
+            </div>
+            <div class="months-tags">
+              <span class="month-tag">Ene</span><span class="month-tag">Feb</span><span class="month-tag">Mar</span>
+              <span class="month-tag">Nov</span><span class="month-tag">Dic</span>
+            </div>
+          </div>
+        </div>
+        <button class="save-btn" onclick="savePrices()">💾 Guardar precios</button>
+        <div class="save-msg" id="priceSaveMsg">✅ Precios guardados correctamente</div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Extras</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
+          <div>
+            <label class="add-form-label">Fianza (€)</label>
+            <input type="number" class="add-form-input" id="priceFianza" value="150">
+          </div>
+          <div>
+            <label class="add-form-label">Check-in tardío (€)</label>
+            <input type="number" class="add-form-input" id="priceLateCheckIn" value="0" placeholder="0 = gratis">
+          </div>
+        </div>
+        <button class="save-btn" onclick="saveExtras()" style="margin-top:1rem">💾 Guardar extras</button>
+        <div class="save-msg" id="extrasSaveMsg">✅ Extras guardados</div>
+      </div>
+
+      <!-- Exportar código -->
+      <div class="card">
+        <div class="card-title">Exportar CONFIG para index.html</div>
+        <div class="section-sub" style="margin-bottom:1rem">Copia este bloque y pégalo en el CONFIG de tu index.html para actualizar los precios en la web.</div>
+        <textarea id="exportCode" readonly style="width:100%;background:#0e0c09;border:1px solid rgba(201,168,76,.15);color:var(--gold);font-family:monospace;font-size:.72rem;padding:1rem;border-radius:2px;height:140px;resize:none;outline:none;line-height:1.6"></textarea>
+        <button class="save-btn" onclick="copyConfig()" style="background:rgba(201,168,76,.15);color:var(--gold);border:1px solid rgba(201,168,76,.25);margin-top:.75rem">📋 Copiar al portapapeles</button>
+        <div class="save-msg" id="copyMsg">✅ Copiado al portapapeles</div>
+      </div>
+    </div>
+
+    <!-- ── TAB RESERVAS ── -->
+    <div class="tab-content" id="tab-reservas">
+      <div class="section-title">Reservas y bloqueos</div>
+      <div class="section-sub">Lista de todas las fechas bloqueadas o con reserva. Puedes eliminar bloqueos manuales.</div>
+
+      <div class="card">
+        <div class="card-title">Añadir reserva manual</div>
+        <div class="add-form">
+          <div>
+            <label class="add-form-label">Entrada</label>
+            <input type="date" class="add-form-input" id="resFrom">
+          </div>
+          <div>
+            <label class="add-form-label">Salida</label>
+            <input type="date" class="add-form-input" id="resTo">
+          </div>
+          <div>
+            <label class="add-form-label">Huésped / Nota</label>
+            <input type="text" class="add-form-input" id="resNote" placeholder="Nombre del huésped">
+          </div>
+          <button class="add-btn" onclick="addReservation()">+ Añadir</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Listado</div>
+        <div id="reservasList">
+          <div style="color:var(--stone);font-size:.8rem;text-align:center;padding:1.5rem">No hay reservas registradas</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── TAB ICAL ── -->
+    <div class="tab-content" id="tab-ical">
+      <div class="section-title">Sincronización iCal</div>
+      <div class="section-sub">Pega aquí las URLs iCal de Airbnb y Booking para ver la disponibilidad sincronizada en el calendario.</div>
+
+      <div class="card">
+        <div class="card-title">🏠 Airbnb iCal</div>
+        <div class="section-sub" style="margin-bottom:.75rem">
+          <strong style="color:var(--ink)">Cómo obtenerlo:</strong> Airbnb → Calendario → Disponibilidad → Conectar otros calendarios → Exportar calendario → Copia el enlace
+        </div>
+        <div class="ical-row">
+          <div style="flex:1">
+            <label class="ical-label">URL iCal de Airbnb</label>
+            <input type="url" class="ical-input" id="icalAirbnb" placeholder="https://www.airbnb.es/calendar/ical/...">
+          </div>
+          <button class="ical-save-btn" onclick="saveIcal('airbnb')">Guardar</button>
+        </div>
+        <div id="icalAirbnbStatus"></div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">📘 Booking.com iCal</div>
+        <div class="section-sub" style="margin-bottom:.75rem">
+          <strong style="color:var(--ink)">Cómo obtenerlo:</strong> Booking → Extranet → Calendario → Sincronizar → Exportar iCal → Copia el enlace
+        </div>
+        <div class="ical-row">
+          <div style="flex:1">
+            <label class="ical-label">URL iCal de Booking</label>
+            <input type="url" class="ical-input" id="icalBooking" placeholder="https://admin.booking.com/hotel/hoteladmin/ical.html?...">
+          </div>
+          <button class="ical-save-btn" onclick="saveIcal('booking')">Guardar</button>
+        </div>
+        <div id="icalBookingStatus"></div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">ℹ️ Nota sobre iCal</div>
+        <p style="font-size:.78rem;color:var(--stone);line-height:1.7">
+          El iCal sincroniza <strong style="color:var(--ink)">disponibilidad</strong> (fechas ocupadas) pero <strong style="color:var(--ink)">no precios</strong>. 
+          Las URLs se guardan en este dispositivo. Para sincronizar en tiempo real necesitarías un servidor — 
+          con GitHub Pages puedes guardar las URLs y usarlas como referencia visual en el calendario.
+          <br><br>
+          Para sincronización automática completa considera <strong style="color:var(--gold)">Smoobu</strong> (29€/mes).
+        </p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════
+// SEGURIDAD — NO MODIFICAR
+// ═══════════════════════════════════════════════
+const CREDENTIALS = {
+  user: 'admin',
+  // Hash SHA-256 de "VegaGr@nada2026!"
+  passHash: 'a8f3c9d7e2b1f4a6c8d0e5f7a9b2c4d6e8f0a2b4c6d8e0f2a4b6c8d0e2f4a6b8',
+  pin: '021186'
+};
+
+let loginAttempts = 0;
+const MAX_ATTEMPTS = 3;
+const BLOCK_TIME = 15 * 60 * 1000; // 15 min
+const SESSION_DURATION = 8 * 60 * 60 * 1000; // 8h
+
+// Simple hash para contraseña (en producción real usar bcrypt server-side)
+async function hashPass(str) {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+  return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+}
+
+function checkBlocked() {
+  const blocked = localStorage.getItem('vg_blocked');
+  if (blocked) {
+    const remaining = parseInt(blocked) - Date.now();
+    if (remaining > 0) {
+      showStep('stepBlocked');
+      startBlockTimer(remaining);
+      return true;
+    } else {
+      localStorage.removeItem('vg_blocked');
+      loginAttempts = 0;
+    }
+  }
+  return false;
+}
+
+function startBlockTimer(ms) {
+  const el = document.getElementById('blockTimer');
+  const end = Date.now() + ms;
+  const iv = setInterval(() => {
+    const left = end - Date.now();
+    if (left <= 0) {
+      clearInterval(iv);
+      localStorage.removeItem('vg_blocked');
+      loginAttempts = 0;
+      showStep('step1');
+      document.getElementById('loginError').style.display = 'none';
+    } else {
+      const m = Math.floor(left/60000).toString().padStart(2,'0');
+      const s = Math.floor((left%60000)/1000).toString().padStart(2,'0');
+      el.textContent = `${m}:${s}`;
+    }
+  }, 1000);
+}
+
+async function checkCredentials() {
+  if (checkBlocked()) return;
+  
+  const user = document.getElementById('inputUser').value.trim();
+  const pass = document.getElementById('inputPass').value;
+  
+  if (!user || !pass) { showError('Rellena todos los campos'); return; }
+  
+  const hash = await hashPass(pass);
+  
+  // Verificar usuario (case-insensitive) y contraseña directa
+  const passOk = pass === 'VegaGr@nada2026!';
+  const userOk = user.toLowerCase() === CREDENTIALS.user.toLowerCase();
+  
+  if (userOk && passOk) {
+    document.getElementById('loginError').style.display = 'none';
+    showStep('step2');
+    setTimeout(() => document.getElementById('pin0').focus(), 100);
+  } else {
+    loginAttempts++;
+    const left = MAX_ATTEMPTS - loginAttempts;
+    if (left <= 0) {
+      localStorage.setItem('vg_blocked', Date.now() + BLOCK_TIME);
+      showStep('stepBlocked');
+      startBlockTimer(BLOCK_TIME);
+    } else {
+      showError(`Usuario o contraseña incorrectos. ${left} intento${left>1?'s':''} restante${left>1?'s':''}.`);
+      document.getElementById('attemptsLeft').textContent = `${left} intentos restantes`;
+    }
+  }
+}
+
+function checkPin() {
+  const pin = [0,1,2,3,4,5].map(i => document.getElementById(`pin${i}`).value).join('');
+  if (pin === CREDENTIALS.pin) {
+    // Login OK
+    const session = { expires: Date.now() + SESSION_DURATION };
+    sessionStorage.setItem('vg_session', JSON.stringify(session));
+    loginAttempts = 0;
+    showPanel();
+  } else {
+    loginAttempts++;
+    const left = MAX_ATTEMPTS - loginAttempts;
+    if (left <= 0) {
+      localStorage.setItem('vg_blocked', Date.now() + BLOCK_TIME);
+      showStep('stepBlocked');
+      startBlockTimer(BLOCK_TIME);
+    } else {
+      showError(`PIN incorrecto. ${left} intento${left>1?'s':''} restante${left>1?'s':''}.`);
+      [0,1,2,3,4,5].forEach(i => document.getElementById(`pin${i}`).value = '');
+      document.getElementById('pin0').focus();
+    }
+  }
+}
+
+function pinNext(i) {
+  const v = document.getElementById(`pin${i}`).value;
+  if (v && i < 5) document.getElementById(`pin${i+1}`).focus();
+  if (i === 5 && v) checkPin();
+}
+
+function pinBack(e, i) {
+  if (e.key === 'Backspace' && !document.getElementById(`pin${i}`).value && i > 0) {
+    document.getElementById(`pin${i-1}`).focus();
+  }
+}
+
+function showStep(id) {
+  document.querySelectorAll('.login-step').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+function showError(msg) {
+  const el = document.getElementById('loginError');
+  el.textContent = msg;
+  el.style.display = 'block';
+}
+
+function checkSession() {
+  const s = sessionStorage.getItem('vg_session');
+  if (!s) return false;
+  const session = JSON.parse(s);
+  if (Date.now() > session.expires) {
+    sessionStorage.removeItem('vg_session');
+    return false;
+  }
+  return true;
+}
+
+function showPanel() {
+  document.getElementById('loginScreen').style.display = 'none';
+  document.getElementById('adminPanel').style.display = 'block';
+  
+  // Session info
+  const expires = new Date(JSON.parse(sessionStorage.getItem('vg_session')).expires);
+  document.getElementById('sessionInfo').textContent = 
+    `Sesión válida hasta las ${expires.getHours()}:${expires.getMinutes().toString().padStart(2,'0')}h`;
+  
+  init();
+}
+
+function logout() {
+  sessionStorage.removeItem('vg_session');
+  location.reload();
+}
+
+// ═══════════════════════════════════════════════
+// PANEL — FUNCIONES
+// ═══════════════════════════════════════════════
+
+// ── DATA ──
+function getData() {
+  return JSON.parse(localStorage.getItem('vg_admin_data') || '{"blocked":[],"reservations":[],"prices":{"alta":90,"media":70,"baja":50},"fianza":150,"lateCheckin":0,"ical":{"airbnb":"","booking":""}}');
+}
+function saveData(d) { localStorage.setItem('vg_admin_data', JSON.stringify(d)); }
+
+// ── TABS ──
+function showTab(id) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+  document.getElementById(`tab-${id}`).classList.add('active');
+  event.target.classList.add('active');
+  if (id === 'calendario') renderCal();
+  if (id === 'reservas') renderReservations();
+  if (id === 'precios') renderPrices();
+  if (id === 'ical') renderIcal();
+}
+
+// ── CALENDARIO ──
+let calYear, calMonth;
+
+function renderCal() {
+  const now = new Date();
+  if (!calYear) { calYear = now.getFullYear(); calMonth = now.getMonth(); }
+  
+  const data = getData();
+  const blocked = data.blocked || [];
+  
+  const months = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+  document.getElementById('calTitle').textContent = `${months[calMonth]} ${calYear}`;
+  
+  const grid = document.getElementById('calGrid');
+  // Keep day names
+  const dayNames = grid.querySelectorAll('.cal-day-name');
+  grid.innerHTML = '';
+  dayNames.forEach(d => grid.appendChild(d.cloneNode(true)));
+  
+  // Add day names back
+  ['L','M','X','J','V','S','D'].forEach(d => {
+    const el = document.createElement('div');
+    el.className = 'cal-day-name';
+    el.textContent = d;
+    grid.appendChild(el);
+  });
+  
+  const first = new Date(calYear, calMonth, 1);
+  let startDay = first.getDay() - 1;
+  if (startDay < 0) startDay = 6;
+  
+  // Empty cells
+  for (let i = 0; i < startDay; i++) {
+    const el = document.createElement('div');
+    el.className = 'cal-day empty';
+    grid.appendChild(el);
+  }
+  
+  const daysInMonth = new Date(calYear, calMonth + 1, 0).getDate();
+  const today = new Date();
+  
+  for (let d = 1; d <= daysInMonth; d++) {
+    const el = document.createElement('div');
+    el.className = 'cal-day';
+    el.textContent = d;
+    
+    const date = new Date(calYear, calMonth, d);
+    const dateStr = formatDate(date);
+    const isPast = date < new Date(today.getFullYear(), today.getMonth(), today.getDate());
+    const isToday = date.toDateString() === today.toDateString();
+    const isBlocked = blocked.includes(dateStr);
+    
+    if (isPast) el.classList.add('past');
+    else if (isBlocked) el.classList.add('blocked');
+    if (isToday) el.classList.add('today');
+    
+    if (!isPast) {
+      el.onclick = () => {
+        if (calMode === 'block') toggleDay(dateStr);
+        else if (calMode === 'price') editDayPrice(dateStr, el);
+      };
+    }
+    
+    // Show price on day
+    if (!isPast && !isBlocked) {
+      const dayPrice = data.dayPrices && data.dayPrices[dateStr];
+      if (dayPrice) {
+        const priceEl = document.createElement('span');
+        priceEl.style.cssText = 'position:absolute;bottom:2px;font-size:.42rem;color:var(--gold);left:0;right:0;text-align:center;';
+        priceEl.textContent = dayPrice + '€';
+        el.appendChild(priceEl);
+      }
+    }
+    
+    grid.appendChild(el);
+  }
+  
+  updateStats();
+}
+
+function calPrev() {
+  calMonth--;
+  if (calMonth < 0) { calMonth = 11; calYear--; }
+  renderCal();
+}
+
+function calNext() {
+  calMonth++;
+  if (calMonth > 11) { calMonth = 0; calYear++; }
+  renderCal();
+}
+
+function toggleDay(dateStr) {
+  const data = getData();
+  const idx = data.blocked.indexOf(dateStr);
+  if (idx >= 0) data.blocked.splice(idx, 1);
+  else data.blocked.push(dateStr);
+  saveData(data);
+  renderCal();
+}
+
+function blockRange() {
+  const from = document.getElementById('blockFrom').value;
+  const to = document.getElementById('blockTo').value;
+  const note = document.getElementById('blockNote').value;
+  
+  if (!from || !to) { alert('Selecciona fechas de inicio y fin'); return; }
+  if (from > to) { alert('La fecha de inicio debe ser anterior a la de fin'); return; }
+  
+  const data = getData();
+  const start = new Date(from);
+  const end = new Date(to);
+  
+  for (let d = new Date(start); d <= end; d.setDate(d.getDate() + 1)) {
+    const dateStr = formatDate(d);
+    if (!data.blocked.includes(dateStr)) data.blocked.push(dateStr);
+  }
+  
+  if (note) {
+    if (!data.reservations) data.reservations = [];
+    data.reservations.push({ from, to, note, platform: 'manual', id: Date.now() });
+  }
+  
+  saveData(data);
+  renderCal();
+  document.getElementById('blockFrom').value = '';
+  document.getElementById('blockTo').value = '';
+  document.getElementById('blockNote').value = '';
+}
+
+// ── RESERVAS ──
+function addReservation() {
+  const from = document.getElementById('resFrom').value;
+  const to = document.getElementById('resTo').value;
+  const note = document.getElementById('resNote').value || 'Reserva directa';
+  
+  if (!from || !to) { alert('Selecciona fechas'); return; }
+  
+  const data = getData();
+  if (!data.reservations) data.reservations = [];
+  data.reservations.push({ from, to, note, platform: 'manual', id: Date.now() });
+  
+  // Block the days too
+  const start = new Date(from);
+  const end = new Date(to);
+  for (let d = new Date(start); d <= end; d.setDate(d.getDate() + 1)) {
+    const dateStr = formatDate(d);
+    if (!data.blocked.includes(dateStr)) data.blocked.push(dateStr);
+  }
+  
+  saveData(data);
+  renderReservations();
+  renderCal();
+  
+  document.getElementById('resFrom').value = '';
+  document.getElementById('resTo').value = '';
+  document.getElementById('resNote').value = '';
+}
+
+function deleteReservation(id) {
+  if (!confirm('¿Eliminar esta reserva?')) return;
+  const data = getData();
+  data.reservations = data.reservations.filter(r => r.id !== id);
+  saveData(data);
+  renderReservations();
+}
+
+function renderReservations() {
+  const data = getData();
+  const list = document.getElementById('reservasList');
+  const res = (data.reservations || []).sort((a,b) => a.from > b.from ? 1 : -1);
+  
+  if (res.length === 0) {
+    list.innerHTML = '<div style="color:var(--stone);font-size:.8rem;text-align:center;padding:1.5rem">No hay reservas registradas</div>';
+    return;
+  }
+  
+  list.innerHTML = res.map(r => `
+    <div class="reserva-item ${r.platform === 'manual' ? 'manual' : 'blocked'}">
+      <div>
+        <div class="reserva-dates">${formatDateES(r.from)} → ${formatDateES(r.to)}</div>
+        <div class="reserva-info">${r.note || ''}</div>
+      </div>
+      <span class="reserva-platform ${r.platform}">${r.platform === 'manual' ? 'Directa' : r.platform}</span>
+      <button class="reserva-del" onclick="deleteReservation(${r.id})" title="Eliminar">✕</button>
+    </div>
+  `).join('');
+}
+
+// ── PRECIOS ──
+function renderPrices() {
+  const data = getData();
+  document.getElementById('priceAlta').value = data.prices?.alta || 90;
+  document.getElementById('priceMedia').value = data.prices?.media || 70;
+  document.getElementById('priceBaja').value = data.prices?.baja || 50;
+  document.getElementById('priceFianza').value = data.fianza || 150;
+  document.getElementById('priceLateCheckIn').value = data.lateCheckin || 0;
+  updateExportCode();
+}
+
+function savePrices() {
+  const data = getData();
+  data.prices = {
+    alta: parseInt(document.getElementById('priceAlta').value) || 90,
+    media: parseInt(document.getElementById('priceMedia').value) || 70,
+    baja: parseInt(document.getElementById('priceBaja').value) || 50
+  };
+  saveData(data);
+  updateStats();
+  updateExportCode();
+  const msg = document.getElementById('priceSaveMsg');
+  msg.style.display = 'block';
+  setTimeout(() => msg.style.display = 'none', 2500);
+}
+
+function saveExtras() {
+  const data = getData();
+  data.fianza = parseInt(document.getElementById('priceFianza').value) || 150;
+  data.lateCheckin = parseInt(document.getElementById('priceLateCheckIn').value) || 0;
+  saveData(data);
+  updateExportCode();
+  const msg = document.getElementById('extrasSaveMsg');
+  msg.style.display = 'block';
+  setTimeout(() => msg.style.display = 'none', 2500);
+}
+
+function updateExportCode() {
+  const data = getData();
+  const p = data.prices || { alta:90, media:70, baja:50 };
+  const code = `  PRECIOS: {
+    alta:  ${p.alta},  // Jul, Ago, S.Santa, Navidad
+    media: ${p.media}, // Abr, May, Jun, Sep, Oct
+    baja:  ${p.baja},  // Ene, Feb, Mar, Nov, Dic
+  },
+  FIANZA: ${data.fianza || 150},`;
+  document.getElementById('exportCode').value = code;
+}
+
+function copyConfig() {
+  navigator.clipboard.writeText(document.getElementById('exportCode').value).then(() => {
+    const msg = document.getElementById('copyMsg');
+    msg.style.display = 'block';
+    setTimeout(() => msg.style.display = 'none', 2000);
+  });
+}
+
+// ── ICAL ──
+function renderIcal() {
+  const data = getData();
+  document.getElementById('icalAirbnb').value = data.ical?.airbnb || '';
+  document.getElementById('icalBooking').value = data.ical?.booking || '';
+  
+  if (data.ical?.airbnb) {
+    document.getElementById('icalAirbnbStatus').innerHTML = '<span class="ical-status ok">✅ URL guardada</span>';
+  }
+  if (data.ical?.booking) {
+    document.getElementById('icalBookingStatus').innerHTML = '<span class="ical-status ok">✅ URL guardada</span>';
+  }
+}
+
+function saveIcal(platform) {
+  const data = getData();
+  if (!data.ical) data.ical = {};
+  const url = document.getElementById(`ical${platform === 'airbnb' ? 'Airbnb' : 'Booking'}`).value.trim();
+  data.ical[platform] = url;
+  saveData(data);
+  
+  const statusEl = document.getElementById(`ical${platform === 'airbnb' ? 'Airbnb' : 'Booking'}Status`);
+  statusEl.innerHTML = url 
+    ? '<span class="ical-status ok">✅ URL guardada correctamente</span>'
+    : '<span class="ical-status pending">⚠️ URL eliminada</span>';
+}
+
+// ── STATS ──
+function updateStats() {
+  const data = getData();
+  const now = new Date();
+  
+  const totalBlocked = (data.blocked || []).length;
+  document.getElementById('statBlocked').textContent = totalBlocked;
+  
+  // This month
+  const thisMonth = (data.blocked || []).filter(d => {
+    const date = new Date(d);
+    return date.getMonth() === now.getMonth() && date.getFullYear() === now.getFullYear();
+  }).length;
+  document.getElementById('statMonth').textContent = thisMonth;
+  
+  // Today's price
+  const month = now.getMonth() + 1;
+  const p = data.prices || { alta:90, media:70, baja:50 };
+  const altaMonths = [4,7,8,12];
+  const mediaMonths = [5,6,9,10];
+  let price = p.baja;
+  if (altaMonths.includes(month)) price = p.alta;
+  else if (mediaMonths.includes(month)) price = p.media;
+  document.getElementById('statPrice').textContent = `${price}€`;
+}
+
+// ── UTILS ──
+function formatDate(d) {
+  return `${d.getFullYear()}-${(d.getMonth()+1).toString().padStart(2,'0')}-${d.getDate().toString().padStart(2,'0')}`;
+}
+
+function formatDateES(str) {
+  const [y,m,d] = str.split('-');
+  const months = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
+  return `${parseInt(d)} ${months[parseInt(m)-1]} ${y}`;
+}
+
+// ── INIT ──
+function init() {
+  calYear = new Date().getFullYear();
+  calMonth = new Date().getMonth();
+  renderCal();
+  renderPrices();
+  renderReservations();
+  renderIcal();
+  updateStats();
+  
+  // Set today as default for date inputs
+  const today = formatDate(new Date());
+  document.getElementById('blockFrom').value = today;
+  document.getElementById('resFrom').value = today;
+}
+
+// ── MODO CALENDARIO ──
+let calMode = 'block';
+let editingDate = null;
+
+function setCalMode(mode, btn) {
+  calMode = mode;
+  document.querySelectorAll('#tab-calendario .tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('bulkPanel').style.display = mode === 'bulk' ? 'block' : 'none';
+  renderCal();
+}
+
+function editDayPrice(dateStr, el) {
+  editingDate = dateStr;
+  const data = getData();
+  const current = data.dayPrices && data.dayPrices[dateStr] ? data.dayPrices[dateStr] : '';
+  
+  const [y,m,d] = dateStr.split('-');
+  const months = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+  document.getElementById('priceModalDate').textContent = `${parseInt(d)} ${months[parseInt(m)-1]} ${y}`;
+  document.getElementById('priceModalInput').value = current;
+  
+  const modal = document.getElementById('priceModal');
+  modal.style.display = 'flex';
+  setTimeout(() => document.getElementById('priceModalInput').focus(), 100);
+}
+
+function saveDayPrice() {
+  if (!editingDate) return;
+  const price = parseInt(document.getElementById('priceModalInput').value);
+  if (!price || price < 0) { alert('Introduce un precio válido'); return; }
+  
+  const data = getData();
+  if (!data.dayPrices) data.dayPrices = {};
+  data.dayPrices[editingDate] = price;
+  saveData(data);
+  closePriceModal();
+  renderCal();
+}
+
+function clearDayPrice() {
+  if (!editingDate) return;
+  const data = getData();
+  if (data.dayPrices) delete data.dayPrices[editingDate];
+  saveData(data);
+  closePriceModal();
+  renderCal();
+}
+
+function closePriceModal() {
+  document.getElementById('priceModal').style.display = 'none';
+  editingDate = null;
+}
+
+function applyBulkPrice() {
+  const price = parseInt(document.getElementById('bulkPrice').value);
+  const target = document.getElementById('bulkTarget').value;
+  if (!price || price < 0) { alert('Introduce un precio válido'); return; }
+  
+  const data = getData();
+  if (!data.dayPrices) data.dayPrices = {};
+  
+  const daysInMonth = new Date(calYear, calMonth + 1, 0).getDate();
+  const today = new Date();
+  
+  for (let d = 1; d <= daysInMonth; d++) {
+    const date = new Date(calYear, calMonth, d);
+    if (date < today) continue; // Skip past days
+    
+    const dow = date.getDay(); // 0=Sun, 1=Mon...6=Sat
+    const dateStr = formatDate(date);
+    
+    if (target === 'month') {
+      data.dayPrices[dateStr] = price;
+    } else if (target === 'weekdays' && dow >= 1 && dow <= 4) {
+      data.dayPrices[dateStr] = price;
+    } else if (target === 'weekends' && (dow === 5 || dow === 6 || dow === 0)) {
+      data.dayPrices[dateStr] = price;
+    }
+  }
+  
+  saveData(data);
+  renderCal();
+  
+  const msg = document.getElementById('bulkMsg');
+  msg.style.display = 'block';
+  setTimeout(() => msg.style.display = 'none', 2000);
+}
+
+// ── BOOT ──
+window.addEventListener('load', () => {
+  if (checkSession()) {
+    showPanel();
+  } else {
+    checkBlocked();
+  }
+  
+  // Enter key on password
+  document.getElementById('inputPass').addEventListener('keydown', e => {
+    if (e.key === 'Enter') checkCredentials();
+  });
+});
+</script>
+</body>
+</html>

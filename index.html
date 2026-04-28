@@ -1288,19 +1288,45 @@ function goStep(n){
 }
 
 // Price calculator con temporadas
+function getDayPrice(dateStr) {
+  // Check admin panel day prices first
+  const adminData = localStorage.getItem('vg_admin_data');
+  if (adminData) {
+    const data = JSON.parse(adminData);
+    if (data.dayPrices && data.dayPrices[dateStr]) {
+      return data.dayPrices[dateStr];
+    }
+  }
+  // Fall back to season prices
+  return getPrecioNoche(dateStr);
+}
+
 function calcPrice(){
   const ci=document.getElementById('r-checkin').value;
   const co=document.getElementById('r-checkout').value;
   if(!ci||!co) return;
   const nights=Math.round((new Date(co)-new Date(ci))/(1000*60*60*24));
   if(nights<1) return;
-  const precio=getPrecioNoche(ci);
-  const temp=getTemporada(ci);
-  const sub=nights*precio;
+  
+  // Calculate total using day-by-day prices
+  let sub = 0;
+  let priceBreakdown = [];
+  const start = new Date(ci);
+  for(let i=0; i<nights; i++){
+    const d = new Date(start);
+    d.setDate(d.getDate()+i);
+    const dateStr = d.getFullYear()+'-'+(d.getMonth()+1).toString().padStart(2,'0')+'-'+d.getDate().toString().padStart(2,'0');
+    const p = getDayPrice(dateStr);
+    sub += p;
+    priceBreakdown.push(p);
+  }
+  
   const total=sub+CONFIG.FIANZA;
+  const avgPrice = Math.round(sub/nights);
   const isEN=document.body.classList.contains('en');
+  
   document.getElementById('p-nights').textContent=nights+(isEN?' nights':' noches');
-  document.getElementById('p-rate').textContent=precio+'€ / '+(isEN?'night':'noche')+' · '+(isEN?temp.en:temp.es);
+  document.getElementById('p-rate').textContent=avgPrice+'€ '+(isEN?'avg/night':'media/noche');
   document.getElementById('p-sub').textContent=sub+'€';
   document.getElementById('p-total').textContent=total+'€';
   document.getElementById('p-total-2').textContent=total+'€';
