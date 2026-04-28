@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Normas de la Casa · Vega Granada</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+
+body{background:#2a2a2a;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;min-height:100vh;padding:2rem;font-family:'DM Sans',sans-serif}
+.screen-note{color:#aaa;font-size:.8rem;margin-bottom:1rem;text-align:center}
+.print-btn{background:#c9a84c;color:#0e0c09;border:none;padding:.75rem 2rem;font-size:.8rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;border-radius:4px;margin-bottom:2rem;transition:.2s}
+.print-btn:hover{background:#e8c97a}
+
+/* ── POSTER A4 ── */
+.poster{
+  width:210mm;min-height:297mm;
+  background:#0e0c09;
+  border:1px solid #c9a84c;
+  display:flex;flex-direction:column;
+  padding:10mm 10mm 8mm;
+  position:relative;overflow:hidden;
+  gap:0
+}
+
+/* Patrón nazarí */
+.poster::before{
+  content:'';position:absolute;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg width='50' height='50' viewBox='0 0 50 50' xmlns='http://www.w3.org/2000/svg'%3E%3Cg stroke='%23c9a84c' stroke-width='0.3' fill='none' opacity='0.09'%3E%3Cpolygon points='25,1 49,25 25,49 1,25'/%3E%3Cpolygon points='25,10 40,25 25,40 10,25'/%3E%3Crect x='15' y='15' width='20' height='20'/%3E%3C/g%3E%3C/svg%3E");
+  pointer-events:none;z-index:0
+}
+
+/* ── HEADER ── */
+.poster-header{position:relative;z-index:1;text-align:center;margin-bottom:5mm;padding-bottom:4mm;border-bottom:1px solid rgba(201,168,76,.25)}
+.header-logo{font-family:'Cormorant Garamond',serif;font-size:9mm;font-weight:600;color:#c9a84c;letter-spacing:.05em;line-height:1}
+.header-sub{font-size:3mm;letter-spacing:.22em;text-transform:uppercase;color:#7a6e5e;margin-top:1mm;margin-bottom:2mm}
+.header-tagline{font-family:'Cormorant Garamond',serif;font-size:4.5mm;font-style:italic;color:#e8dcc8;opacity:.8}
+
+/* ── COLUMNS HEADER ── */
+.cols-header{display:grid;grid-template-columns:1fr 1fr;gap:4mm;margin-bottom:3mm;position:relative;z-index:1}
+.col-title{text-align:center;font-size:3.2mm;font-weight:500;letter-spacing:.18em;text-transform:uppercase;padding:1.5mm 0;border-radius:2px}
+.col-title.es{background:rgba(201,168,76,.15);color:#c9a84c;border:1px solid rgba(201,168,76,.3)}
+.col-title.en{background:rgba(232,220,200,.06);color:#e8dcc8;border:1px solid rgba(232,220,200,.15)}
+.flag{margin-right:1mm}
+
+/* ── RULES GRID ── */
+.rules{display:grid;grid-template-columns:1fr 1fr;gap:2mm 4mm;position:relative;z-index:1;flex:1}
+.rule{display:flex;align-items:flex-start;gap:2.5mm;padding:2.5mm;background:rgba(201,168,76,.04);border:1px solid rgba(201,168,76,.1);border-radius:2px}
+.rule-icon{font-size:5mm;flex-shrink:0;line-height:1;margin-top:.3mm}
+.rule-body{}
+.rule-title{font-size:3.2mm;font-weight:500;color:#e8dcc8;line-height:1.2;margin-bottom:.8mm}
+.rule-title.es{color:#c9a84c}
+.rule-desc{font-size:2.5mm;color:#7a6e5e;line-height:1.5}
+
+/* ── DIVIDER ── */
+.divider{height:1px;background:linear-gradient(to right,transparent,rgba(201,168,76,.3),transparent);margin:3mm 0;position:relative;z-index:1}
+
+/* ── BOTTOM INFO ── */
+.bottom-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:3mm;position:relative;z-index:1;margin-top:2mm}
+.info-card{background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.15);border-radius:2px;padding:2.5mm;text-align:center}
+.info-icon{font-size:5mm;margin-bottom:1mm}
+.info-title{font-size:2.8mm;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:#c9a84c;margin-bottom:1mm}
+.info-val{font-size:3mm;color:#e8dcc8;line-height:1.5;font-family:'Cormorant Garamond',serif}
+.info-sub{font-size:2.2mm;color:#7a6e5e;margin-top:.5mm;line-height:1.4}
+
+/* ── FOOTER ── */
+.poster-footer{position:relative;z-index:1;text-align:center;margin-top:4mm;padding-top:3mm;border-top:1px solid rgba(201,168,76,.2)}
+.footer-thanks-es{font-family:'Cormorant Garamond',serif;font-size:5mm;color:#e8dcc8;margin-bottom:.5mm}
+.footer-thanks-en{font-family:'Cormorant Garamond',serif;font-size:3.8mm;font-style:italic;color:#7a6e5e;margin-bottom:2mm}
+.footer-contact{font-size:2.8mm;color:#7a6e5e}
+.footer-contact span{color:#c9a84c;font-weight:500}
+.deco-line{width:50%;height:1px;background:linear-gradient(to right,transparent,#c9a84c,transparent);margin:2mm auto}
+
+/* PRINT */
+@media print{
+  body{background:white;padding:0;margin:0;display:block}
+  .screen-note,.print-btn{display:none}
+  .poster{width:210mm;min-height:297mm;margin:0;border:.5pt solid #c9a84c;page-break-after:avoid}
+}
+</style>
+</head>
+<body>
+
+<p class="screen-note">Imprime en A4 y coloca en el portadocumentos del apartamento</p>
+<button class="print-btn" onclick="window.print()">🖨️ Imprimir normas</button>
+
+<div class="poster">
+
+  <!-- HEADER -->
+  <div class="poster-header">
+    <div class="header-logo">VegaGranada</div>
+    <div class="header-sub">Apartamento Turístico · Churriana de la Vega · Granada</div>
+    <div class="deco-line"></div>
+    <div class="header-tagline">Gracias por cuidar nuestro hogar · Thank you for taking care of our home</div>
+  </div>
+
+  <!-- COLUMN TITLES -->
+  <div class="cols-header">
+    <div class="col-title es"><span class="flag">🇪🇸</span> Normas de la casa</div>
+    <div class="col-title en"><span class="flag">🇬🇧</span> House Rules</div>
+  </div>
+
+  <!-- RULES -->
+  <div class="rules">
+
+    <!-- 1 -->
+    <div class="rule">
+      <div class="rule-icon">🚫</div>
+      <div class="rule-body">
+        <div class="rule-title es">1. Prohibido fiestas</div>
+        <div class="rule-desc">No se permiten fiestas ni reuniones de ningún tipo. Respeta a los vecinos.</div>
+      </div>
+    </div>
+    <div class="rule">
+      <div class="rule-icon">🚫</div>
+      <div class="rule-body">
+        <div class="rule-title">1. No parties</div>
+        <div class="rule-desc">Parties and gatherings of any kind are not allowed. Be respectful to neighbours.</div>
+      </div>
+    </div>
+
+    <!-- 2 -->
+    <div class="rule">
+      <div class="rule-icon">🚬</div>
+      <div class="rule-body">
+        <div class="rule-title es">2. Prohibido fumar</div>
+        <div class="rule-desc">No está permitido fumar en el interior del alojamiento ni en las zonas comunes.</div>
+      </div>
+    </div>
+    <div class="rule">
+      <div class="rule-icon">🚬</div>
+      <div class="rule-body">
+        <div class="rule-title">2. No smoking</div>
+        <div class="rule-desc">Smoking is not allowed inside the property or in common areas.</div>
+      </div>
+    </div>
+
+    <!-- 3 -->
+    <div class="rule">
+      <div class="rule-icon">🔇</div>
+      <div class="rule-body">
+        <div class="rule-title es">3. Respeta el descanso</div>
+        <div class="rule-desc">Evita ruidos entre las 22:00 y las 9:00. Respeta a los vecinos del edificio.</div>
+      </div>
+    </div>
+    <div class="rule">
+      <div class="rule-icon">🔇</div>
+      <div class="rule-body">
+        <div class="rule-title">3. Respect quiet hours</div>
+        <div class="rule-desc">Please avoid noise between 10:00 PM and 9:00 AM. Be respectful to neighbours.</div>
+      </div>
+    </div>
+
+    <!-- 4 -->
+    <div class="rule">
+      <div class="rule-icon">👥</div>
+      <div class="rule-body">
+        <div class="rule-title es">4. Número de personas</div>
+        <div class="rule-desc">Capacidad máxima: 5 personas. No se permite superar este número bajo ningún concepto.</div>
+      </div>
+    </div>
+    <div class="rule">
+      <div class="rule-icon">👥</div>
+      <div class="rule-body">
+        <div class="rule-title">4. Number of guests</div>
+        <div class="rule-desc">Maximum capacity: 5 people. Exceeding this number is not allowed under any circumstances.</div>
+      </div>
+    </div>
+
+    <!-- 5 -->
+    <div class="rule">
+      <div class="rule-icon">🧹</div>
+      <div class="rule-body">
+        <div class="rule-title es">5. Deja el alojamiento en buenas condiciones</div>
+        <div class="rule-desc">Deja el piso limpio y ordenado. Recoge la basura, lava los platos y deja todo en su lugar.</div>
+      </div>
+    </div>
+    <div class="rule">
+      <div class="rule-icon">🧹</div>
+      <div class="rule-body">
+        <div class="rule-title">5. Leave the property in good condition</div>
+        <div class="rule-desc">Please leave the flat clean and tidy. Take out the rubbish, wash the dishes and leave everything in its place.</div>
+      </div>
+    </div>
+
+    <!-- 6 -->
+    <div class="rule">
+      <div class="rule-icon">🔑</div>
+      <div class="rule-body">
+        <div class="rule-title es">6. Llaves</div>
+        <div class="rule-desc">No pierdas las llaves. En caso de pérdida o daño se aplicará un cargo adicional.</div>
+      </div>
+    </div>
+    <div class="rule">
+      <div class="rule-icon">🔑</div>
+      <div class="rule-body">
+        <div class="rule-title">6. Keys</div>
+        <div class="rule-desc">Do not lose the keys. In case of loss or damage, an additional charge will apply.</div>
+      </div>
+    </div>
+
+    <!-- 7 -->
+    <div class="rule">
+      <div class="rule-icon">🐾</div>
+      <div class="rule-body">
+        <div class="rule-title es">7. Mascotas</div>
+        <div class="rule-desc">No se admiten mascotas sin autorización previa del anfitrión. Consulta antes de traerlas.</div>
+      </div>
+    </div>
+    <div class="rule">
+      <div class="rule-icon">🐾</div>
+      <div class="rule-body">
+        <div class="rule-title">7. Pets</div>
+        <div class="rule-desc">Pets are not allowed without prior authorisation from the host. Please ask before bringing them.</div>
+      </div>
+    </div>
+
+    <!-- 8 -->
+    <div class="rule">
+      <div class="rule-icon">♻️</div>
+      <div class="rule-body">
+        <div class="rule-title es">8. Reciclaje</div>
+        <div class="rule-desc">Por favor, separa los residuos en los contenedores correspondientes: amarillo, azul, verde y gris.</div>
+      </div>
+    </div>
+    <div class="rule">
+      <div class="rule-icon">♻️</div>
+      <div class="rule-body">
+        <div class="rule-title">8. Recycling</div>
+        <div class="rule-desc">Please separate waste in the correct bins: yellow, blue, green and grey.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- BOTTOM INFO -->
+  <div class="bottom-grid">
+    <div class="info-card">
+      <div class="info-icon">📶</div>
+      <div class="info-title">WiFi</div>
+      <div class="info-val">Livebox6-F309</div>
+      <div class="info-sub">Contraseña · Password<br><strong style="color:#e8dcc8">nP9xeH5nD7tX</strong></div>
+    </div>
+    <div class="info-card">
+      <div class="info-icon">🛡️</div>
+      <div class="info-title">Fianza · Deposit</div>
+      <div class="info-val">150 €</div>
+      <div class="info-sub">Se libera 48h tras la salida<br>Released 48h after checkout</div>
+    </div>
+    <div class="info-card">
+      <div class="info-icon">🕐</div>
+      <div class="info-title">Horarios · Schedule</div>
+      <div class="info-val">Check-in 16:00h<br>Check-out 11:00h</div>
+      <div class="info-sub">Check-in tardío disponible<br>Late check-in available</div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="poster-footer">
+    <div class="deco-line"></div>
+    <div class="footer-thanks-es">¡Disfruta tu estancia y gracias por alojarte con nosotros!</div>
+    <div class="footer-thanks-en">Enjoy your stay and thank you for choosing us!</div>
+    <div class="footer-contact">
+      💬 WhatsApp <span>+34 674 07 14 43</span> · 🌐 <span>vegagranada.com</span>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
