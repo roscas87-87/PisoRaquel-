@@ -21,7 +21,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);o
 /* ── NAV ── */
 nav{position:fixed;top:0;left:0;right:0;z-index:300;background:rgba(14,12,9,0.92);backdrop-filter:blur(14px);border-bottom:1px solid rgba(201,168,76,0.18);transition:.3s}
 .nav-inner{max-width:1400px;margin:0 auto;padding:0 2rem;height:72px;display:flex;align-items:center;justify-content:space-between;gap:2rem}
-.nav-logo{text-decoration:none;line-height:1.15}
+.nav-logo{text-decoration:none;flex:1;display:block}
 .nav-links{display:flex;align-items:center;gap:2.5rem;list-style:none}
 .nav-links a{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--bark);text-decoration:none;opacity:.7;transition:.2s}
 .nav-links a:hover{opacity:1;color:var(--gold)}
@@ -73,7 +73,7 @@ h1 em{font-style:italic;color:var(--gold)}
 .hg-badge{position:absolute;bottom:1.25rem;left:1.25rem;background:var(--gold);color:white;padding:.5rem .9rem;font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;border-radius:2px}
 
 /* ── LOGO ── */
-.nav-logo-img{height:60px;width:auto;display:block;max-width:none;object-fit:contain;flex:1}
+.nav-logo-img{height:60px;width:100%;display:block;object-fit:contain;object-position:left center}
 /* ── HERO NAZARÍ ── */
 
 .hero-naz{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;padding-top:72px;width:100%;box-sizing:border-box}
