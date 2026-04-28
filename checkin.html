@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0"/>
+<title>Check-in Online · Vega Granada</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--gold:#c9a84c;--gold-lt:#e8c97a;--ink:#e8dcc8;--stone:#7a6e5e;--night:#0e0c09;--card:#1e1810;--green:#55c788;--red:#e05555}
+html,body{font-family:'DM Sans',sans-serif;background:var(--night);color:var(--ink);min-height:100%}
+
+.bg-pattern{position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg stroke='%23c9a84c' stroke-width='0.4' fill='none' opacity='0.07'%3E%3Cpolygon points='30,2 58,30 30,58 2,30'/%3E%3Cpolygon points='30,12 48,30 30,48 12,30'/%3E%3Crect x='18' y='18' width='24' height='24'/%3E%3C/g%3E%3C/svg%3E");pointer-events:none;z-index:0}
+
+/* NAV */
+nav{background:rgba(14,12,9,.96);border-bottom:1px solid rgba(201,168,76,.12);padding:0 1.5rem;height:64px;display:flex;align-items:center;justify-content:center;position:sticky;top:0;z-index:50}
+.nav-logo img{height:44px;width:auto}
+
+/* MAIN */
+.main{position:relative;z-index:1;max-width:600px;margin:0 auto;padding:2.5rem 1.5rem 4rem}
+
+/* HEADER */
+.ci-header{text-align:center;margin-bottom:2.5rem}
+.ci-tag{font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;display:flex;align-items:center;justify-content:center;gap:.6rem}
+.ci-tag::before,.ci-tag::after{content:'';display:block;width:24px;height:1px;background:var(--gold)}
+.ci-title{font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:300;color:var(--ink);margin-bottom:.4rem}
+.ci-title em{font-style:italic;color:var(--gold)}
+.ci-sub{font-size:.82rem;color:var(--stone);line-height:1.7}
+
+/* STEPS */
+.steps{display:flex;justify-content:center;gap:0;margin-bottom:2.5rem}
+.step{display:flex;align-items:center;gap:.4rem;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--stone);padding:.4rem .75rem;border-bottom:2px solid transparent;transition:.2s}
+.step.active{color:var(--gold);border-bottom-color:var(--gold)}
+.step.done{color:var(--green);border-bottom-color:var(--green)}
+.step-n{width:20px;height:20px;border-radius:50%;border:1px solid currentColor;display:flex;align-items:center;justify-content:center;font-size:.65rem;flex-shrink:0}
+
+/* CARDS */
+.card{background:#1a1409;border:1px solid rgba(201,168,76,.12);border-radius:3px;padding:1.75rem;margin-bottom:1.25rem}
+.card-title{font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:var(--gold);margin-bottom:1.25rem}
+
+/* FORM */
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem}
+.form-row.single{grid-template-columns:1fr}
+.form-group{display:flex;flex-direction:column;gap:.35rem}
+.form-label{font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--stone)}
+.form-label span{color:var(--red);margin-left:2px}
+.form-input{background:#0e0c09;border:1px solid rgba(201,168,76,.18);color:var(--ink);padding:.7rem 1rem;font-family:'DM Sans',sans-serif;font-size:.85rem;border-radius:2px;outline:none;transition:.2s;width:100%}
+.form-input:focus{border-color:var(--gold)}
+.form-input.error{border-color:var(--red)}
+select.form-input{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23c9a84c' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 1rem center}
+
+/* UPLOAD */
+.upload-area{border:1px dashed rgba(201,168,76,.3);border-radius:2px;padding:2rem;text-align:center;cursor:pointer;transition:.2s;position:relative}
+.upload-area:hover{border-color:var(--gold);background:rgba(201,168,76,.04)}
+.upload-area input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer}
+.upload-icon{font-size:2rem;margin-bottom:.5rem}
+.upload-label{font-size:.78rem;color:var(--stone);line-height:1.6}
+.upload-preview{display:none;margin-top:1rem}
+.upload-preview img{max-width:100%;max-height:200px;border-radius:2px;border:1px solid rgba(201,168,76,.2)}
+.upload-name{font-size:.72rem;color:var(--green);margin-top:.4rem}
+
+/* CONTRACT */
+.contract-box{background:#0e0c09;border:1px solid rgba(201,168,76,.12);border-radius:2px;padding:1.25rem;max-height:220px;overflow-y:auto;font-size:.75rem;color:var(--stone);line-height:1.8;margin-bottom:1rem}
+.contract-box h4{color:var(--ink);font-size:.85rem;margin-bottom:.5rem;font-family:'Cormorant Garamond',serif}
+.contract-box p{margin-bottom:.75rem}
+.accept-row{display:flex;align-items:flex-start;gap:.75rem;cursor:pointer}
+.accept-checkbox{width:18px;height:18px;border:1px solid rgba(201,168,76,.3);border-radius:2px;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:.2s;margin-top:2px}
+.accept-checkbox.checked{background:var(--gold);border-color:var(--gold)}
+.accept-text{font-size:.78rem;color:var(--stone);line-height:1.6}
+
+/* SIGNATURE */
+.sig-wrap{border:1px solid rgba(201,168,76,.2);border-radius:2px;overflow:hidden;position:relative}
+canvas#sigCanvas{display:block;width:100%;cursor:crosshair;touch-action:none}
+.sig-clear{position:absolute;top:.5rem;right:.5rem;background:rgba(14,12,9,.8);border:1px solid rgba(201,168,76,.2);color:var(--stone);font-size:.6rem;padding:.25rem .6rem;border-radius:2px;cursor:pointer;transition:.2s}
+.sig-clear:hover{color:var(--gold)}
+.sig-hint{font-size:.65rem;color:var(--stone);text-align:center;margin-top:.4rem;opacity:.6}
+
+/* BUTTONS */
+.btn-primary{background:var(--gold);color:#0e0c09;border:none;padding:.85rem 2rem;font-family:'DM Sans',sans-serif;font-size:.72rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:.2s;width:100%}
+.btn-primary:hover{background:var(--gold-lt)}
+.btn-primary:disabled{opacity:.5;cursor:not-allowed}
+.btn-secondary{background:none;border:1px solid rgba(201,168,76,.2);color:var(--stone);padding:.75rem 2rem;font-family:'DM Sans',sans-serif;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:.2s;width:100%;margin-bottom:.75rem}
+.btn-secondary:hover{border-color:var(--gold);color:var(--gold)}
+
+/* SUCCESS */
+#successScreen{display:none;text-align:center;padding:3rem 1.5rem}
+.success-icon{font-size:3.5rem;margin-bottom:1rem}
+.success-title{font-family:'Cormorant Garamond',serif;font-size:2rem;color:var(--gold);margin-bottom:.75rem}
+.success-msg{font-size:.85rem;color:var(--stone);line-height:1.8;max-width:420px;margin:0 auto 2rem}
+.success-card{background:#1a1409;border:1px solid rgba(201,168,76,.15);border-radius:3px;padding:1.5rem;text-align:left;max-width:380px;margin:0 auto 1.5rem}
+.success-item{display:flex;justify-content:space-between;align-items:center;padding:.5rem 0;border-bottom:1px solid rgba(201,168,76,.08);font-size:.8rem}
+.success-item:last-child{border-bottom:none}
+.success-item-label{color:var(--stone)}
+.success-item-value{color:var(--ink);font-weight:500}
+.whatsapp-btn{display:inline-flex;align-items:center;gap:.6rem;background:#25d366;color:white;border:none;padding:.85rem 1.75rem;border-radius:2px;font-family:'DM Sans',sans-serif;font-size:.72rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;text-decoration:none;transition:.2s}
+.whatsapp-btn:hover{background:#1fb855}
+
+/* PROGRESS BAR */
+.progress{height:2px;background:rgba(201,168,76,.1);margin-bottom:2rem;border-radius:1px;overflow:hidden}
+.progress-fill{height:100%;background:var(--gold);transition:width .4s ease;border-radius:1px}
+
+/* ERROR MSG */
+.error-msg{background:rgba(224,85,85,.1);border:1px solid rgba(224,85,85,.25);color:#ff9a9a;padding:.6rem 1rem;border-radius:2px;font-size:.75rem;margin-bottom:1rem;display:none}
+
+/* CHEKIN PLACEHOLDER */
+.chekin-placeholder{background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.15);border-radius:2px;padding:1.5rem;text-align:center;margin-bottom:1rem}
+.chekin-badge{display:inline-flex;align-items:center;gap:.5rem;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.2);padding:.4rem .9rem;border-radius:2px;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:.75rem}
+.chekin-note{font-size:.75rem;color:var(--stone);line-height:1.7}
+
+@media(max-width:500px){
+  .form-row{grid-template-columns:1fr}
+  .steps{gap:0}
+  .step{padding:.4rem .5rem;font-size:.55rem}
+  .main{padding:2rem 1rem 3rem}
+}
+</style>
+</head>
+<body>
+<div class="bg-pattern"></div>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <img src="img/header.png" alt="Vega Granada" onerror="this.src='img/logo.png'">
+  </a>
+</nav>
+
+<div class="main">
+
+  <!-- HEADER -->
+  <div class="ci-header">
+    <div class="ci-tag">Check-in Online</div>
+    <h1 class="ci-title">Bienvenido a <em>Vega Granada</em></h1>
+    <p class="ci-sub">Completa tu registro antes de llegar. Solo tarda 3 minutos y te ahorras el papeleo al llegar.</p>
+  </div>
+
+  <!-- STEPS -->
+  <div class="steps">
+    <div class="step active" id="stepBtn1"><div class="step-n">1</div> Datos</div>
+    <div class="step" id="stepBtn2"><div class="step-n">2</div> Documentación</div>
+    <div class="step" id="stepBtn3"><div class="step-n">3</div> Contrato</div>
+  </div>
+
+  <!-- PROGRESS -->
+  <div class="progress"><div class="progress-fill" id="progressFill" style="width:33%"></div></div>
+
+  <!-- ERROR -->
+  <div class="error-msg" id="errorMsg"></div>
+
+  <!-- FORMULARIO -->
+  <div id="formScreen">
+
+    <!-- PASO 1: DATOS PERSONALES -->
+    <div id="paso1">
+      <div class="card">
+        <div class="card-title">👤 Datos del huésped principal</div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Nombre <span>*</span></label>
+            <input type="text" class="form-input" id="nombre" placeholder="María">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Apellidos <span>*</span></label>
+            <input type="text" class="form-input" id="apellidos" placeholder="García López">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Fecha de nacimiento <span>*</span></label>
+            <input type="date" class="form-input" id="fechaNac">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Nacionalidad <span>*</span></label>
+            <select class="form-input" id="nacionalidad">
+              <option value="">Seleccionar...</option>
+              <option value="ES">🇪🇸 España</option>
+              <option value="GB">🇬🇧 Reino Unido</option>
+              <option value="FR">🇫🇷 Francia</option>
+              <option value="DE">🇩🇪 Alemania</option>
+              <option value="IT">🇮🇹 Italia</option>
+              <option value="PT">🇵🇹 Portugal</option>
+              <option value="NL">🇳🇱 Países Bajos</option>
+              <option value="BE">🇧🇪 Bélgica</option>
+              <option value="US">🇺🇸 Estados Unidos</option>
+              <option value="OTHER">🌍 Otro</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Tipo de documento <span>*</span></label>
+            <select class="form-input" id="tipoDoc">
+              <option value="dni">DNI</option>
+              <option value="nie">NIE</option>
+              <option value="pasaporte">Pasaporte</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Número de documento <span>*</span></label>
+            <input type="text" class="form-input" id="numDoc" placeholder="12345678A">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Email <span>*</span></label>
+            <input type="email" class="form-input" id="email" placeholder="tu@email.com">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Teléfono <span>*</span></label>
+            <input type="tel" class="form-input" id="telefono" placeholder="+34 600 000 000">
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">🏨 Datos de la estancia</div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Fecha de entrada <span>*</span></label>
+            <input type="date" class="form-input" id="entrada">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Fecha de salida <span>*</span></label>
+            <input type="date" class="form-input" id="salida">
+          </div>
+        </div>
+        <div class="form-row single">
+          <div class="form-group">
+            <label class="form-label">Número de personas <span>*</span></label>
+            <select class="form-input" id="personas">
+              <option value="1">1 persona</option>
+              <option value="2">2 personas</option>
+              <option value="3">3 personas</option>
+              <option value="4">4 personas</option>
+              <option value="5">5 personas</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <button class="btn-primary" onclick="nextStep(2)">Continuar →</button>
+    </div>
+
+    <!-- PASO 2: DOCUMENTACIÓN -->
+    <div id="paso2" style="display:none">
+      <div class="card">
+        <div class="card-title">📄 Foto del documento</div>
+        <p style="font-size:.78rem;color:var(--stone);margin-bottom:1rem;line-height:1.7">Sube una foto clara de tu <strong style="color:var(--ink)">DNI, NIE o pasaporte</strong>. Asegúrate de que todos los datos sean legibles.</p>
+
+        <div class="upload-area" id="docUploadArea">
+          <input type="file" id="docFile" accept="image/*" capture="environment" onchange="previewDoc(this)">
+          <div class="upload-icon">📷</div>
+          <div class="upload-label">Toca para hacer una foto o subir imagen<br><span style="font-size:.65rem;opacity:.6">JPG, PNG · Máx. 10MB</span></div>
+          <div class="upload-preview" id="docPreview">
+            <img id="docPreviewImg" src="" alt="Documento">
+            <div class="upload-name" id="docFileName"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CHEKIN INTEGRATION PLACEHOLDER -->
+      <div class="chekin-placeholder">
+        <div class="chekin-badge">🔗 Chekin.com</div>
+        <p class="chekin-note">
+          <strong style="color:var(--ink)">Verificación biométrica próximamente</strong><br>
+          Cuando activemos Chekin, podrás verificar tu identidad automáticamente comparando tu documento con una selfie. Los datos se enviarán directamente a la Policía Nacional.
+        </p>
+      </div>
+      <!-- FIN PLACEHOLDER CHEKIN -->
+
+      <button class="btn-secondary" onclick="nextStep(1)">← Atrás</button>
+      <button class="btn-primary" onclick="nextStep(3)">Continuar →</button>
+    </div>
+
+    <!-- PASO 3: CONTRATO Y FIRMA -->
+    <div id="paso3" style="display:none">
+      <div class="card">
+        <div class="card-title">📋 Contrato de arrendamiento</div>
+        <div class="contract-box">
+          <h4>CONTRATO DE ARRENDAMIENTO TURÍSTICO — VEGA GRANADA</h4>
+          <p>En Churriana de la Vega, Granada, entre <strong>Raquel</strong> (en adelante, el ARRENDADOR) y el ARRENDATARIO cuyos datos figuran en este formulario, se acuerda el siguiente contrato de arrendamiento de uso turístico:</p>
+          <p><strong>1. OBJETO.</strong> El arrendador cede temporalmente el uso del apartamento turístico situado en C/ Sevilla esquina C/ Alicante, Churriana de la Vega, Granada, para uso exclusivamente turístico.</p>
+          <p><strong>2. DURACIÓN.</strong> La estancia comprende las fechas indicadas en el check-in. La hora de entrada es a las 16:00h y la de salida a las 11:00h.</p>
+          <p><strong>3. PRECIO Y PAGO.</strong> El precio acordado se abonará según lo pactado en la reserva. Se retendrá una fianza de 150€ que será devuelta en un plazo máximo de 48h tras la salida, siempre que no existan desperfectos.</p>
+          <p><strong>4. CAPACIDAD.</strong> El alojamiento tiene una capacidad máxima de 5 personas. No se permite superar este número bajo ningún concepto.</p>
+          <p><strong>5. NORMAS DE USO.</strong> Queda prohibido: fumar en el interior, celebrar fiestas o eventos, causar molestias a los vecinos, introducir mascotas sin autorización previa del arrendador.</p>
+          <p><strong>6. RESPONSABILIDAD.</strong> El arrendatario responderá de los daños causados en el alojamiento durante su estancia. El arrendador no se responsabiliza de objetos olvidados o robados.</p>
+          <p><strong>7. CANCELACIÓN.</strong> Cancelación gratuita hasta 7 días antes de la entrada. Cancelaciones posteriores no darán derecho a reembolso.</p>
+          <p><strong>8. PROTECCIÓN DE DATOS.</strong> Los datos personales facilitados serán tratados conforme al RGPD y comunicados a las autoridades competentes según la normativa de registro de viajeros.</p>
+        </div>
+
+        <div class="accept-row" onclick="toggleAccept()" style="margin-bottom:1.25rem">
+          <div class="accept-checkbox" id="acceptBox"></div>
+          <div class="accept-text">He leído y acepto el contrato de arrendamiento turístico, las normas de la casa y la política de privacidad.</div>
+        </div>
+
+        <div class="card-title" style="margin-bottom:.75rem">✍️ Firma digital</div>
+        <div class="sig-wrap">
+          <canvas id="sigCanvas" height="160"></canvas>
+          <button class="sig-clear" onclick="clearSig()">Borrar</button>
+        </div>
+        <div class="sig-hint">Firma en el recuadro con el dedo</div>
+      </div>
+
+      <button class="btn-secondary" onclick="nextStep(2)">← Atrás</button>
+      <button class="btn-primary" id="submitBtn" onclick="submitCheckin()" disabled>✓ Completar check-in</button>
+    </div>
+
+  </div>
+
+  <!-- SUCCESS -->
+  <div id="successScreen">
+    <div class="success-icon">✅</div>
+    <h2 class="success-title">¡Check-in completado!</h2>
+    <p class="success-msg">Hemos recibido tus datos correctamente. Te esperamos en el apartamento. Si tienes cualquier duda contacta con nosotros.</p>
+
+    <div class="success-card" id="successSummary"></div>
+
+    <a href="https://wa.me/34674071443" class="whatsapp-btn" target="_blank">
+      💬 Contactar por WhatsApp
+    </a>
+
+    <p style="margin-top:1.5rem;font-size:.72rem;color:var(--stone)">
+      <a href="index.html" style="color:var(--gold);text-decoration:none">← Volver a Vega Granada</a>
+    </p>
+  </div>
+
+</div>
+
+<script>
+// ── ESTADO ──
+let currentStep = 1;
+let accepted = false;
+let sigDrawing = false;
+let docFileData = null;
+
+// ── STEPS ──
+function nextStep(n) {
+  if (n > currentStep && !validateStep(currentStep)) return;
+  
+  document.getElementById(`paso${currentStep}`).style.display = 'none';
+  currentStep = n;
+  document.getElementById(`paso${n}`).style.display = 'block';
+  
+  // Update step indicators
+  [1,2,3].forEach(i => {
+    const btn = document.getElementById(`stepBtn${i}`);
+    btn.classList.remove('active','done');
+    if (i < n) btn.classList.add('done'), btn.querySelector('.step-n').textContent = '✓';
+    else if (i === n) btn.classList.add('active');
+    else btn.querySelector('.step-n').textContent = i;
+  });
+  
+  // Progress bar
+  document.getElementById('progressFill').style.width = `${(n/3)*100}%`;
+  
+  window.scrollTo({top:0, behavior:'smooth'});
+  document.getElementById('errorMsg').style.display = 'none';
+}
+
+// ── VALIDACIÓN ──
+function validateStep(step) {
+  const required = {
+    1: ['nombre','apellidos','fechaNac','nacionalidad','tipoDoc','numDoc','email','telefono','entrada','salida'],
+    2: [],
+    3: []
+  };
+  
+  let ok = true;
+  let firstError = null;
+  
+  required[step]?.forEach(id => {
+    const el = document.getElementById(id);
+    if (!el.value.trim()) {
+      el.classList.add('error');
+      if (!firstError) firstError = el;
+      ok = false;
+    } else {
+      el.classList.remove('error');
+    }
+  });
+  
+  if (!ok) {
+    showError('Por favor rellena todos los campos obligatorios.');
+    firstError?.focus();
+    return false;
+  }
+  
+  // Validate email
+  if (step === 1) {
+    const email = document.getElementById('email').value;
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      showError('El email no es válido.');
+      document.getElementById('email').classList.add('error');
+      return false;
+    }
+    
+    const entrada = document.getElementById('entrada').value;
+    const salida = document.getElementById('salida').value;
+    if (entrada >= salida) {
+      showError('La fecha de salida debe ser posterior a la de entrada.');
+      return false;
+    }
+  }
+  
+  if (step === 3) {
+    if (!accepted) { showError('Debes aceptar el contrato para continuar.'); return false; }
+    if (isSigEmpty()) { showError('Por favor firma en el recuadro.'); return false; }
+  }
+  
+  return true;
+}
+
+function showError(msg) {
+  const el = document.getElementById('errorMsg');
+  el.textContent = msg;
+  el.style.display = 'block';
+  el.scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+
+// ── ACCEPT ──
+function toggleAccept() {
+  accepted = !accepted;
+  const box = document.getElementById('acceptBox');
+  box.classList.toggle('checked', accepted);
+  box.textContent = accepted ? '✓' : '';
+  updateSubmitBtn();
+}
+
+function updateSubmitBtn() {
+  document.getElementById('submitBtn').disabled = !(accepted && !isSigEmpty());
+}
+
+// ── FIRMA ──
+const canvas = document.getElementById('sigCanvas');
+const ctx = canvas.getContext('2d');
+
+function initCanvas() {
+  canvas.width = canvas.offsetWidth;
+  ctx.strokeStyle = '#c9a84c';
+  ctx.lineWidth = 2;
+  ctx.lineCap = 'round';
+  ctx.lineJoin = 'round';
+  ctx.fillStyle = '#0e0c09';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+}
+
+function getPos(e) {
+  const rect = canvas.getBoundingClientRect();
+  const scaleX = canvas.width / rect.width;
+  const scaleY = canvas.height / rect.height;
+  if (e.touches) {
+    return {
+      x: (e.touches[0].clientX - rect.left) * scaleX,
+      y: (e.touches[0].clientY - rect.top) * scaleY
+    };
+  }
+  return {
+    x: (e.clientX - rect.left) * scaleX,
+    y: (e.clientY - rect.top) * scaleY
+  };
+}
+
+canvas.addEventListener('mousedown', e => { sigDrawing=true; const p=getPos(e); ctx.beginPath(); ctx.moveTo(p.x,p.y); });
+canvas.addEventListener('mousemove', e => { if(!sigDrawing) return; const p=getPos(e); ctx.lineTo(p.x,p.y); ctx.stroke(); updateSubmitBtn(); });
+canvas.addEventListener('mouseup', () => sigDrawing=false);
+canvas.addEventListener('touchstart', e => { e.preventDefault(); sigDrawing=true; const p=getPos(e); ctx.beginPath(); ctx.moveTo(p.x,p.y); });
+canvas.addEventListener('touchmove', e => { e.preventDefault(); if(!sigDrawing) return; const p=getPos(e); ctx.lineTo(p.x,p.y); ctx.stroke(); updateSubmitBtn(); });
+canvas.addEventListener('touchend', () => sigDrawing=false);
+
+function clearSig() {
+  ctx.fillStyle='#0e0c09';
+  ctx.fillRect(0,0,canvas.width,canvas.height);
+  updateSubmitBtn();
+}
+
+function isSigEmpty() {
+  const data = ctx.getImageData(0,0,canvas.width,canvas.height).data;
+  for(let i=0;i<data.length;i+=4) {
+    if(data[i]>20||data[i+1]>10) return false; // Not just black
+  }
+  return true;
+}
+
+// ── DOCUMENTO ──
+function previewDoc(input) {
+  if (!input.files[0]) return;
+  docFileData = input.files[0];
+  const reader = new FileReader();
+  reader.onload = e => {
+    document.getElementById('docPreviewImg').src = e.target.result;
+    document.getElementById('docFileName').textContent = '✅ ' + input.files[0].name;
+    document.getElementById('docPreview').style.display = 'block';
+  };
+  reader.readAsDataURL(input.files[0]);
+}
+
+// ── SUBMIT ──
+async function submitCheckin() {
+  if (!validateStep(3)) return;
+  
+  document.getElementById('submitBtn').disabled = true;
+  document.getElementById('submitBtn').textContent = 'Enviando...';
+  
+  const data = {
+    nombre: document.getElementById('nombre').value,
+    apellidos: document.getElementById('apellidos').value,
+    fechaNac: document.getElementById('fechaNac').value,
+    nacionalidad: document.getElementById('nacionalidad').value,
+    tipoDoc: document.getElementById('tipoDoc').value,
+    numDoc: document.getElementById('numDoc').value,
+    email: document.getElementById('email').value,
+    telefono: document.getElementById('telefono').value,
+    entrada: document.getElementById('entrada').value,
+    salida: document.getElementById('salida').value,
+    personas: document.getElementById('personas').value,
+    firma: canvas.toDataURL('image/png'),
+    timestamp: new Date().toISOString()
+  };
+  
+  // ══════════════════════════════════════════════════
+  // CUANDO TENGAS info@vegagranada.com ACTIVO:
+  // Conecta aquí EmailJS o Firebase para enviar email
+  // ══════════════════════════════════════════════════
+  // EmailJS ejemplo (gratis hasta 200 emails/mes):
+  // emailjs.send('SERVICE_ID', 'TEMPLATE_ID', {
+  //   to_email: 'info@vegagranada.com',
+  //   guest_name: data.nombre + ' ' + data.apellidos,
+  //   doc_number: data.numDoc,
+  //   checkin: data.entrada,
+  //   checkout: data.salida,
+  //   persons: data.personas
+  // });
+  // ══════════════════════════════════════════════════
+  
+  // Por ahora guardamos en localStorage y mostramos éxito
+  const checkins = JSON.parse(localStorage.getItem('vg_checkins') || '[]');
+  checkins.push(data);
+  localStorage.setItem('vg_checkins', JSON.stringify(checkins));
+  
+  // Simular delay
+  await new Promise(r => setTimeout(r, 1200));
+  
+  showSuccess(data);
+}
+
+function showSuccess(data) {
+  document.getElementById('formScreen').style.display = 'none';
+  document.getElementById('successScreen').style.display = 'block';
+  
+  const months = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
+  const fmtDate = str => {
+    const [y,m,d] = str.split('-');
+    return `${parseInt(d)} ${months[parseInt(m)-1]} ${y}`;
+  };
+  
+  document.getElementById('successSummary').innerHTML = `
+    <div class="success-item"><span class="success-item-label">Huésped</span><span class="success-item-value">${data.nombre} ${data.apellidos}</span></div>
+    <div class="success-item"><span class="success-item-label">Documento</span><span class="success-item-value">${data.tipoDoc.toUpperCase()} ${data.numDoc}</span></div>
+    <div class="success-item"><span class="success-item-label">Entrada</span><span class="success-item-value">${fmtDate(data.entrada)} · 16:00h</span></div>
+    <div class="success-item"><span class="success-item-label">Salida</span><span class="success-item-value">${fmtDate(data.salida)} · 11:00h</span></div>
+    <div class="success-item"><span class="success-item-label">Personas</span><span class="success-item-value">${data.personas}</span></div>
+  `;
+  
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+// ── INIT ──
+window.addEventListener('load', () => {
+  initCanvas();
+  
+  // Set today as default entry date
+  const today = new Date().toISOString().split('T')[0];
+  const tomorrow = new Date(Date.now() + 86400000).toISOString().split('T')[0];
+  document.getElementById('entrada').value = today;
+  document.getElementById('salida').value = tomorrow;
+  document.getElementById('entrada').min = today;
+});
+
+window.addEventListener('resize', initCanvas);
+</script>
+</body>
+</html>
