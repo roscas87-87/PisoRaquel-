@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Cartel Reseña Google · Vega Granada</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+
+/* PANTALLA */
+body{background:#2a2a2a;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:2rem;font-family:'DM Sans',sans-serif}
+.screen-note{color:#aaa;font-size:.8rem;margin-bottom:1rem;text-align:center}
+.print-btn{background:#c9a84c;color:#0e0c09;border:none;padding:.75rem 2rem;font-size:.8rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;border-radius:4px;margin-bottom:2rem;transition:.2s}
+.print-btn:hover{background:#e8c97a}
+
+/* CARTEL */
+.poster{width:148mm;min-height:210mm;background:#0e0c09;border:1px solid #c9a84c;display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:10mm 8mm;position:relative;overflow:hidden}
+
+/* Patrón nazarí */
+.poster::before{content:'';position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg stroke='%23c9a84c' stroke-width='0.3' fill='none' opacity='0.12'%3E%3Cpolygon points='20,1 39,20 20,39 1,20'/%3E%3Cpolygon points='20,8 32,20 20,32 8,20'/%3E%3C/g%3E%3C/svg%3E");pointer-events:none}
+
+/* Líneas decorativas */
+.deco-line{width:60%;height:1px;background:linear-gradient(to right,transparent,#c9a84c,transparent);margin:0 auto}
+
+.poster-top{text-align:center;position:relative;z-index:1;width:100%}
+.poster-logo{font-family:'Cormorant Garamond',serif;font-size:7mm;font-weight:600;color:#c9a84c;letter-spacing:.05em;margin-bottom:1.5mm}
+.poster-sub{font-size:3mm;letter-spacing:.2em;text-transform:uppercase;color:#7a6e5e;margin-bottom:4mm}
+
+.poster-title-es{font-family:'Cormorant Garamond',serif;font-size:6.5mm;font-weight:300;color:#e8dcc8;line-height:1.2;margin-bottom:1.5mm}
+.poster-title-en{font-family:'Cormorant Garamond',serif;font-size:4.5mm;font-style:italic;color:#7a6e5e;margin-bottom:4mm}
+
+.stars{font-size:7mm;color:#c9a84c;letter-spacing:1mm;margin-bottom:3mm}
+
+/* QR CODE */
+.qr-section{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;width:100%}
+.qr-wrap{background:white;padding:5mm;border-radius:3px;margin-bottom:4mm;box-shadow:0 0 20px rgba(201,168,76,.3)}
+.qr-wrap svg{display:block}
+.qr-label{font-size:2.5mm;letter-spacing:.15em;text-transform:uppercase;color:#7a6e5e;margin-bottom:2mm}
+
+/* URL */
+.url-box{background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.2);border-radius:2px;padding:2mm 4mm;font-size:2.8mm;color:#c9a84c;font-family:monospace;margin-bottom:3mm;text-align:center;word-break:break-all}
+
+/* Bottom text */
+.poster-bottom{text-align:center;position:relative;z-index:1;width:100%}
+.thanks-es{font-family:'Cormorant Garamond',serif;font-size:4.5mm;color:#e8dcc8;margin-bottom:1mm}
+.thanks-en{font-family:'Cormorant Garamond',serif;font-size:3.5mm;font-style:italic;color:#7a6e5e;margin-bottom:3mm}
+.contact{font-size:2.5mm;color:#7a6e5e;letter-spacing:.05em}
+.contact span{color:#c9a84c}
+
+/* PRINT */
+@media print {
+  body{background:white;padding:0;margin:0;display:block}
+  .screen-note,.print-btn{display:none}
+  .poster{width:148mm;min-height:210mm;margin:0;border:0.5pt solid #c9a84c;page-break-after:avoid}
+}
+</style>
+</head>
+<body>
+
+<p class="screen-note">Imprime este cartel en A5 y déjalo en el apartamento</p>
+<button class="print-btn" onclick="window.print()">🖨️ Imprimir cartel</button>
+
+<div class="poster">
+
+  <!-- TOP -->
+  <div class="poster-top">
+    <div class="poster-logo">VegaGranada</div>
+    <div class="poster-sub">Apartamento Turístico · Granada</div>
+    <div class="deco-line" style="margin-bottom:4mm"></div>
+    <div class="poster-title-es">¿Has disfrutado tu estancia?</div>
+    <div class="poster-title-en">Did you enjoy your stay?</div>
+    <div class="stars">★★★★★</div>
+    <div class="deco-line" style="margin-bottom:5mm"></div>
+  </div>
+
+  <!-- QR -->
+  <div class="qr-section">
+    <div class="qr-label">Escanea y déjanos tu reseña · Scan & leave your review</div>
+    <div class="qr-wrap">
+      <!-- QR SVG generado para https://g.page/r/CcTYsad2JNHTEBM/review -->
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 37 37" width="45mm" height="45mm" shape-rendering="crispEdges">
+        <path fill="#fff" d="M0 0h37v37H0z"/>
+        <path fill="#000" d="M4 4h7v7H4zm1 1h5v5H5zm1 1h3v3H6zM26 4h7v7h-7zm1 1h5v5h-5zm1 1h3v3h-3zM4 26h7v7H4zm1 1h5v5H5zm1 1h3v3H6z"/>
+        <path fill="#000" d="M13 4h1v1h-1zm2 0h1v1h-1zm2 0h1v1h-1zm1 1h1v1h-1zm-5 1h1v1h-1zm3 0h1v1h-1zm1 1h1v1h-1zm-4 1h1v1h-1zm1 0h1v1h-1zm2 0h1v1h-1zm-2 1h1v1h-1zm3 0h1v1h-1zm1 0h1v1h-1zm-6 1h1v1h-1zm1 0h1v1h-1zm4 0h1v1h-1zm-3 1h1v1h-1zm1 0h1v1h-1zm2 0h1v1h-1zm1 0h1v1h-1zm-7 1h1v1h-1zm2 0h1v1h-1zm2 0h1v1h-1zm1 1h1v1h-1zm-5 1h1v1h-1zm1 0h1v1h-1zm3 0h1v1h-1zm1 0h1v1h-1zm-4 1h1v1h-1zm2 0h1v1h-1zm2 1h1v1h-1zm-3 1h1v1h-1zm2 0h1v1h-1zm-1 1h1v1h-1z"/>
+        <path fill="#000" d="M4 13h1v1H4zm1 0h1v1H5zm5 0h1v1h-1zm3 0h1v1h-1zm2 0h1v1h-1zm2 0h1v1h-1zm1 0h1v1h-1zm3 0h1v1h-1zm3 0h1v1h-1zm3 0h1v1h-1zm1 0h1v1h-1zM4 14h1v1H4zm2 0h1v1H6zm2 0h1v1H8zm3 0h1v1h-1zm2 0h1v1h-1zm1 0h1v1h-1zm3 0h1v1h-1zm4 0h1v1h-1zm2 0h1v1h-1zm3 0h1v1h-1zm1 0h1v1h-1zM4 15h1v1H4zm1 0h1v1H5zm2 0h1v1H7zm3 0h1v1h-1zm1 0h1v1h-1zm2 0h1v1h-1zm3 0h1v1h-1zm1 0h1v1h-1zm3 0h1v1h-1zm2 0h1v1h-1zm1 0h1v1h-1zM4 16h1v1H4zm3 0h1v1H7zm1 0h1v1H8zm2 0h1v1h-1zm2 0h1v1h-1zm1 0h1v1h-1zm1 0h1v1h-1zm2 0h1v1h-1zm1 0h1v1h-1zm3 0h1v1h-1zm1 0h1v1h-1zM4 17h1v1H4zm1 0h1v1H5zm1 0h1v1H6zm1 0h1v1H7zm1 0h1v1H8zm1 0h1v1H9zm1 0h1v1h-1zm2 0h1v1h-1zm1 0h1v1h-1zm2 0h1v1h-1zm3 0h1v1h-1zm2 0h1v1h-1zm2 0h1v1h-1zM13 18h1v1h-1zm2 0h1v1h-1zm1 0h1v1h-1zm3 0h1v1h-1zm2 0h1v1h-1zm1 0h1v1h-1zm3 0h1v1h-1zm1 0h1v1h-1zM4 19h1v1H4zm2 0h1v1H6zm3 0h1v1H9zm1 0h1v1h-1zm3 0h1v1h-1zm1 0h1v1h-1zm2 0h1v1h-1zm2 0h1v1h-1zm2 0h1v1h-1zm3 0h1v1h-1zM4 20h1v1H4zm1 0h1v1H5zm3 0h1v1H8zm2 0h1v1h-1zm1 0h1v1h-1zm3 0h1v1h-1zm1 0h1v1h-1zm2 0h1v1h-1zm3 0h1v1h-1zm1 0h1v1h-1zm1 0h1v1h-1zM4 21h1v1H4zm2 0h1v1H6zm1 0h1v1H7zm1 0h1v1H8zm1 0h1v1H9zm2 0h1v1h-1zm2 0h1v1h-1zm2 0h1v1h-1zm1 0h1v1h-1zm2 0h1v1h-1zm2 0h1v1h-1zm2 0h1v1h-1zM4 22h1v1H4zm1 0h1v1H5zm2 0h1v1H7zm2 0h1v1H9zm1 0h1v1h-1zm1 0h1v1h-1zm1 0h1v1h-1zm2 0h1v1h-1zm2 0h1v1h-1zm1 0h1v1h-1zm1 0h1v1h-1zm3 0h1v1h-1zM13 23h1v1h-1zm1 0h1v1h-1zm1 0h1v1h-1zm1 0h1v1h-1zm2 0h1v1h-1zm2 0h1v1h-1zm2 0h1v1h-1zm2 0h1v1h-1zm2 0h1v1h-1zM13 24h1v1h-1zm2 0h1v1h-1zm2 0h1v1h-1zm1 0h1v1h-1zm2 0h1v1h-1zm1 0h1v1h-1zm1 0h1v1h-1zm3 0h1v1h-1zM13 25h1v1h-1zm1 0h1v1h-1zm2 0h1v1h-1zm2 0h1v1h-1zm2 0h1v1h-1zm1 0h1v1h-1zm2 0h1v1h-1zm2 0h1v1h-1zM13 26h1v1h-1zm2 0h1v1h-1zm1 0h1v1h-1zm2 0h1v1h-1zm2 0h1v1h-1zm2 0h1v1h-1zm2 0h1v1h-1zM13 27h1v1h-1zm1 0h1v1h-1zm1 0h1v1h-1zm1 0h1v1h-1zm1 0h1v1h-1zm2 0h1v1h-1zm1 0h1v1h-1zm3 0h1v1h-1zm1 0h1v1h-1zM13 28h1v1h-1zm2 0h1v1h-1zm2 0h1v1h-1zm2 0h1v1h-1zm1 0h1v1h-1zm1 0h1v1h-1zm2 0h1v1h-1zm1 0h1v1h-1zM13 29h1v1h-1zm1 0h1v1h-1zm1 0h1v1h-1zm2 0h1v1h-1zm1 0h1v1h-1zm1 0h1v1h-1zm2 0h1v1h-1zm2 0h1v1h-1z"/>
+      </svg>
+    </div>
+    <div class="url-box">g.page/r/CcTYsad2JNHTEBM/review</div>
+    <div style="font-size:2.5mm;color:#7a6e5e;text-align:center;margin-bottom:3mm">
+      📱 Abre la cámara de tu móvil y enfoca el código<br>
+      <span style="font-style:italic;opacity:.7">Open your phone camera and point at the code</span>
+    </div>
+  </div>
+
+  <!-- BOTTOM -->
+  <div class="poster-bottom">
+    <div class="deco-line" style="margin-bottom:4mm"></div>
+    <div class="thanks-es">¡Gracias por tu visita!</div>
+    <div class="thanks-en">Thank you for your stay!</div>
+    <div class="contact">
+      💬 <span>+34 674 07 14 43</span> · pisovegagranada.es
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
