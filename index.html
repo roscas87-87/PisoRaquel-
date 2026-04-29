@@ -481,8 +481,13 @@ body.en [lc="en"]{display:revert}
     // Sync admin data in real-time
     firebase.database().ref('vegagranada/admin').on('value', snap => {
       if (snap.exists()) {
-        localStorage.setItem('vg_admin_data', JSON.stringify(snap.val()));
+        fbAdminData = snap.val();
+        localStorage.setItem('vg_admin_data', JSON.stringify(fbAdminData));
         console.log('🔥 Precios sincronizados desde Firebase');
+        // Recalculate if modal is open
+        if (document.getElementById('r-checkin') && document.getElementById('r-checkin').value) {
+          calcPrice();
+        }
       }
     });
   </script>
@@ -1332,16 +1337,28 @@ function goStep(n){
 }
 
 // Price calculator con temporadas
+// Global variable updated in real-time by Firebase
+let fbAdminData = null;
+
 function getDayPrice(dateStr) {
-  // Check admin panel day prices first
-  const adminData = localStorage.getItem('vg_admin_data');
-  if (adminData) {
-    const data = JSON.parse(adminData);
-    if (data.dayPrices && data.dayPrices[dateStr]) {
-      return data.dayPrices[dateStr];
-    }
+  // Priority 1: Firebase real-time data
+  const data = fbAdminData || JSON.parse(localStorage.getItem('vg_admin_data') || '{}');
+  
+  if (data && data.dayPrices && data.dayPrices[dateStr]) {
+    return parseInt(data.dayPrices[dateStr]);
   }
-  // Fall back to season prices
+  
+  // Priority 2: Season prices from Firebase
+  if (data && data.prices) {
+    const month = new Date(dateStr).getMonth() + 1;
+    const altaMonths = [4,7,8,12];
+    const mediaMonths = [5,6,9,10];
+    if (altaMonths.includes(month)) return data.prices.alta || CONFIG.PRECIOS.alta;
+    if (mediaMonths.includes(month)) return data.prices.media || CONFIG.PRECIOS.media;
+    return data.prices.baja || CONFIG.PRECIOS.baja;
+  }
+  
+  // Priority 3: Local CONFIG fallback
   return getPrecioNoche(dateStr);
 }
 
