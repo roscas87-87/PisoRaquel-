@@ -977,6 +977,9 @@ body.en [lc="en"]{display:revert}
 
 <!-- Stripe JS -->
 <script src="https://js.stripe.com/v3/"></script>
+<!-- EmailJS -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<script>emailjs.init("tPVquyxquTnPwO6R1");</script>
 
 <!-- MODAL RESERVA -->
 <div class="res-modal" id="resModal">
@@ -1468,8 +1471,22 @@ async function processPayment(){
       throw new Error(stripeError.message);
     }
 
-    // 3. Pago OK → mostrar confirmación
+    // 3. Pago OK → enviar email y mostrar confirmación
     goStep(4);
+    try {
+      await emailjs.send('service_tyxjmnn', 'template_ay7jeim', {
+        name: name,
+        email: document.getElementById('r-email').value,
+        phone: document.getElementById('r-phone').value,
+        checkin: ci,
+        checkout: co,
+        guests: g,
+        amount: amount
+      });
+      console.log('✅ Email enviado');
+    } catch(emailErr) {
+      console.log('Email error (no crítico):', emailErr);
+    }
 
   } catch(e){
     document.getElementById('card-errors').textContent=e.message;
