@@ -1279,7 +1279,7 @@ function lbNav(d){lbIdx=(lbIdx+d+lbImgs.length)%lbImgs.length;document.getElemen
 // ═══════════════════════════════════════════════════════
 const CONFIG = {
   // 1. Tu clave pública de Stripe
-  STRIPE_KEY: 'pk_live_PEGA_TU_CLAVE_AQUI',
+  STRIPE_KEY: 'pk_live_51TRdsY2KNNgdpNy0BCXbHnJnEVnRENroKP6MhC7oHJajG6RJ9utJx6kyd5owA1UzDE5ssqiuyDd361nFQr1GxLCl00tqibRp9A',
 
   // 2. Precios por temporada (€/noche)
   PRECIOS: {
@@ -1325,7 +1325,7 @@ function openResModal(){
   document.getElementById('resModal').classList.add('open');
   document.body.style.overflow='hidden';
   // Inicializar Stripe si la clave ya está configurada
-  if(CONFIG.STRIPE_KEY !== 'pk_live_PEGA_TU_CLAVE_AQUI') initStripe();
+  initStripe();
 }
 function closeResModal(){
   document.getElementById('resModal').classList.remove('open');
@@ -1406,6 +1406,7 @@ function calcPrice(){
 }
 
 // Stripe init (se activa cuando pegas tu clave)
+// Stripe init
 let stripe, cardElement;
 function initStripe(){
   try{
@@ -1417,30 +1418,59 @@ function initStripe(){
     document.getElementById('card-element').style.display='block';
     document.getElementById('stripe-placeholder').style.display='none';
     cardElement.mount('#card-element');
-  } catch(e){ console.log('Stripe: añade tu clave en CONFIG.STRIPE_KEY') }
+  } catch(e){ console.log('Stripe error:', e) }
 }
 
-// Process payment
+// Process payment via Netlify Function
 async function processPayment(){
   const btn=document.getElementById('pay-btn');
   btn.disabled=true;
   btn.textContent='Procesando...';
+  document.getElementById('card-errors').textContent='';
+
+  const ci=document.getElementById('r-checkin').value;
+  const co=document.getElementById('r-checkout').value;
+  const g=document.getElementById('r-guests').value;
+  const name=(document.getElementById('r-fname').value+' '+document.getElementById('r-lname').value).trim();
+  const amount=parseInt(document.getElementById('p-total').textContent)||0;
+
   if(!stripe||!cardElement){
-    // Sin Stripe configurado → redirige a WhatsApp con los datos
-    const ci=document.getElementById('r-checkin').value;
-    const co=document.getElementById('r-checkout').value;
-    const g=document.getElementById('r-guests').value;
-    const name=document.getElementById('r-fname').value+' '+document.getElementById('r-lname').value;
-    const msg=`Hola, quiero reservar el apartamento. Nombre: ${name}. Fechas: ${ci} al ${co}. Huéspedes: ${g}.`;
+    // Sin Stripe → WhatsApp fallback
+    const msg=`Hola, quiero reservar el apartamento. Nombre: ${name}. Fechas: ${ci} al ${co}. Huéspedes: ${g}. Total: ${amount}€`;
     window.open(`https://wa.me/${CONFIG.WHATSAPP}?text=${encodeURIComponent(msg)}`,'_blank');
     btn.disabled=false;
     btn.textContent='Pagar y confirmar reserva';
     return;
   }
+
   try{
-    // Cuando Stripe esté configurado, aquí va la llamada a tu backend
-    // Por ahora confirma la reserva y muestra el paso 4
+    // 1. Crear PaymentIntent en Netlify Function
+    const res = await fetch('/.netlify/functions/create-payment-intent', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ amount, checkin:ci, checkout:co, guests:g, name })
+    });
+    const {clientSecret, error} = await res.json();
+    if(error) throw new Error(error);
+
+    // 2. Confirmar pago con Stripe
+    const {error: stripeError} = await stripe.confirmCardPayment(clientSecret, {
+      payment_method: {
+        card: cardElement,
+        billing_details: {
+          name,
+          email: document.getElementById('r-email').value
+        }
+      }
+    });
+
+    if(stripeError){
+      throw new Error(stripeError.message);
+    }
+
+    // 3. Pago OK → mostrar confirmación
     goStep(4);
+
   } catch(e){
     document.getElementById('card-errors').textContent=e.message;
     btn.disabled=false;
