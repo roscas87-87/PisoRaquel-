@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>FAQ · Preguntas Frecuentes · Vega Granada</title>
+<meta name="description" content="Resuelve todas tus dudas sobre el apartamento turístico Vega Granada en Churriana de la Vega. Check-in, parking, mascotas, cancelación y más.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --cream:#0e0c09;--white:#161209;--warm:#1e1810;
+  --gold:#c9a84c;--gold-lt:#e8c97a;--gold-dk:#a07830;
+  --ink:#e8dcc8;--bark:#c8bfb0;--stone:#7a6e5e;--mist:#4a3f32;
+}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);overflow-x:hidden}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:300;background:rgba(14,12,9,0.92);backdrop-filter:blur(14px);border-bottom:1px solid rgba(201,168,76,0.18);transition:.3s}
+.nav-inner{max-width:1400px;margin:0 auto;padding:0 2rem;height:72px;display:flex;align-items:center;justify-content:space-between;gap:2rem}
+.nav-logo{text-decoration:none;flex:1;display:block}
+.nav-logo-img{height:60px;width:100%;display:block;object-fit:contain;object-position:left center}
+.nav-links{display:flex;align-items:center;gap:2.5rem;list-style:none}
+.nav-links a{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--bark);text-decoration:none;opacity:.7;transition:.2s}
+.nav-links a:hover{opacity:1;color:var(--gold)}
+.nav-book{background:var(--gold)!important;color:white!important;opacity:1!important;padding:.48rem 1.2rem;border-radius:2px;transition:background .2s!important}
+.nav-book:hover{background:var(--gold-dk)!important}
+.nav-right{display:flex;align-items:center;gap:1.5rem}
+.lang-toggle{display:flex;align-items:center;gap:.3rem}
+.lang-btn{background:none;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.68rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--stone);padding:.25rem .45rem;border-radius:2px;transition:.2s}
+.lang-btn.active{color:var(--gold);background:rgba(184,145,58,.12)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:.5rem;background:none;border:none}
+.hamburger span{display:block;width:22px;height:2px;background:var(--bark);transition:.3s;transform-origin:center}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.mobile-menu{display:none;position:fixed;top:68px;left:0;right:0;bottom:0;background:#0e0c09;z-index:299;flex-direction:column;padding:2.5rem 2rem;gap:2rem;overflow-y:auto}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:300;color:var(--ink);text-decoration:none;border-bottom:1px solid rgba(184,145,58,.15);padding-bottom:1rem;transition:.2s}
+.mobile-menu a:hover{color:var(--gold)}
+.mobile-menu .m-book{background:var(--gold);color:white;padding:1rem 2rem;text-align:center;border:none;font-size:1rem;font-family:'DM Sans',sans-serif;font-weight:500;letter-spacing:.1em;text-transform:uppercase;margin-top:.5rem}
+
+/* HERO FAQ */
+.faq-hero{padding-top:72px;background:#161209;padding-bottom:0}
+.faq-hero-inner{max-width:780px;margin:0 auto;padding:5rem 2rem 3rem;text-align:center}
+.sec-lbl{font-size:.62rem;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);margin-bottom:.8rem;display:flex;align-items:center;justify-content:center;gap:.6rem}
+.sec-lbl::before,.sec-lbl::after{content:'';display:block;width:20px;height:1px;background:var(--gold)}
+h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2.5rem,5vw,4rem);font-weight:300;line-height:1.1;color:var(--ink);margin-bottom:1rem}
+h1 em{font-style:italic;color:var(--gold)}
+.hero-sub{font-size:.92rem;color:var(--stone);line-height:1.8;max-width:480px;margin:0 auto}
+
+/* FAQ */
+.faq-section{background:#0e0c09;padding:4rem 2rem 6rem}
+.faq-list{max-width:780px;margin:0 auto}
+.faq-category{font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin:3rem 0 1rem;display:flex;align-items:center;gap:.6rem}
+.faq-category::before{content:'';display:block;width:20px;height:1px;background:var(--gold)}
+.faq-item{border-bottom:1px solid rgba(201,168,76,.12)}
+.faq-q{width:100%;background:none;border:none;color:var(--ink);font-family:'DM Sans',sans-serif;font-size:.9rem;font-weight:500;text-align:left;padding:1.4rem 0;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem;transition:.2s}
+.faq-q:hover{color:var(--gold)}
+.faq-icon{color:var(--gold);font-size:1.3rem;flex-shrink:0;transition:transform .3s;line-height:1}
+.faq-item.open .faq-icon{transform:rotate(45deg)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .35s ease}
+.faq-item.open .faq-a{max-height:400px}
+.faq-a-inner{font-size:.85rem;color:var(--stone);line-height:1.85;padding-bottom:1.4rem}
+.faq-a-inner strong{color:var(--ink)}
+.faq-a-inner a{color:var(--gold);text-decoration:none}
+.faq-a-inner a:hover{text-decoration:underline}
+
+/* CTA */
+.faq-cta{background:#1e1810;border-top:1px solid rgba(201,168,76,.12);padding:4rem 2rem;text-align:center}
+.faq-cta h2{font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:300;color:var(--ink);margin-bottom:1rem}
+.faq-cta h2 em{font-style:italic;color:var(--gold)}
+.faq-cta p{font-size:.88rem;color:var(--stone);margin-bottom:2rem}
+.btn-primary{display:inline-flex;align-items:center;gap:.5rem;background:var(--gold);color:white;text-decoration:none;padding:.85rem 2rem;font-size:.75rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;border-radius:2px;transition:.2s;border:none;cursor:pointer;font-family:'DM Sans',sans-serif}
+.btn-primary:hover{background:var(--gold-dk);transform:translateY(-1px)}
+.btn-secondary{display:inline-flex;align-items:center;gap:.5rem;background:transparent;color:var(--ink);text-decoration:none;padding:.85rem 2rem;font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;border:1px solid rgba(201,168,76,.3);border-radius:2px;transition:.2s}
+.btn-secondary:hover{border-color:var(--gold);transform:translateY(-1px)}
+.cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+
+/* FOOTER */
+footer{background:#0e0c09;border-top:1px solid rgba(201,168,76,.1);padding:2.5rem 4rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1.5rem}
+.f-logo{font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--gold)}
+.f-links{display:flex;gap:1.5rem;flex-wrap:wrap;align-items:center}
+.f-links a{font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--stone);text-decoration:none;transition:.2s}
+.f-links a:hover{color:var(--gold)}
+.f-copy{font-size:.62rem;color:var(--mist);letter-spacing:.08em}
+
+/* LANG */
+[lc="en"]{display:none}
+body.en [lc="es"]{display:none}
+body.en [lc="en"]{display:revert}
+
+/* RESPONSIVE */
+@media(max-width:1100px){
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  footer{padding:2rem 1.8rem;flex-direction:column;text-align:center}
+  .f-links{justify-content:center}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <img src="img/header.png" alt="Vega Granada" class="nav-logo-img" onerror="this.src='img/logo.png'">
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html#galeria" lc="es">Galería</a><a href="index.html#galeria" lc="en">Gallery</a></li>
+      <li><a href="index.html#comodidades" lc="es">Comodidades</a><a href="index.html#comodidades" lc="en">Amenities</a></li>
+      <li><a href="index.html#ubicacion" lc="es">Ubicación</a><a href="index.html#ubicacion" lc="en">Location</a></li>
+      <li><a href="index.html#precios" lc="es">Precios</a><a href="index.html#precios" lc="en">Rates</a></li>
+      <li><a href="granada.html" lc="es">Guía Granada</a><a href="granada.html" lc="en">Granada Guide</a></li>
+      <li><a href="index.html#reservar" class="nav-book" lc="es">Reservar</a><a href="index.html#reservar" class="nav-book" lc="en">Book Now</a></li>
+    </ul>
+    <div class="nav-right">
+      <div class="lang-toggle">
+        <button class="lang-btn active" onclick="setLang('es')">ES</button>
+        <span style="color:var(--mist);font-size:.7rem">|</span>
+        <button class="lang-btn" onclick="setLang('en')">EN</button>
+      </div>
+      <button class="hamburger" id="ham" onclick="toggleMenu()" aria-label="Menú">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html#galeria" onclick="closeMenu()" lc="es">Galería</a>
+  <a href="index.html#galeria" onclick="closeMenu()" lc="en">Gallery</a>
+  <a href="index.html#comodidades" onclick="closeMenu()" lc="es">Comodidades</a>
+  <a href="index.html#comodidades" onclick="closeMenu()" lc="en">Amenities</a>
+  <a href="index.html#ubicacion" onclick="closeMenu()" lc="es">Ubicación</a>
+  <a href="index.html#ubicacion" onclick="closeMenu()" lc="en">Location</a>
+  <a href="granada.html" onclick="closeMenu()" lc="es">Guía de Granada</a>
+  <a href="granada.html" onclick="closeMenu()" lc="en">Granada Guide</a>
+  <a href="index.html#reservar" onclick="closeMenu()" class="m-book" lc="es">Reservar ahora</a>
+  <a href="index.html#reservar" onclick="closeMenu()" class="m-book" lc="en">Book now</a>
+</div>
+
+<!-- HERO -->
+<div class="faq-hero">
+  <div class="faq-hero-inner">
+    <p class="sec-lbl" lc="es">Preguntas frecuentes</p>
+    <p class="sec-lbl" lc="en">Frequently asked questions</p>
+    <h1 lc="es">Todo lo que necesitas <em>saber</em></h1>
+    <h1 lc="en">Everything you need to <em>know</em></h1>
+    <p class="hero-sub" lc="es">Resolvemos tus dudas antes de tu llegada a Vega Granada.</p>
+    <p class="hero-sub" lc="en">We answer your questions before your arrival at Vega Granada.</p>
+  </div>
+</div>
+
+<!-- FAQ -->
+<section class="faq-section">
+  <div class="faq-list">
+
+    <!-- CATEGORÍA: CHECK-IN / CHECK-OUT -->
+    <p class="faq-category" lc="es">🔑 Check-in y Check-out</p>
+    <p class="faq-category" lc="en">🔑 Check-in & Check-out</p>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        <span lc="es">¿Cuál es el horario de check-in y check-out?</span>
+        <span lc="en">What are the check-in and check-out times?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a"><div class="faq-a-inner">
+        <span lc="es">El check-in es a partir de las <strong>16:00h</strong> y el check-out antes de las <strong>11:00h</strong>. Si necesitas horarios flexibles, consúltanos por WhatsApp con antelación — hacemos lo posible por adaptarnos.</span>
+        <span lc="en">Check-in is from <strong>4:00 PM</strong> and check-out is before <strong>11:00 AM</strong>. If you need flexible times, contact us via WhatsApp in advance — we'll do our best to accommodate you.</span>
+      </div></div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        <span lc="es">¿Cómo funciona la entrada al apartamento?</span>
+        <span lc="en">How does apartment access work?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a"><div class="faq-a-inner">
+        <span lc="es">Recibirás todas las instrucciones de acceso por email antes de tu llegada. El proceso es sencillo y podrás entrar de forma autónoma a cualquier hora.</span>
+        <span lc="en">You'll receive full access instructions by email before your arrival. The process is simple and you'll be able to enter independently at any time.</span>
+      </div></div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        <span lc="es">¿Puedo hacer el check-in de madrugada?</span>
+        <span lc="en">Can I check in late at night?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a"><div class="faq-a-inner">
+        <span lc="es">Sí, el acceso es autónomo por lo que puedes llegar a cualquier hora. Solo te pedimos que nos avises con antelación para coordinarlo.</span>
+        <span lc="en">Yes, access is self-managed so you can arrive at any time. We just ask that you let us know in advance so we can coordinate.</span>
+      </div></div>
+    </div>
+
+    <!-- CATEGORÍA: INSTALACIONES -->
+    <p class="faq-category" lc="es">🏠 Instalaciones</p>
+    <p class="faq-category" lc="en">🏠 Facilities</p>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        <span lc="es">¿Hay parking disponible?</span>
+        <span lc="en">Is parking available?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a"><div class="faq-a-inner">
+        <span lc="es">Sí, disponemos de <strong>parking privado gratuito</strong> incluido en el precio. No tendrás que preocuparte por aparcar en la calle.</span>
+        <span lc="en">Yes, we have <strong>free private parking</strong> included in the price. You won't need to worry about street parking.</span>
+      </div></div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        <span lc="es">¿El WiFi es bueno?</span>
+        <span lc="en">Is the WiFi good?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a"><div class="faq-a-inner">
+        <span lc="es">Disponemos de <strong>WiFi de fibra óptica</strong> de alta velocidad en todo el apartamento. Perfecto para teletrabajar o hacer streaming sin problemas.</span>
+        <span lc="en">We have <strong>high-speed fibre optic WiFi</strong> throughout the apartment. Perfect for remote work or streaming without any issues.</span>
+      </div></div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        <span lc="es">¿Cuántas personas pueden alojarse?</span>
+        <span lc="en">How many guests can stay?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a"><div class="faq-a-inner">
+        <span lc="es">El apartamento tiene capacidad para un máximo de <strong>5 personas</strong>. Cuenta con 3 habitaciones completamente equipadas.</span>
+        <span lc="en">The apartment accommodates a maximum of <strong>5 guests</strong>. It has 3 fully equipped bedrooms.</span>
+      </div></div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        <span lc="es">¿Se admiten mascotas?</span>
+        <span lc="en">Are pets allowed?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a"><div class="faq-a-inner">
+        <span lc="es">Por el momento <strong>no se admiten mascotas</strong>. Si tienes alguna duda, no dudes en consultarnos por WhatsApp.</span>
+        <span lc="en">At the moment <strong>pets are not allowed</strong>. If you have any questions, feel free to ask us via WhatsApp.</span>
+      </div></div>
+    </div>
+
+    <!-- CATEGORÍA: RESERVAS Y PAGOS -->
+    <p class="faq-category" lc="es">💳 Reservas y Pagos</p>
+    <p class="faq-category" lc="en">💳 Bookings & Payments</p>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        <span lc="es">¿Qué incluye el precio?</span>
+        <span lc="en">What is included in the price?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a"><div class="faq-a-inner">
+        <span lc="es">El precio incluye el alojamiento, ropa de cama, toallas, parking privado, WiFi y todos los suministros (agua, luz, calefacción). No hay costes ocultos.</span>
+        <span lc="en">The price includes accommodation, bed linen, towels, private parking, WiFi and all utilities (water, electricity, heating). No hidden costs.</span>
+      </div></div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        <span lc="es">¿Cómo funciona la fianza?</span>
+        <span lc="en">How does the deposit work?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a"><div class="faq-a-inner">
+        <span lc="es">Se retiene una <strong>fianza de 150€</strong> en el momento del pago. Se devuelve automáticamente en un plazo de 48h tras el checkout si no hay incidencias.</span>
+        <span lc="en">A <strong>€150 deposit</strong> is held at the time of payment. It is automatically returned within 48 hours after checkout if there are no issues.</span>
+      </div></div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        <span lc="es">¿Cuál es la política de cancelación?</span>
+        <span lc="en">What is the cancellation policy?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a"><div class="faq-a-inner">
+        <span lc="es">Las cancelaciones con más de <strong>7 días de antelación</strong> tienen reembolso completo. Cancelaciones con menos de 7 días no son reembolsables. Para casos especiales, contáctanos por <a href="https://wa.me/34674071443">WhatsApp</a>.</span>
+        <span lc="en">Cancellations made more than <strong>7 days in advance</strong> receive a full refund. Cancellations with less than 7 days notice are non-refundable. For special cases, contact us via <a href="https://wa.me/34674071443">WhatsApp</a>.</span>
+      </div></div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        <span lc="es">¿Puedo reservar también en Airbnb o Booking?</span>
+        <span lc="en">Can I also book on Airbnb or Booking?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a"><div class="faq-a-inner">
+        <span lc="es">Sí, estamos disponibles en <a href="https://www.airbnb.es/rooms/1422916654816917450" target="_blank">Airbnb</a> y <a href="https://www.booking.com/hotel/es/piso-turistico-granada.es.html" target="_blank">Booking.com</a>. Sin embargo, reservando directamente en esta web obtienes el <strong>mejor precio garantizado</strong> sin comisiones.</span>
+        <span lc="en">Yes, we are available on <a href="https://www.airbnb.es/rooms/1422916654816917450" target="_blank">Airbnb</a> and <a href="https://www.booking.com/hotel/es/piso-turistico-granada.es.html" target="_blank">Booking.com</a>. However, booking directly on this website guarantees you the <strong>best price</strong> with no commissions.</span>
+      </div></div>
+    </div>
+
+    <!-- CATEGORÍA: UBICACIÓN -->
+    <p class="faq-category" lc="es">📍 Ubicación</p>
+    <p class="faq-category" lc="en">📍 Location</p>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        <span lc="es">¿Dónde está exactamente el apartamento?</span>
+        <span lc="en">Where exactly is the apartment?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a"><div class="faq-a-inner">
+        <span lc="es">Estamos en <strong>C/ Sevilla esq. C/ Alicante, Churriana de la Vega</strong>, a tan solo 5 minutos en coche del centro de Granada y 10 minutos del aeropuerto.</span>
+        <span lc="en">We are at <strong>C/ Sevilla corner C/ Alicante, Churriana de la Vega</strong>, just 5 minutes by car from Granada city centre and 10 minutes from the airport.</span>
+      </div></div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        <span lc="es">¿Hay transporte público cerca?</span>
+        <span lc="en">Is there public transport nearby?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a"><div class="faq-a-inner">
+        <span lc="es">Sí, hay paradas de autobús cercanas con conexión directa al centro de Granada. También es muy fácil llegar en coche desde la autovía A-92.</span>
+        <span lc="en">Yes, there are nearby bus stops with direct connections to Granada city centre. It is also very easy to reach by car from the A-92 motorway.</span>
+      </div></div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        <span lc="es">¿A cuánto está la Alhambra?</span>
+        <span lc="en">How far is the Alhambra?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a"><div class="faq-a-inner">
+        <span lc="es">La Alhambra está a aproximadamente <strong>15 minutos en coche</strong> desde el apartamento. Te recomendamos comprar las entradas con mucha antelación en la web oficial.</span>
+        <span lc="en">The Alhambra is approximately <strong>15 minutes by car</strong> from the apartment. We recommend buying tickets well in advance on the official website.</span>
+      </div></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="faq-cta">
+  <h2 lc="es">¿Tienes más <em>preguntas</em>?</h2>
+  <h2 lc="en">Still have <em>questions</em>?</h2>
+  <p lc="es">Escríbenos por WhatsApp o reserva directamente — estamos aquí para ayudarte.</p>
+  <p lc="en">Message us on WhatsApp or book directly — we're here to help.</p>
+  <div class="cta-btns">
+    <a href="index.html#reservar" class="btn-primary" lc="es">✦ Reservar ahora</a>
+    <a href="index.html#reservar" class="btn-primary" lc="en">✦ Book now</a>
+    <a href="https://wa.me/34674071443" class="btn-secondary" target="_blank">💬 WhatsApp</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="f-logo">Vega Granada ✦</div>
+  <div class="f-links">
+    <a href="index.html" lc="es">Inicio</a><a href="index.html" lc="en">Home</a>
+    <a href="index.html#galeria" lc="es">Galería</a><a href="index.html#galeria" lc="en">Gallery</a>
+    <a href="index.html#precios" lc="es">Precios</a><a href="index.html#precios" lc="en">Rates</a>
+    <a href="granada.html" lc="es">Guía Granada</a><a href="granada.html" lc="en">Granada Guide</a>
+    <a href="privacidad.html" lc="es">Privacidad</a><a href="privacidad.html" lc="en">Privacy</a>
+  </div>
+  <div class="f-copy">© 2026 Piso Turístico Vega Granada · Churriana de la Vega</div>
+</footer>
+
+<script>
+// Lang
+function setLang(l){
+  document.body.classList.toggle('en', l==='en');
+  document.querySelectorAll('.lang-btn').forEach(b=>b.classList.toggle('active', b.textContent.trim().toLowerCase()===l));
+  localStorage.setItem('pvg_lang', l);
+}
+const sl=localStorage.getItem('pvg_lang'); if(sl) setLang(sl);
+
+// Hamburger
+function toggleMenu(){
+  document.getElementById('ham').classList.toggle('open');
+  document.getElementById('mobileMenu').classList.toggle('open');
+  document.body.style.overflow=document.getElementById('mobileMenu').classList.contains('open')?'hidden':'';
+}
+function closeMenu(){
+  document.getElementById('ham').classList.remove('open');
+  document.getElementById('mobileMenu').classList.remove('open');
+  document.body.style.overflow='';
+}
+
+// FAQ toggle
+function toggleFaq(btn){
+  const item = btn.closest('.faq-item');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+  if(!isOpen) item.classList.add('open');
+}
+</script>
+</body>
+</html>
