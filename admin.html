@@ -607,15 +607,13 @@ function startBlockTimer(ms) {
   }, 1000);
 }
 
-async function checkCredentials() {
+function checkCredentials() {
   if (checkBlocked()) return;
   
   const user = document.getElementById('inputUser').value.trim();
   const pass = document.getElementById('inputPass').value;
   
   if (!user || !pass) { showError('Rellena todos los campos'); return; }
-  
-  const hash = await hashPass(pass);
   
   // Verificar usuario (case-insensitive) y contraseña directa
   const passOk = pass === 'VegaGr@nada2026!';
