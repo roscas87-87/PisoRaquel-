@@ -1151,27 +1151,27 @@ body.en [lc="en"]{display:revert}
         <div class="frow2">
           <div class="rf">
             <label class="rl" lc="es">Nombre</label><label class="rl" lc="en">First name</label>
-            <input type="text" id="r-fname" class="ri" placeholder="María">
+            <input type="text" id="r-fname" class="ri" >
           </div>
           <div class="rf">
             <label class="rl" lc="es">Apellidos</label><label class="rl" lc="en">Last name</label>
-            <input type="text" id="r-lname" class="ri" placeholder="García">
+            <input type="text" id="r-lname" class="ri" >
           </div>
         </div>
         <div class="rf">
           <label class="rl">Email</label>
-          <input type="email" id="r-email" class="ri" placeholder="maria@email.com">
+          <input type="email" id="r-email" class="ri" >
         </div>
         <div class="rf">
           <label class="rl" lc="es">Teléfono</label><label class="rl" lc="en">Phone</label>
-          <input type="tel" id="r-phone" class="ri" placeholder="+34 600 000 000">
+          <input type="tel" id="r-phone" class="ri" >
         </div>
         <div class="rf">
           <label class="rl" lc="es">Mensaje (opcional)</label><label class="rl" lc="en">Message (optional)</label>
-          <input type="text" id="r-msg" class="ri" placeholder="...">
+          <input type="text" id="r-msg" class="ri" >
         </div>
-        <button class="res-btn" onclick="goStep(3)" lc="es">Continuar al pago →</button>
-        <button class="res-btn" onclick="goStep(3)" lc="en">Continue to payment →</button>
+        <button class="res-btn" onclick="validateStep2('es')" lc="es">Continuar al pago →</button>
+        <button class="res-btn" onclick="validateStep2('en')" lc="en">Continue to payment →</button>
         <button class="res-btn-back" onclick="goStep(1)" lc="es">← Volver</button>
         <button class="res-btn-back" onclick="goStep(1)" lc="en">← Back</button>
       </div>
@@ -1212,8 +1212,8 @@ body.en [lc="en"]{display:revert}
           <span lc="en">Secure payment with Stripe · Encrypted data · We never store your card</span>
         </div>
 
-        <button class="res-btn" id="pay-btn" onclick="processPayment()" lc="es">💳 Pagar y confirmar reserva</button>
-        <button class="res-btn" id="pay-btn" onclick="processPayment()" lc="en">💳 Pay and confirm booking</button>
+        <button class="res-btn" id="pay-btn" onclick="openConfirmModal()" lc="es">💳 Pagar y confirmar reserva</button>
+        <button class="res-btn" id="pay-btn" onclick="openConfirmModal()" lc="en">💳 Pay and confirm booking</button>
         <button class="res-btn-back" onclick="goStep(2)" lc="es">← Volver</button>
         <button class="res-btn-back" onclick="goStep(2)" lc="en">← Back</button>
       </div>
@@ -1236,6 +1236,25 @@ body.en [lc="en"]{display:revert}
     </div><!-- /res-body -->
   </div><!-- /res-box -->
 </div><!-- /res-modal -->
+
+<!-- MODAL CONFIRMACIÓN PAGO -->
+<div id="confirmModal" style="display:none;position:fixed;inset:0;z-index:600;background:rgba(0,0,0,.7);align-items:center;justify-content:center;padding:1.5rem">
+  <div style="background:#1e1810;border:1px solid rgba(201,168,76,.25);border-radius:4px;padding:2rem;width:100%;max-width:420px">
+    <div style="font-family:'Cormorant Garamond',serif;font-size:1.4rem;color:var(--gold);margin-bottom:1.25rem">
+      <span lc="es">✦ Confirmar reserva</span>
+      <span lc="en">✦ Confirm booking</span>
+    </div>
+    <div id="confirm-summary" style="background:#161209;border:1px solid rgba(201,168,76,.12);border-radius:2px;padding:1rem;margin-bottom:1.25rem;font-size:.82rem;color:var(--stone);line-height:2"></div>
+    <p style="font-size:.72rem;color:var(--stone);margin-bottom:1.25rem;line-height:1.6" lc="es">⚠️ Al confirmar se realizará el cargo en tu tarjeta. La fianza se devuelve automáticamente 48h después del checkout.</p>
+    <p style="font-size:.72rem;color:var(--stone);margin-bottom:1.25rem;line-height:1.6" lc="en">⚠️ By confirming, your card will be charged. The deposit is automatically returned 48h after checkout.</p>
+    <div style="display:flex;gap:.75rem">
+      <button onclick="closeConfirmModal()" style="flex:1;background:none;border:1px solid rgba(201,168,76,.2);color:var(--stone);padding:.85rem;border-radius:2px;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;transition:.2s" lc="es">← Cancelar</button>
+      <button onclick="closeConfirmModal()" style="flex:1;background:none;border:1px solid rgba(201,168,76,.2);color:var(--stone);padding:.85rem;border-radius:2px;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;transition:.2s" lc="en">← Cancel</button>
+      <button onclick="confirmAndPay()" style="flex:2;background:var(--gold);color:#0e0c09;border:none;padding:.85rem;border-radius:2px;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.72rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;transition:.2s" lc="es">💳 Pagar ahora</button>
+      <button onclick="confirmAndPay()" style="flex:2;background:var(--gold);color:#0e0c09;border:none;padding:.85rem;border-radius:2px;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.72rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;transition:.2s" lc="en">💳 Pay now</button>
+    </div>
+  </div>
+</div>
 
 <!-- BOTONES FLOTANTES -->
 <div class="float-btns">
@@ -1482,6 +1501,65 @@ function calcPrice(){
   document.getElementById('p-total').textContent=total+'€';
   document.getElementById('p-total-2').textContent=total+'€';
   document.getElementById('price-box').style.display='block';
+}
+
+// Validación step 2
+function validateStep2(lang) {
+  const fname = document.getElementById('r-fname').value.trim();
+  const lname = document.getElementById('r-lname').value.trim();
+  const email = document.getElementById('r-email').value.trim();
+  const phone = document.getElementById('r-phone').value.trim();
+
+  if (!fname || !lname) {
+    alert(lang === 'es' ? 'Por favor introduce tu nombre y apellidos.' : 'Please enter your first and last name.');
+    return;
+  }
+  if (!email || !email.includes('@')) {
+    alert(lang === 'es' ? 'Por favor introduce un email válido.' : 'Please enter a valid email address.');
+    return;
+  }
+  if (!phone) {
+    alert(lang === 'es' ? 'Por favor introduce tu teléfono.' : 'Please enter your phone number.');
+    return;
+  }
+  goStep(3);
+}
+
+// Confirmation modal
+function openConfirmModal() {
+  const ci = document.getElementById('r-checkin').value;
+  const co = document.getElementById('r-checkout').value;
+  const guests = document.getElementById('r-guests').value;
+  const fname = document.getElementById('r-fname').value.trim();
+  const lname = document.getElementById('r-lname').value.trim();
+  const total = document.getElementById('p-total-2').textContent;
+  const isEN = document.body.classList.contains('en');
+
+  const summary = isEN
+    ? `<strong style="color:var(--ink)">Name:</strong> ${fname} ${lname}<br>
+       <strong style="color:var(--ink)">Check-in:</strong> ${ci}<br>
+       <strong style="color:var(--ink)">Check-out:</strong> ${co}<br>
+       <strong style="color:var(--ink)">Guests:</strong> ${guests}<br>
+       <strong style="color:var(--gold)">Total:</strong> <strong style="color:var(--gold)">${total}</strong>`
+    : `<strong style="color:var(--ink)">Nombre:</strong> ${fname} ${lname}<br>
+       <strong style="color:var(--ink)">Llegada:</strong> ${ci}<br>
+       <strong style="color:var(--ink)">Salida:</strong> ${co}<br>
+       <strong style="color:var(--ink)">Huéspedes:</strong> ${guests}<br>
+       <strong style="color:var(--gold)">Total:</strong> <strong style="color:var(--gold)">${total}</strong>`;
+
+  document.getElementById('confirm-summary').innerHTML = summary;
+  document.getElementById('confirmModal').style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+
+function closeConfirmModal() {
+  document.getElementById('confirmModal').style.display = 'none';
+  document.body.style.overflow = 'hidden'; // keep resModal scroll locked
+}
+
+function confirmAndPay() {
+  closeConfirmModal();
+  processPayment();
 }
 
 // Stripe init (se activa cuando pegas tu clave)
