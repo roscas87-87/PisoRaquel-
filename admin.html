@@ -160,6 +160,54 @@ html,body{height:100%;font-family:'DM Sans',sans-serif;background:var(--night);c
   .stats-grid{grid-template-columns:1fr}
 }
 </style>
+
+  <!-- Firebase Realtime Database SDK -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyB03DWUfiI33ic7ZNRjtOWMaUn_JqpINQo",
+      authDomain: "pisovegagranada-78a89.firebaseapp.com",
+      projectId: "pisovegagranada-78a89",
+      storageBucket: "pisovegagranada-78a89.firebasestorage.app",
+      messagingSenderId: "37253020298",
+      appId: "1:37253020298:web:413e46444952ac0ce6cb73",
+      databaseURL: "https://pisovegagranada-78a89-default-rtdb.firebaseio.com"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+    const adminRef = db.ref('vegagranada/admin');
+
+    window.fbSaveData = async function(data) {
+      try {
+        await adminRef.set(data);
+        console.log('✅ Guardado en Firebase');
+        return true;
+      } catch(e) {
+        console.error('❌ Error Firebase:', e);
+        return false;
+      }
+    };
+
+    window.fbLoadData = async function() {
+      try {
+        const snap = await adminRef.get();
+        if (snap.exists()) {
+          console.log('✅ Datos cargados de Firebase');
+          return snap.val();
+        }
+        return null;
+      } catch(e) {
+        console.error('❌ Error cargando Firebase:', e);
+        return null;
+      }
+    };
+
+    window.fbReady = true;
+    window.dispatchEvent(new Event('firebase-ready'));
+    console.log('🔥 Firebase Realtime Database conectado');
+  </script>
 </head>
 <body>
 <div class="bg-pattern"></div>
@@ -225,6 +273,7 @@ html,body{height:100%;font-family:'DM Sans',sans-serif;background:var(--night);c
     </div>
     <div style="display:flex;align-items:center;gap:.75rem">
       <span style="font-size:.65rem;color:var(--stone)" id="sessionInfo"></span>
+      <span style="font-size:.62rem;display:none" id="fbStatus"></span>
       <button class="logout-btn" onclick="logout()">Cerrar sesión</button>
     </div>
   </nav>
@@ -668,9 +717,38 @@ function logout() {
 
 // ── DATA ──
 function getData() {
-  return JSON.parse(localStorage.getItem('vg_admin_data') || '{"blocked":[],"reservations":[],"prices":{"alta":90,"media":70,"baja":50},"fianza":150,"lateCheckin":0,"ical":{"airbnb":"","booking":""}}');
+  return JSON.parse(localStorage.getItem('vg_admin_data') || '{"blocked":[],"reservations":[],"prices":{"alta":90,"media":70,"baja":50},"fianza":150,"lateCheckin":0,"ical":{"airbnb":"","booking":""},"dayPrices":{}}');
 }
-function saveData(d) { localStorage.setItem('vg_admin_data', JSON.stringify(d)); }
+
+function saveData(d) { 
+  localStorage.setItem('vg_admin_data', JSON.stringify(d));
+  // Save to Firebase
+  if (window.fbReady) {
+    window.fbSaveData(d).then(ok => {
+      if (ok) showFirebaseStatus('✅ Sincronizado con Firebase', 'ok');
+      else showFirebaseStatus('⚠️ Error sincronizando', 'error');
+    });
+  }
+}
+
+async function loadFromFirebase() {
+  if (!window.fbReady) return;
+  const data = await window.fbLoadData();
+  if (data) {
+    localStorage.setItem('vg_admin_data', JSON.stringify(data));
+    console.log('✅ Datos cargados de Firebase');
+    init();
+  }
+}
+
+function showFirebaseStatus(msg, type) {
+  const el = document.getElementById('fbStatus');
+  if (!el) return;
+  el.textContent = msg;
+  el.style.color = type === 'ok' ? 'var(--green)' : '#ff9a9a';
+  el.style.display = 'block';
+  setTimeout(() => el.style.display = 'none', 3000);
+}
 
 // ── TABS ──
 function showTab(id) {
@@ -1100,6 +1178,10 @@ function applyBulkPrice() {
 }
 
 // ── BOOT ──
+window.addEventListener('firebase-ready', () => {
+  if (checkSession()) loadFromFirebase();
+});
+
 window.addEventListener('load', () => {
   if (checkSession()) {
     showPanel();

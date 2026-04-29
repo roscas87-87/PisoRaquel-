@@ -462,6 +462,30 @@ body.en [lc="en"]{display:revert}
   .float-icon{font-size:1.2rem}
 }
 </style>
+
+  <!-- Firebase Realtime Database -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
+  <script>
+    if (!firebase.apps.length) {
+      firebase.initializeApp({
+        apiKey: "AIzaSyB03DWUfiI33ic7ZNRjtOWMaUn_JqpINQo",
+        authDomain: "pisovegagranada-78a89.firebaseapp.com",
+        projectId: "pisovegagranada-78a89",
+        storageBucket: "pisovegagranada-78a89.firebasestorage.app",
+        messagingSenderId: "37253020298",
+        appId: "1:37253020298:web:413e46444952ac0ce6cb73",
+        databaseURL: "https://pisovegagranada-78a89-default-rtdb.firebaseio.com"
+      });
+    }
+    // Sync admin data in real-time
+    firebase.database().ref('vegagranada/admin').on('value', snap => {
+      if (snap.exists()) {
+        localStorage.setItem('vg_admin_data', JSON.stringify(snap.val()));
+        console.log('🔥 Precios sincronizados desde Firebase');
+      }
+    });
+  </script>
 </head>
 <body>
 
@@ -906,7 +930,7 @@ body.en [lc="en"]{display:revert}
   <div class="ct-inner">
     <div class="ct-left">
       <div class="rv-a"><div class="ct-lbl">WhatsApp</div><a href="https://wa.me/34674071443" class="ct-val">+34 674 07 14 43</a></div>
-      <div class="rv-a"><div class="ct-lbl">Email</div><a href="mailto:info@vegagranada.com" class="ct-val">info@vegagranada.com</a></div>
+      <div class="rv-a"><div class="ct-lbl">Email</div><a href="mailto:pisovegagranada@gmail.com" class="ct-val">pisovegagranada@gmail.com</a></div>
       <div class="rv-a"><div class="ct-lbl" lc="es">Dirección</div><div class="ct-lbl" lc="en">Address</div><span class="ct-val" style="font-size:1rem;cursor:default">C/ Sevilla esq. C/ Alicante<br>Churriana de la Vega, Granada</span></div>
       <a href="https://wa.me/34674071443" class="wa-btn rv-a" target="_blank">💬 <span lc="es">Escribir por WhatsApp</span><span lc="en">Message on WhatsApp</span></a>
     </div>
@@ -1255,7 +1279,7 @@ const CONFIG = {
   FIANZA: 150,
 
   // 5. Tu email
-  EMAIL_ANFITRION: 'roscas87@gmail.com',
+  EMAIL_ANFITRION: 'pisovegagranada@gmail.com',
 
   // 6. WhatsApp
   WHATSAPP: '34674071443',
