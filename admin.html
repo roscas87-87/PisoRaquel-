@@ -97,6 +97,8 @@ html,body{height:100%;font-family:'DM Sans',sans-serif;background:var(--night);c
 .cal-day.past{opacity:.3;cursor:default}
 .cal-day.today{border-color:rgba(201,168,76,.4);color:var(--gold)}
 .cal-day.blocked{background:rgba(224,85,85,.15);border-color:rgba(224,85,85,.3);color:#ff9a9a}
+.cal-day.ical-booked{background:rgba(85,136,224,.15);border-color:rgba(85,136,224,.3);color:#88aaee}
+.cal-day.ical-booked::after{content:'📅';position:absolute;font-size:.4rem;bottom:2px;right:3px;opacity:.8}
 .cal-day.blocked::after{content:'✕';position:absolute;font-size:.45rem;bottom:2px;right:3px;opacity:.6}
 .cal-day.booked{background:rgba(85,136,224,.12);border-color:rgba(85,136,224,.3);color:#88aaff}
 .cal-day.booked::after{content:'●';position:absolute;font-size:.45rem;bottom:2px;right:3px;opacity:.8}
@@ -534,14 +536,14 @@ html,body{height:100%;font-family:'DM Sans',sans-serif;background:var(--night);c
       </div>
 
       <div class="card">
-        <div class="card-title">ℹ️ Nota sobre iCal</div>
-        <p style="font-size:.78rem;color:var(--stone);line-height:1.7">
-          El iCal sincroniza <strong style="color:var(--ink)">disponibilidad</strong> (fechas ocupadas) pero <strong style="color:var(--ink)">no precios</strong>. 
-          Las URLs se guardan en este dispositivo. Para sincronizar en tiempo real necesitarías un servidor — 
-          con GitHub Pages puedes guardar las URLs y usarlas como referencia visual en el calendario.
-          <br><br>
-          Para sincronización automática completa considera <strong style="color:var(--gold)">Smoobu</strong> (29€/mes).
+        <div class="card-title">🔄 Sincronizar ahora</div>
+        <p style="font-size:.78rem;color:var(--stone);line-height:1.7;margin-bottom:1rem">
+          Pulsa el botón para leer los calendarios de Airbnb y Booking y bloquear automáticamente esas fechas en Firebase.
+          Las fechas importadas aparecen en <strong style="color:var(--blue)">azul</strong> en el calendario.
+          <br><strong style="color:var(--ink)">Hazlo cada vez que recibas una nueva reserva.</strong>
         </p>
+        <button class="save-btn" onclick="syncIcal()" id="syncIcalBtn">🔄 Sincronizar Airbnb + Booking</button>
+        <div id="syncIcalStatus" style="margin-top:.75rem;font-size:.75rem;line-height:1.8;display:none"></div>
       </div>
     </div>
 
@@ -771,6 +773,7 @@ function renderCal() {
   
   const data = getData();
   const blocked = data.blocked || [];
+  const icalBlocked = data.icalBlocked || [];
   
   const months = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
   document.getElementById('calTitle').textContent = `${months[calMonth]} ${calYear}`;
@@ -813,9 +816,11 @@ function renderCal() {
     const isPast = date < new Date(today.getFullYear(), today.getMonth(), today.getDate());
     const isToday = date.toDateString() === today.toDateString();
     const isBlocked = blocked.includes(dateStr);
+    const isIcal = icalBlocked.includes(dateStr);
     
     if (isPast) el.classList.add('past');
     else if (isBlocked) el.classList.add('blocked');
+    else if (isIcal) el.classList.add('ical-booked');
     if (isToday) el.classList.add('today');
     
     if (!isPast) {
@@ -1033,6 +1038,98 @@ function saveIcal(platform) {
   statusEl.innerHTML = url 
     ? '<span class="ical-status ok">✅ URL guardada correctamente</span>'
     : '<span class="ical-status pending">⚠️ URL eliminada</span>';
+}
+
+// ── ICAL SYNC ──
+async function syncIcal() {
+  const data = getData();
+  const airbnbUrl = data.ical?.airbnb || '';
+  const bookingUrl = data.ical?.booking || '';
+
+  if (!airbnbUrl && !bookingUrl) {
+    alert('Primero guarda las URLs de iCal de Airbnb y/o Booking en la pestaña iCal.');
+    return;
+  }
+
+  const btn = document.getElementById('syncIcalBtn');
+  const status = document.getElementById('syncIcalStatus');
+  btn.disabled = true;
+  btn.textContent = '⏳ Sincronizando...';
+  status.style.display = 'block';
+  status.style.color = 'var(--stone)';
+  status.textContent = 'Conectando con los calendarios...';
+
+  const PROXY = 'https://corsproxy.io/?';
+  let icalDates = [];
+  let log = [];
+
+  async function fetchIcal(url, name) {
+    try {
+      const res = await fetch(PROXY + encodeURIComponent(url));
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      const text = await res.text();
+      const dates = parseIcal(text);
+      log.push(`✅ ${name}: ${dates.length} fechas importadas`);
+      return dates;
+    } catch(e) {
+      log.push(`❌ ${name}: Error al conectar (${e.message})`);
+      return [];
+    }
+  }
+
+  function parseIcal(text) {
+    const dates = [];
+    const events = text.split('BEGIN:VEVENT');
+    events.shift(); // remove header
+    for (const ev of events) {
+      const dtstart = ev.match(/DTSTART[^:]*:(\d{8})/);
+      const dtend   = ev.match(/DTEND[^:]*:(\d{8})/);
+      if (!dtstart || !dtend) continue;
+      const start = parseIcalDate(dtstart[1]);
+      const end   = parseIcalDate(dtend[1]);
+      // Add each day from start to end (exclusive)
+      for (let d = new Date(start); d < end; d.setDate(d.getDate()+1)) {
+        const str = formatDate(new Date(d));
+        if (!dates.includes(str)) dates.push(str);
+      }
+    }
+    return dates;
+  }
+
+  function parseIcalDate(s) {
+    return new Date(
+      parseInt(s.slice(0,4)),
+      parseInt(s.slice(4,6))-1,
+      parseInt(s.slice(6,8))
+    );
+  }
+
+  if (airbnbUrl) {
+    const d = await fetchIcal(airbnbUrl, 'Airbnb');
+    icalDates = icalDates.concat(d);
+  }
+  if (bookingUrl) {
+    const d = await fetchIcal(bookingUrl, 'Booking');
+    icalDates = icalDates.concat(d);
+  }
+
+  // Deduplicate
+  icalDates = [...new Set(icalDates)];
+
+  // Save to Firebase under icalBlocked (separate from manual blocked)
+  data.icalBlocked = icalDates;
+  data.icalSyncDate = new Date().toISOString();
+  saveData(data);
+
+  log.push(`📅 Total: ${icalDates.length} días ocupados en Airbnb+Booking`);
+  log.push(`🕐 Última sincronización: ${new Date().toLocaleString('es-ES')}`);
+
+  status.innerHTML = log.join('<br>');
+  status.style.color = icalDates.length > 0 ? 'var(--green)' : '#ff9a9a';
+  btn.disabled = false;
+  btn.textContent = '🔄 Sincronizar Airbnb + Booking';
+
+  renderCal();
 }
 
 // ── STATS ──
