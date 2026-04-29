@@ -1063,17 +1063,25 @@ async function syncIcal() {
       `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`,
       `https://corsproxy.io/?${encodeURIComponent(url)}`,
       `https://thingproxy.freeboard.io/fetch/${url}`,
+      `https://proxy.cors.sh/${url}`,
     ];
     for (const proxyUrl of proxies) {
       try {
-        const res = await fetch(proxyUrl, {signal: AbortSignal.timeout(8000)});
+        const res = await fetch(proxyUrl, {
+          signal: AbortSignal.timeout(10000),
+          headers: {
+            'Accept': 'text/calendar,*/*',
+            'x-requested-with': 'XMLHttpRequest'
+          }
+        });
         if (res.ok) {
           const text = await res.text();
-          if (text.includes('VCALENDAR')) return text;
+          if (text.includes('VCALENDAR') || text.includes('BEGIN:')) return text;
         }
-      } catch(e) { /* try next */ }
+        console.log('Proxy failed:', proxyUrl, res.status);
+      } catch(e) { console.log('Proxy error:', proxyUrl, e.message); }
     }
-    throw new Error('Todos los proxies fallaron');
+    throw new Error('Todos los proxies fallaron — las URLs pueden haber caducado');
   }
   let icalDates = [];
   let log = [];
