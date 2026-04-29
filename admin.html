@@ -1057,15 +1057,30 @@ async function syncIcal() {
   status.style.color = 'var(--stone)';
   status.textContent = 'Conectando con los calendarios...';
 
-  const PROXY = 'https://corsproxy.io/?';
+  // Try multiple proxies in order
+  async function fetchWithProxy(url) {
+    const proxies = [
+      `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`,
+      `https://corsproxy.io/?${encodeURIComponent(url)}`,
+      `https://thingproxy.freeboard.io/fetch/${url}`,
+    ];
+    for (const proxyUrl of proxies) {
+      try {
+        const res = await fetch(proxyUrl, {signal: AbortSignal.timeout(8000)});
+        if (res.ok) {
+          const text = await res.text();
+          if (text.includes('VCALENDAR')) return text;
+        }
+      } catch(e) { /* try next */ }
+    }
+    throw new Error('Todos los proxies fallaron');
+  }
   let icalDates = [];
   let log = [];
 
   async function fetchIcal(url, name) {
     try {
-      const res = await fetch(PROXY + encodeURIComponent(url));
-      if (!res.ok) throw new Error('HTTP ' + res.status);
-      const text = await res.text();
+      const text = await fetchWithProxy(url);
       const dates = parseIcal(text);
       log.push(`✅ ${name}: ${dates.length} fechas importadas`);
       return dates;
