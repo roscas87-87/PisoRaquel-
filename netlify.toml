@@ -1,9 +1,7 @@
 [build]
   functions = "netlify/functions"
-
-[[plugins]]
-  package = "@netlify/plugin-functions-install-core"
-
+  command = "npm install"
+ 
 [[headers]]
   for = "/*"
   [headers.values]
