@@ -229,11 +229,11 @@ html,body{height:100%;font-family:'DM Sans',sans-serif;background:var(--night);c
       <div class="login-step-label">Paso 1 de 2 · Credenciales</div>
       <div class="form-group">
         <label class="form-label">Usuario</label>
-        <input type="text" class="form-input" id="inputUser" placeholder="admin" autocomplete="off">
+        <input type="text" class="form-input" id="inputUser" placeholder="admin" autocomplete="off" onkeydown="if(event.key==='Enter')document.getElementById('inputPass').focus()">
       </div>
       <div class="form-group">
         <label class="form-label">Contraseña</label>
-        <input type="password" class="form-input" id="inputPass" placeholder="••••••••••••">
+        <input type="password" class="form-input" id="inputPass" placeholder="••••••••••••" onkeydown="if(event.key==='Enter')checkCredentials()">
       </div>
       <button class="login-btn" onclick="checkCredentials()">Continuar →</button>
       <div class="attempts-left" id="attemptsLeft"></div>
@@ -258,7 +258,7 @@ html,body{height:100%;font-family:'DM Sans',sans-serif;background:var(--night);c
       <div class="blocked-msg">
         🔒 Acceso bloqueado<br><br>
         Demasiados intentos fallidos.<br>
-        Inténtalo de nuevo en <span id="blockTimer">15:00</span>
+        Inténtalo de nuevo en <span id="blockTimer">15:00</span><br><br><button onclick="localStorage.removeItem('vg_blocked');loginAttempts=0;showStep('step1');document.getElementById('loginError').style.display='none'" style="background:none;border:none;color:var(--stone);font-size:.65rem;cursor:pointer;text-decoration:underline;margin-top:.5rem">Desbloquear (solo admin)</button>
       </div>
     </div>
   </div>

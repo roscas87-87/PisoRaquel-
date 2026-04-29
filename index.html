@@ -467,6 +467,8 @@ body.en [lc="en"]{display:revert}
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
   <script>
+    // Global: declared here so Firebase listener and calcPrice() share the same reference
+    window.fbAdminData = null;
     if (!firebase.apps.length) {
       firebase.initializeApp({
         apiKey: "AIzaSyB03DWUfiI33ic7ZNRjtOWMaUn_JqpINQo",
@@ -481,8 +483,8 @@ body.en [lc="en"]{display:revert}
     // Sync admin data in real-time
     firebase.database().ref('vegagranada/admin').on('value', snap => {
       if (snap.exists()) {
-        fbAdminData = snap.val();
-        localStorage.setItem('vg_admin_data', JSON.stringify(fbAdminData));
+        window.fbAdminData = snap.val();
+        localStorage.setItem('vg_admin_data', JSON.stringify(window.fbAdminData));
         console.log('🔥 Precios sincronizados desde Firebase');
         // Recalculate if modal is open
         if (document.getElementById('r-checkin') && document.getElementById('r-checkin').value) {
@@ -1337,12 +1339,11 @@ function goStep(n){
 }
 
 // Price calculator con temporadas
-// Global variable updated in real-time by Firebase
-let fbAdminData = null;
+// fbAdminData is declared globally in <head> as window.fbAdminData
 
 function getDayPrice(dateStr) {
   // Priority 1: Firebase real-time data
-  const data = fbAdminData || JSON.parse(localStorage.getItem('vg_admin_data') || '{}');
+  const data = window.fbAdminData || JSON.parse(localStorage.getItem('vg_admin_data') || '{}');
   
   if (data && data.dayPrices && data.dayPrices[dateStr]) {
     return parseInt(data.dayPrices[dateStr]);
