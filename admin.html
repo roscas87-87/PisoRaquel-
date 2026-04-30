@@ -872,6 +872,7 @@ function calNext() {
 
 function toggleDay(dateStr) {
   const data = getData();
+  if (!data.blocked) data.blocked = [];
   const idx = data.blocked.indexOf(dateStr);
   if (idx >= 0) data.blocked.splice(idx, 1);
   else data.blocked.push(dateStr);

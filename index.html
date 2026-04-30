@@ -1337,7 +1337,7 @@ body.en [lc="en"]{display:revert}
         <div class="rf">
           <label class="rl" lc="es">Huéspedes</label>
           <label class="rl" lc="en">Guests</label>
-          <select id="r-guests" class="rs">
+          <select id="r-guests" class="rs" onchange="calcPrice()">
             <option value="1">1</option><option value="2">2</option>
             <option value="3">3</option><option value="4">4</option>
             <option value="5" selected>5</option>
@@ -1388,6 +1388,8 @@ body.en [lc="en"]{display:revert}
           <label class="rl" lc="es">Mensaje (opcional)</label><label class="rl" lc="en">Message (optional)</label>
           <input type="text" id="r-msg" class="ri" >
         </div>
+        <p style="font-size:.65rem;color:var(--stone);margin-bottom:.75rem" lc="es"><span style="color:#ff6b6b">*</span> Campos obligatorios</p>
+        <p style="font-size:.65rem;color:var(--stone);margin-bottom:.75rem" lc="en"><span style="color:#ff6b6b">*</span> Required fields</p>
         <button class="res-btn" onclick="validateStep2('es')" lc="es">Continuar al pago →</button>
         <button class="res-btn" onclick="validateStep2('en')" lc="en">Continue to payment →</button>
         <button class="res-btn-back" onclick="goStep(1)" lc="es">← Volver</button>
@@ -1792,17 +1794,39 @@ function calcPrice(){
     sub += p;
     priceBreakdown.push(p);
   }
+
+  // Guest supplement: 15€ fijo por reserva para 5 personas
+  const guests = parseInt(document.getElementById('r-guests')?.value) || 1;
+  const SUPLEMENTO_5 = 15;
+  const supplement = guests >= 5 ? SUPLEMENTO_5 : 0;
+  const subTotal = sub + supplement;
   
-  const total=sub+CONFIG.FIANZA;
+  const total = subTotal + CONFIG.FIANZA;
   const avgPrice = Math.round(sub/nights);
-  const isEN=document.body.classList.contains('en');
+  const isEN = document.body.classList.contains('en');
   
-  document.getElementById('p-nights').textContent=nights+(isEN?' nights':' noches');
-  document.getElementById('p-rate').textContent=avgPrice+'€ '+(isEN?'avg/night':'media/noche');
-  document.getElementById('p-sub').textContent=sub+'€';
-  document.getElementById('p-total').textContent=total+'€';
-  document.getElementById('p-total-2').textContent=total+'€';
-  document.getElementById('price-box').style.display='block';
+  document.getElementById('p-nights').textContent = nights+(isEN?' nights':' noches');
+  document.getElementById('p-rate').textContent = avgPrice+'€ '+(isEN?'avg/night':'media/noche');
+  document.getElementById('p-sub').textContent = sub+'€';
+
+  // Show supplement row if 5 guests
+  let suppRow = document.getElementById('p-supp-row');
+  if (!suppRow) {
+    suppRow = document.createElement('div');
+    suppRow.id = 'p-supp-row';
+    suppRow.className = 'price-row';
+    document.getElementById('p-sub').closest('.price-row').after(suppRow);
+  }
+  if (supplement > 0) {
+    suppRow.innerHTML = `<span lc="es">Suplemento 5ª persona</span><span lc="en">5th person supplement</span><span>${supplement}€</span>`;
+    suppRow.style.display = 'flex';
+  } else {
+    suppRow.style.display = 'none';
+  }
+
+  document.getElementById('p-total').textContent = total+'€';
+  document.getElementById('p-total-2').textContent = total+'€';
+  document.getElementById('price-box').style.display = 'block';
 }
 
 // Update Bizum display when method selected
