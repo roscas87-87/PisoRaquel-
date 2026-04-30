@@ -311,7 +311,7 @@ h1 em{font-style:italic;color:var(--gold)}
 .grc-btn:hover{box-shadow:0 4px 16px rgba(0,0,0,.4);transform:translateY(-1px)}
 
 /* ── SUPERHOST ── */
-.superhost-badge{display:flex;align-items:flex-start;gap:1.25rem;background:#231d13;border:1px solid rgba(201,168,76,.2);border-radius:2px;padding:1.4rem 1.75rem;margin:1.5rem 0;max-width:600px}
+.superhost-badge{display:flex;align-items:flex-start;gap:1.25rem;background:#231d13;border:1px solid rgba(201,168,76,.2);border-radius:2px;padding:1.4rem 1.75rem;margin:1.5rem auto;max-width:480px}
 .sh-icon{font-size:2rem;flex-shrink:0}
 .sh-title{font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:var(--gold);margin-bottom:.3rem}
 .sh-desc{font-size:.75rem;color:var(--stone);line-height:1.65}
@@ -432,6 +432,19 @@ footer{background:#161209;border-top:1px solid rgba(201,168,76,.12);color:rgba(2
 .avail-day.past{opacity:.25;cursor:default}
 .avail-day.today{border-color:rgba(201,168,76,.5)}
 .avail-day.empty{background:transparent;border:none;cursor:default}
+
+
+/* ── FAQ ── */
+.faq-item{border-bottom:1px solid rgba(201,168,76,.12)}
+.faq-q{width:100%;background:none;border:none;color:var(--ink);font-family:'DM Sans',sans-serif;font-size:.9rem;font-weight:500;text-align:left;padding:1.4rem 0;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem;transition:.2s}
+.faq-q:hover{color:var(--gold)}
+.faq-icon{color:var(--gold);font-size:1.3rem;flex-shrink:0;transition:transform .3s;line-height:1}
+.faq-item.open .faq-icon{transform:rotate(45deg)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .35s ease}
+.faq-item.open .faq-a{max-height:400px}
+.faq-a-inner{font-size:.85rem;color:var(--stone);line-height:1.85;padding-bottom:1.4rem}
+.faq-a-inner strong{color:var(--ink)}
+.faq-a-inner a{color:var(--gold);text-decoration:none}
 
 /* ── LANG ── */
 [lc="en"]{display:none}
@@ -626,6 +639,7 @@ body.en [lc="en"]{display:revert}
   <a href="#ubicacion" onclick="closeMenu()" lc="en">Location</a>
   <a href="granada.html" onclick="closeMenu()" lc="es">Guía de Granada</a>
   <a href="granada.html" onclick="closeMenu()" lc="en">Granada Guide</a>
+  <a href="faq.html" onclick="closeMenu()">FAQ</a>
   <a href="#reservar" onclick="closeMenu()" class="m-book" lc="es">Reservar ahora</a>
   <a href="#reservar" onclick="closeMenu()" class="m-book" lc="en">Book now</a>
 </div>
@@ -1022,6 +1036,210 @@ body.en [lc="en"]{display:revert}
 </section>
 
 
+
+<!-- FAQ -->
+<section class="sp" id="faq" style="background:#0e0c09">
+  <p class="sec-lbl" style="justify-content:center" lc="es">Preguntas frecuentes</p>
+  <p class="sec-lbl" style="justify-content:center" lc="en">Frequently asked questions</p>
+  <h2 class="sec-h" style="text-align:center" lc="es">Todo lo que necesitas <em>saber</em></h2>
+  <h2 class="sec-h" style="text-align:center" lc="en">Everything you need to <em>know</em></h2>
+
+  <div style="max-width:780px;margin:2.5rem auto 0">
+
+    <p style="font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin:2rem 0 .75rem;display:flex;align-items:center;gap:.6rem" lc="es">🔑 Check-in y Check-out</p>
+    <p style="font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin:2rem 0 .75rem;display:flex;align-items:center;gap:.6rem" lc="en">🔑 Check-in & Check-out</p>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        <span lc="es">¿Cuál es el horario de check-in y check-out?</span>
+        <span lc="en">What are the check-in and check-out times?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a"><div class="faq-a-inner">
+        <span lc="es">El check-in es de <strong>16:30h a 22:00h</strong> y el check-out de <strong>8:00h a 11:00h</strong>. Si necesitas horarios flexibles, consúltanos por WhatsApp con antelación.</span>
+        <span lc="en">Check-in is from <strong>4:30 PM to 10:00 PM</strong> and check-out from <strong>8:00 AM to 11:00 AM</strong>. If you need flexible times, contact us via WhatsApp in advance.</span>
+      </div></div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        <span lc="es">¿Cómo funciona la entrada al apartamento?</span>
+        <span lc="en">How does apartment access work?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a"><div class="faq-a-inner">
+        <span lc="es">Recibirás todas las instrucciones de acceso por email antes de tu llegada. El proceso es sencillo y podrás entrar de forma autónoma.</span>
+        <span lc="en">You'll receive full access instructions by email before your arrival. The process is simple and you'll be able to enter independently.</span>
+      </div></div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        <span lc="es">¿Hay edad mínima para reservar?</span>
+        <span lc="en">Is there a minimum age to book?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a"><div class="faq-a-inner">
+        <span lc="es">Sí, la <strong>edad mínima para el check-in es de 18 años</strong>. El titular de la reserva debe ser mayor de edad.</span>
+        <span lc="en">Yes, the <strong>minimum age for check-in is 18 years old</strong>. The person making the booking must be of legal age.</span>
+      </div></div>
+    </div>
+
+    <p style="font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin:2rem 0 .75rem;display:flex;align-items:center;gap:.6rem" lc="es">🏠 Instalaciones</p>
+    <p style="font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin:2rem 0 .75rem;display:flex;align-items:center;gap:.6rem" lc="en">🏠 Facilities</p>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        <span lc="es">¿Hay parking disponible?</span>
+        <span lc="en">Is parking available?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a"><div class="faq-a-inner">
+        <span lc="es">Sí, disponemos de <strong>parking privado gratuito</strong> incluido en el precio.</span>
+        <span lc="en">Yes, we have <strong>free private parking</strong> included in the price.</span>
+      </div></div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        <span lc="es">¿Se admiten mascotas?</span>
+        <span lc="en">Are pets allowed?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a"><div class="faq-a-inner">
+        <span lc="es"><strong>No se admiten mascotas</strong>.</span>
+        <span lc="en"><strong>Pets are not allowed</strong>.</span>
+      </div></div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        <span lc="es">¿Se permiten fiestas o eventos?</span>
+        <span lc="en">Are parties or events allowed?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a"><div class="faq-a-inner">
+        <span lc="es"><strong>No se permiten fiestas ni eventos</strong>. Silencio de 0:00h a 9:00h. El incumplimiento puede suponer la pérdida de la fianza.</span>
+        <span lc="en"><strong>Parties and events are not allowed</strong>. Quiet hours from midnight to 9:00 AM. Non-compliance may result in loss of the deposit.</span>
+      </div></div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        <span lc="es">¿Cuántas personas pueden alojarse?</span>
+        <span lc="en">How many guests can stay?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a"><div class="faq-a-inner">
+        <span lc="es">El apartamento tiene capacidad para un máximo de <strong>5 personas</strong>.</span>
+        <span lc="en">The apartment accommodates a maximum of <strong>5 guests</strong>.</span>
+      </div></div>
+    </div>
+
+    <p style="font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin:2rem 0 .75rem;display:flex;align-items:center;gap:.6rem" lc="es">💳 Reservas y Pagos</p>
+    <p style="font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin:2rem 0 .75rem;display:flex;align-items:center;gap:.6rem" lc="en">💳 Bookings & Payments</p>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        <span lc="es">¿Cómo funciona la fianza?</span>
+        <span lc="en">How does the deposit work?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a"><div class="faq-a-inner">
+        <span lc="es">La <strong>fianza es de 100€</strong>. Se puede pagar por Bizum o en mano al check-in. Se devuelve en un plazo de <strong>7 días</strong> tras el checkout si no hay incidencias.</span>
+        <span lc="en">The <strong>deposit is €100</strong>. It can be paid via Bizum or in person at check-in. It is returned within <strong>7 days</strong> after checkout if there are no issues.</span>
+      </div></div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        <span lc="es">¿Cuál es la política de cancelación?</span>
+        <span lc="en">What is the cancellation policy?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a"><div class="faq-a-inner">
+        <span lc="es">Más de <strong>7 días</strong> → reembolso total. Entre <strong>3 y 7 días</strong> → reembolso del 50%. Menos de <strong>3 días</strong> → sin reembolso. Contacta por WhatsApp para cualquier caso especial.</span>
+        <span lc="en">More than <strong>7 days</strong> → full refund. Between <strong>3 and 7 days</strong> → 50% refund. Less than <strong>3 days</strong> → no refund. Contact us via WhatsApp for special cases.</span>
+      </div></div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        <span lc="es">¿Puedo reservar también en Airbnb o Booking?</span>
+        <span lc="en">Can I also book on Airbnb or Booking?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a"><div class="faq-a-inner">
+        <span lc="es">Sí, estamos disponibles en Airbnb y Booking. Sin embargo, reservando directamente en esta web obtienes el <strong>mejor precio garantizado</strong> sin comisiones.</span>
+        <span lc="en">Yes, we are available on Airbnb and Booking. However, booking directly on this website guarantees you the <strong>best price</strong> with no commissions.</span>
+      </div></div>
+    </div>
+
+    <p style="font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin:2rem 0 .75rem;display:flex;align-items:center;gap:.6rem" lc="es">📍 Ubicación</p>
+    <p style="font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin:2rem 0 .75rem;display:flex;align-items:center;gap:.6rem" lc="en">📍 Location</p>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        <span lc="es">¿A cuánto está el centro de Granada?</span>
+        <span lc="en">How far is Granada city centre?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a"><div class="faq-a-inner">
+        <span lc="es">Estamos en Churriana de la Vega, a <strong>5-10 minutos en coche</strong> del centro de Granada y a <strong>10 minutos del aeropuerto</strong>.</span>
+        <span lc="en">We are in Churriana de la Vega, <strong>5-10 minutes by car</strong> from Granada city centre and <strong>10 minutes from the airport</strong>.</span>
+      </div></div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        <span lc="es">¿A cuánto está la Alhambra?</span>
+        <span lc="en">How far is the Alhambra?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a"><div class="faq-a-inner">
+        <span lc="es">La Alhambra está a aproximadamente <strong>15 minutos en coche</strong>. Te recomendamos comprar las entradas con antelación en la web oficial.</span>
+        <span lc="en">The Alhambra is approximately <strong>15 minutes by car</strong>. We recommend buying tickets well in advance on the official website.</span>
+      </div></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- POLÍTICA CANCELACIÓN -->
+<section class="sp" style="background:#161209;border-top:1px solid rgba(201,168,76,.08)">
+  <div style="max-width:860px;margin:0 auto">
+    <p class="sec-lbl" lc="es">Condiciones</p>
+    <p class="sec-lbl" lc="en">Terms</p>
+    <h2 class="sec-h" lc="es">Política de <em>cancelación</em></h2>
+    <h2 class="sec-h" lc="en">Cancellation <em>policy</em></h2>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.5rem;margin-top:2rem">
+      <div style="background:#1e1810;border:1px solid rgba(201,168,76,.12);border-radius:2px;padding:1.5rem">
+        <div style="font-size:1.5rem;margin-bottom:.5rem">✅</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--gold);margin-bottom:.5rem" lc="es">Reembolso total</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--gold);margin-bottom:.5rem" lc="en">Full refund</div>
+        <div style="font-size:.78rem;color:var(--stone);line-height:1.7" lc="es">Cancelación con más de <strong style="color:var(--ink)">7 días</strong> de antelación. Reembolso del 100% del importe pagado.</div>
+        <div style="font-size:.78rem;color:var(--stone);line-height:1.7" lc="en">Cancellation more than <strong style="color:var(--ink)">7 days</strong> in advance. 100% refund of the amount paid.</div>
+      </div>
+      <div style="background:#1e1810;border:1px solid rgba(201,168,76,.12);border-radius:2px;padding:1.5rem">
+        <div style="font-size:1.5rem;margin-bottom:.5rem">⚠️</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--gold);margin-bottom:.5rem" lc="es">Reembolso parcial</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--gold);margin-bottom:.5rem" lc="en">Partial refund</div>
+        <div style="font-size:.78rem;color:var(--stone);line-height:1.7" lc="es">Cancelación entre <strong style="color:var(--ink)">3 y 7 días</strong> antes. Reembolso del 50% del importe pagado.</div>
+        <div style="font-size:.78rem;color:var(--stone);line-height:1.7" lc="en">Cancellation between <strong style="color:var(--ink)">3 and 7 days</strong> before. 50% refund of the amount paid.</div>
+      </div>
+      <div style="background:#1e1810;border:1px solid rgba(201,168,76,.12);border-radius:2px;padding:1.5rem">
+        <div style="font-size:1.5rem;margin-bottom:.5rem">❌</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--gold);margin-bottom:.5rem" lc="es">Sin reembolso</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--gold);margin-bottom:.5rem" lc="en">No refund</div>
+        <div style="font-size:.78rem;color:var(--stone);line-height:1.7" lc="es">Cancelación con menos de <strong style="color:var(--ink)">3 días</strong> de antelación o no presentación. Sin reembolso.</div>
+        <div style="font-size:.78rem;color:var(--stone);line-height:1.7" lc="en">Cancellation less than <strong style="color:var(--ink)">3 days</strong> before or no-show. No refund.</div>
+      </div>
+    </div>
+    <p style="font-size:.72rem;color:var(--stone);margin-top:1.25rem;line-height:1.7" lc="es">Para solicitar una cancelación contacta por <a href="https://wa.me/34674071443" style="color:var(--gold)">WhatsApp</a> o email a <a href="mailto:pisovegagranada@gmail.com" style="color:var(--gold)">pisovegagranada@gmail.com</a>. Los reembolsos se procesan en un plazo de 5-10 días hábiles.</p>
+    <p style="font-size:.72rem;color:var(--stone);margin-top:1.25rem;line-height:1.7" lc="en">To request a cancellation contact us via <a href="https://wa.me/34674071443" style="color:var(--gold)">WhatsApp</a> or email at <a href="mailto:pisovegagranada@gmail.com" style="color:var(--gold)">pisovegagranada@gmail.com</a>. Refunds are processed within 5-10 business days.</p>
+  </div>
+</section>
+
 <!-- CONTACT -->
 <section class="ct-section sp" id="contacto">
   <p class="sec-lbl rv-a" lc="es">Contacto</p>
@@ -1136,8 +1354,8 @@ body.en [lc="en"]{display:revert}
             <span lc="es">Total a pagar ahora</span><span lc="en">Total to pay now</span>
             <span id="p-total">—</span>
           </div>
-          <p class="price-note" lc="es">💳 <strong>Pago:</strong> El total de la estancia se cobra con tarjeta.<br>📱 <strong>Fianza 100€:</strong> Se paga por <strong style="color:var(--gold)">Bizum al +34 674 07 14 43</strong> antes del check-in. Se devuelve tras el checkout si no hay incidencias.</p>
-          <p class="price-note" lc="en">💳 <strong>Payment:</strong> The total stay amount is charged by card.<br>📱 <strong>€100 deposit:</strong> Paid via <strong style="color:var(--gold)">Bizum to +34 674 07 14 43</strong> before check-in. Returned after checkout if no issues.</p>
+          <p class="price-note" lc="es">💳 <strong>Pago:</strong> El total de la estancia se cobra con tarjeta.<br>📱 <strong>Fianza 100€:</strong> Se paga por <strong style="color:var(--gold)">Bizum al +34 674 07 14 43</strong> o <strong>en mano al check-in</strong>. Se devuelve tras el checkout si no hay incidencias.</p>
+          <p class="price-note" lc="en">💳 <strong>Payment:</strong> The total stay amount is charged by card.<br>📱 <strong>€100 deposit:</strong> Paid via <strong style="color:var(--gold)">Bizum to +34 674 07 14 43</strong> or <strong>in person at check-in</strong>. Returned after checkout if no issues.</p>
         </div>
 
         <button class="res-btn" onclick="goStep(2)" id="btn-step1" lc="es">Continuar →</button>
@@ -1367,9 +1585,10 @@ body.en [lc="en"]{display:revert}
     <a href="#reservar" lc="es">Reservar</a><a href="#reservar" lc="en">Book</a>
     <a href="https://instagram.com/pisovegagranada" target="_blank" id="ig-footer">📸 Instagram</a>
     <a href="https://g.page/r/CcTYsad2JNHTEBM/review" target="_blank" lc="es">⭐ Reseña Google</a><a href="https://g.page/r/CcTYsad2JNHTEBM/review" target="_blank" lc="en">⭐ Google Review</a>
+    <a href="faq.html">FAQ</a>
     <a href="privacidad.html" lc="es">Privacidad</a><a href="privacidad.html" lc="en">Privacy</a>
   </div>
-  <div class="f-copy">© 2026 Piso Turístico Vega Granada · Churriana de la Vega</div>
+  <div class="f-copy">© 2026 Piso Turístico Vega Granada · Churriana de la Vega<br><span style="font-size:.55rem;opacity:.6">Nº Registro Turístico: ESPCTU00001802200123417700000000000000000000000000008</span></div>
 </footer>
 
 <script>
@@ -1918,6 +2137,15 @@ openResModal = function() {
   availYear = null;
   renderAvailCal();
 };
+
+
+// FAQ toggle
+function toggleFaq(btn){
+  const item = btn.closest('.faq-item');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+  if(!isOpen) item.classList.add('open');
+}
 
 // Set Instagram links from CONFIG
 const igUrl = 'https://instagram.com/' + CONFIG.INSTAGRAM;
