@@ -446,6 +446,19 @@ footer{background:#161209;border-top:1px solid rgba(201,168,76,.12);color:rgba(2
 .faq-a-inner strong{color:var(--ink)}
 .faq-a-inner a{color:var(--gold);text-decoration:none}
 
+
+/* ── OFERTAS ── */
+.oferta-banner{display:none;background:linear-gradient(135deg,rgba(201,168,76,.12),rgba(201,168,76,.04));border:1px solid rgba(201,168,76,.3);border-radius:4px;padding:1.5rem 2rem;margin:2rem auto;max-width:900px;position:relative;overflow:hidden}
+.oferta-banner::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.oferta-tag{font-size:.55rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:.4rem;display:flex;align-items:center;gap:.4rem}
+.oferta-title{font-family:'Cormorant Garamond',serif;font-size:clamp(1.2rem,3vw,1.8rem);font-weight:300;color:var(--ink);margin-bottom:.4rem}
+.oferta-price{font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,4vw,2.5rem);color:var(--gold);margin:.3rem 0}
+.oferta-desc{font-size:.82rem;color:var(--stone);line-height:1.7;margin-bottom:.75rem}
+.oferta-badge{display:inline-block;background:#ff6b6b;color:white;font-size:.6rem;font-weight:500;letter-spacing:.1em;padding:.2rem .5rem;border-radius:2px;text-transform:uppercase;margin-left:.5rem;vertical-align:middle}
+.oferta-code{font-size:.72rem;color:var(--gold);margin-top:.4rem}
+.oferta-dates{font-size:.7rem;color:var(--stone);margin-bottom:.3rem}
+@media(max-width:600px){.oferta-banner{padding:1.25rem}}
+
 /* ── LANG ── */
 [lc="en"]{display:none}
 body.en [lc="es"]{display:none}
@@ -592,6 +605,24 @@ body.en [lc="en"]{display:revert}
         if (document.getElementById('r-checkin') && document.getElementById('r-checkin').value) {
           calcPrice();
         }
+        // Check promo code visibility
+        checkShowPromo();
+
+        // Render oferta banner
+        const o = data.oferta || {};
+        const banner = document.getElementById('oferta-banner');
+        if (o.activa && o.titulo && banner) {
+          document.getElementById('oferta-titulo').textContent = o.titulo;
+          document.getElementById('oferta-fechas').textContent = o.desde && o.hasta ? `📅 ${o.desde} → ${o.hasta}` : '';
+          const precioEl = document.getElementById('oferta-precio');
+          precioEl.innerHTML = o.precio ? `${o.precio}€<span style="font-size:.8rem;color:var(--stone)">/noche</span>${o.descuento ? `<span class="oferta-badge">-${o.descuento}%</span>` : ''}` : '';
+          document.getElementById('oferta-desc').textContent = o.desc || '';
+          document.getElementById('oferta-codigo').innerHTML = o.codigo ? `Código: <strong>${o.codigo}</strong>` : '';
+          banner.style.display = 'block';
+        } else if (banner) {
+          banner.style.display = 'none';
+        }
+
         // Update season prices from Firebase
         const prices = data.prices || {};
         if (prices.alta && document.getElementById('price-alta')) 
@@ -907,6 +938,20 @@ body.en [lc="en"]{display:revert}
     </button>
   </div>
 </section>
+
+<!-- OFERTA BANNER -->
+<div id="oferta-banner" class="oferta-banner sp-sm" style="display:none">
+  <div class="oferta-tag">🏷️ <span lc="es">Oferta especial</span><span lc="en">Special offer</span></div>
+  <div class="oferta-title" id="oferta-titulo"></div>
+  <div class="oferta-dates" id="oferta-fechas"></div>
+  <div class="oferta-price" id="oferta-precio"></div>
+  <div class="oferta-desc" id="oferta-desc"></div>
+  <div class="oferta-code" id="oferta-codigo"></div>
+  <button onclick="openResModal()" class="btn-primary" style="margin-top:.75rem;font-size:.72rem;padding:.7rem 1.5rem">
+    <span lc="es">✦ Aprovechar oferta</span>
+    <span lc="en">✦ Grab this offer</span>
+  </button>
+</div>
 
 <!-- BOOKING -->
 <section class="bk-section sp" id="reservar">
@@ -1543,8 +1588,8 @@ body.en [lc="en"]{display:revert}
             <div style="font-size:1.2rem;margin-bottom:.4rem">📋</div>
             <p style="font-size:.82rem;color:var(--ink);font-weight:500;margin-bottom:.3rem" lc="es">Completa tu check-in online</p>
             <p style="font-size:.82rem;color:var(--ink);font-weight:500;margin-bottom:.3rem" lc="en">Complete your online check-in</p>
-            <p style="font-size:.72rem;color:var(--stone);margin-bottom:.85rem" lc="es">Ahorra tiempo a tu llegada registrando tus datos ahora</p>
-            <p style="font-size:.72rem;color:var(--stone);margin-bottom:.85rem" lc="en">Save time on arrival by registering your details now</p>
+            <p style="font-size:.72rem;color:var(--stone);line-height:1.7;margin-bottom:.85rem" lc="es">Puedes hacerlo ahora o cuando quieras, pero es <strong style="color:var(--ink)">obligatorio completarlo antes de tu llegada</strong>. Te recomendamos hacerlo con al menos <strong style="color:var(--ink)">48 horas de antelación</strong>.</p>
+            <p style="font-size:.72rem;color:var(--stone);line-height:1.7;margin-bottom:.85rem" lc="en">You can do it now or whenever you like, but it is <strong style="color:var(--ink)">mandatory before your arrival</strong>. We recommend completing it at least <strong style="color:var(--ink)">48 hours in advance</strong>.</p>
             <a href="https://guest.chekin.com/f77AQHaySAqEGcXAFwH8kw-user" target="_blank" style="display:inline-block;background:var(--gold);color:#0e0c09;text-decoration:none;padding:.75rem 1.5rem;border-radius:2px;font-family:'DM Sans',sans-serif;font-size:.72rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase" lc="es">✦ Hacer check-in online</a>
             <a href="https://guest.chekin.com/f77AQHaySAqEGcXAFwH8kw-user" target="_blank" style="display:inline-block;background:var(--gold);color:#0e0c09;text-decoration:none;padding:.75rem 1.5rem;border-radius:2px;font-family:'DM Sans',sans-serif;font-size:.72rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase" lc="en">✦ Complete online check-in</a>
           </div>
@@ -1797,7 +1842,12 @@ function calcPrice(){
   const nights=Math.round((new Date(co)-new Date(ci))/(1000*60*60*24));
   if(nights<1) return;
   
-  // Calculate total using day-by-day prices
+  // Check oferta activa
+  const fbData = window.fbAdminData || JSON.parse(localStorage.getItem('vg_admin_data') || '{}');
+  const oferta = fbData.oferta || {};
+  const hasOferta = oferta.activa && oferta.precio && oferta.desde && oferta.hasta;
+
+  // Calculate total using day-by-day prices (or oferta price)
   let sub = 0;
   let priceBreakdown = [];
   const start = new Date(ci);
@@ -1805,9 +1855,22 @@ function calcPrice(){
     const d = new Date(start);
     d.setDate(d.getDate()+i);
     const dateStr = d.getFullYear()+'-'+(d.getMonth()+1).toString().padStart(2,'0')+'-'+d.getDate().toString().padStart(2,'0');
-    const p = getDayPrice(dateStr);
+    // Use oferta price if date is within oferta range
+    let p;
+    if (hasOferta && dateStr >= oferta.desde && dateStr <= oferta.hasta) {
+      p = oferta.precio;
+    } else {
+      p = getDayPrice(dateStr);
+    }
     sub += p;
     priceBreakdown.push(p);
+  }
+
+  // Apply promo code discount
+  let promoSaving = 0;
+  if (promoApplied && promoDiscount > 0) {
+    promoSaving = Math.round(sub * promoDiscount / 100);
+    sub = sub - promoSaving;
   }
 
   // Guest supplement: 15€ fijo por reserva para 5 personas
@@ -1823,6 +1886,22 @@ function calcPrice(){
   document.getElementById('p-nights').textContent = nights+(isEN?' nights':' noches');
   document.getElementById('p-rate').textContent = avgPrice+'€ '+(isEN?'avg/night':'media/noche');
   document.getElementById('p-sub').textContent = sub+'€';
+
+  // Show promo discount row
+  let promoRow = document.getElementById('p-promo-row');
+  if (!promoRow) {
+    promoRow = document.createElement('div');
+    promoRow.id = 'p-promo-row';
+    promoRow.className = 'price-row';
+    promoRow.style.color = 'var(--gold)';
+    document.getElementById('p-sub').closest('.price-row').after(promoRow);
+  }
+  if (promoSaving > 0) {
+    promoRow.innerHTML = `<span lc="es">Descuento código (${promoDiscount}%)</span><span lc="en">Code discount (${promoDiscount}%)</span><span>-${promoSaving}€</span>`;
+    promoRow.style.display = 'flex';
+  } else {
+    promoRow.style.display = 'none';
+  }
 
   // Show supplement row if 5 guests
   let suppRow = document.getElementById('p-supp-row');
@@ -1842,6 +1921,44 @@ function calcPrice(){
   document.getElementById('p-total').textContent = total+'€';
   document.getElementById('p-total-2').textContent = total+'€';
   document.getElementById('price-box').style.display = 'block';
+}
+
+// ── PROMO CODE ──
+let promoApplied = false;
+let promoDiscount = 0;
+
+function checkShowPromo() {
+  const data = window.fbAdminData || JSON.parse(localStorage.getItem('vg_admin_data') || '{}');
+  const o = data.oferta || {};
+  const wrap = document.getElementById('promo-wrap');
+  if (wrap && o.activa && o.codigo) {
+    wrap.style.display = 'block';
+  } else if (wrap) {
+    wrap.style.display = 'none';
+    promoApplied = false;
+    promoDiscount = 0;
+  }
+}
+
+function applyPromo() {
+  const data = window.fbAdminData || JSON.parse(localStorage.getItem('vg_admin_data') || '{}');
+  const o = data.oferta || {};
+  const input = document.getElementById('promo-input').value.trim().toUpperCase();
+  const msg = document.getElementById('promo-msg');
+  msg.style.display = 'block';
+
+  if (!o.codigo || input !== o.codigo.toUpperCase()) {
+    msg.style.color = '#ff9a9a';
+    msg.textContent = '❌ Código incorrecto';
+    promoApplied = false;
+    promoDiscount = 0;
+  } else {
+    promoApplied = true;
+    promoDiscount = o.descuento || 0;
+    msg.style.color = 'var(--gold)';
+    msg.textContent = `✅ Código aplicado — ${promoDiscount}% de descuento`;
+  }
+  calcPrice();
 }
 
 // Update Bizum display when method selected
@@ -2175,6 +2292,7 @@ openResModal = function() {
   availSelectStart = null; availSelectEnd = null;
   availYear = null;
   renderAvailCal();
+  checkShowPromo();
 };
 
 
