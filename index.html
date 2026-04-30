@@ -1188,12 +1188,15 @@ body.en [lc="en"]{display:revert}
         </div>
 
         <!-- Selector método de pago -->
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-bottom:1.25rem">
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:.75rem;margin-bottom:1.25rem">
           <button onclick="selectPayMethod('card')" id="method-card" style="padding:1rem;border:2px solid var(--gold);border-radius:2px;background:rgba(201,168,76,.1);color:var(--ink);cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.75rem;font-weight:500;transition:.2s;text-align:center">
-            💳<br><span lc="es">Tarjeta</span><span lc="en">Card</span><br><span style="font-size:.6rem;color:var(--stone)" lc="es">Estancia ahora · Fianza por Bizum</span><span style="font-size:.6rem;color:var(--stone)" lc="en">Stay now · Deposit via Bizum</span>
+            💳<br><span lc="es">Tarjeta</span><span lc="en">Card</span><br><span style="font-size:.6rem;color:var(--stone)" lc="es">Fianza por Bizum</span><span style="font-size:.6rem;color:var(--stone)" lc="en">Deposit via Bizum</span>
           </button>
           <button onclick="selectPayMethod('bizum')" id="method-bizum" style="padding:1rem;border:2px solid rgba(201,168,76,.2);border-radius:2px;background:transparent;color:var(--ink);cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.75rem;font-weight:500;transition:.2s;text-align:center">
-            📱<br>Bizum<br><span style="font-size:.6rem;color:var(--stone)" lc="es">Todo por Bizum + justificante</span><span style="font-size:.6rem;color:var(--stone)" lc="en">Full payment via Bizum</span>
+            📱<br>Bizum<br><span style="font-size:.6rem;color:var(--stone)" lc="es">Todo por Bizum</span><span style="font-size:.6rem;color:var(--stone)" lc="en">Full via Bizum</span>
+          </button>
+          <button onclick="selectPayMethod('transferencia')" id="method-transferencia" style="padding:1rem;border:2px solid rgba(201,168,76,.2);border-radius:2px;background:transparent;color:var(--ink);cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.75rem;font-weight:500;transition:.2s;text-align:center">
+            🏦<br><span lc="es">Transfer.</span><span lc="en">Transfer</span><br><span style="font-size:.6rem;color:var(--stone)" lc="es">Fianza en mano</span><span style="font-size:.6rem;color:var(--stone)" lc="en">Deposit on arrival</span>
           </button>
         </div>
 
@@ -1217,22 +1220,72 @@ body.en [lc="en"]{display:revert}
           <button class="res-btn" id="pay-btn" onclick="openConfirmModal()" style="margin-top:1rem" lc="en">💳 Pay and confirm booking</button>
         </div>
 
-        <!-- Panel Bizum -->
-        <div id="panel-bizum" style="display:none">
-          <div style="background:#1a1409;border:1px solid rgba(201,168,76,.2);border-radius:2px;padding:1.25rem;text-align:center;margin-bottom:1rem">
-            <div style="font-size:2rem;margin-bottom:.5rem">📱</div>
-            <div style="font-family:'Cormorant Garamond',serif;font-size:1.4rem;color:var(--gold);margin-bottom:.5rem">+34 674 07 14 43</div>
-            <div style="font-size:.72rem;color:var(--stone);line-height:1.7" lc="es">Envía el <strong style="color:var(--ink)">total de la estancia + 100€ de fianza</strong> por Bizum a este número.<br>Incluye en el concepto tu nombre y fechas.</div>
-            <div style="font-size:.72rem;color:var(--stone);line-height:1.7" lc="en">Send the <strong style="color:var(--ink)">full stay amount + €100 deposit</strong> via Bizum to this number.<br>Include your name and dates in the concept.</div>
-            <button onclick="openBizumLink()" style="margin-top:1rem;background:var(--gold);color:#0e0c09;border:none;padding:.85rem 2rem;border-radius:2px;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.75rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;width:100%" lc="es">📱 Abrir Bizum</button>
-            <button onclick="openBizumLink()" style="margin-top:1rem;background:var(--gold);color:#0e0c09;border:none;padding:.85rem 2rem;border-radius:2px;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.75rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;width:100%" lc="en">📱 Open Bizum</button>
+        <!-- Panel Transferencia -->
+        <div id="panel-transferencia" style="display:none">
+          <div style="background:#1a1409;border:1px solid rgba(201,168,76,.2);border-radius:2px;padding:1.25rem;margin-bottom:1rem">
+            <div style="font-size:1.5rem;text-align:center;margin-bottom:.75rem">🏦</div>
+            <div style="font-size:.82rem;color:var(--stone);line-height:2">
+              <span lc="es"><strong style="color:var(--ink)">Titular:</strong> Raquel Moreno Garrido<br>
+              <strong style="color:var(--ink)">Concepto:</strong> Vega Granada + tus fechas<br><br>
+              ⚠️ Envía el justificante por <strong style="color:var(--gold)">WhatsApp al +34 674 07 14 43</strong> para confirmar tu reserva.</span>
+              <span lc="en"><strong style="color:var(--ink)">Account holder:</strong> Raquel Moreno Garrido<br>
+              <strong style="color:var(--ink)">Reference:</strong> Vega Granada + your dates<br><br>
+              ⚠️ Send the receipt via <strong style="color:var(--gold)">WhatsApp to +34 674 07 14 43</strong> to confirm your booking.</span>
+            </div>
           </div>
-          <div style="background:#1a1409;border:1px solid rgba(201,168,76,.15);border-radius:2px;padding:1rem;font-size:.72rem;color:var(--stone);line-height:1.7;margin-bottom:1rem">
-            ⚠️ <span lc="es">Una vez realizado el pago, envía el <strong style="color:var(--ink)">justificante por WhatsApp</strong> al +34 674 07 14 43 para confirmar tu reserva.</span>
-            <span lc="en">Once payment is made, send the <strong style="color:var(--ink)">receipt via WhatsApp</strong> to +34 674 07 14 43 to confirm your booking.</span>
+          <div style="background:#1a1409;border:1px solid rgba(201,168,76,.15);border-radius:2px;padding:.85rem;font-size:.72rem;color:var(--stone);line-height:1.7;margin-bottom:1rem">
+            📋 <span lc="es">La <strong style="color:var(--ink)">fianza de 100€</strong> se puede entregar <strong style="color:var(--ink)">en mano al check-in</strong> o incluirla en la transferencia.</span>
+            <span lc="en">The <strong style="color:var(--ink)">€100 deposit</strong> can be paid <strong style="color:var(--ink)">in person at check-in</strong> or included in the transfer.</span>
           </div>
           <a href="https://wa.me/34674071443" target="_blank" class="res-btn" style="display:block;text-align:center;text-decoration:none;background:#25d366;margin-bottom:.5rem" lc="es">💬 Enviar justificante por WhatsApp</a>
           <a href="https://wa.me/34674071443" target="_blank" class="res-btn" style="display:block;text-align:center;text-decoration:none;background:#25d366;margin-bottom:.5rem" lc="en">💬 Send receipt via WhatsApp</a>
+        </div>
+
+        <!-- Panel Bizum -->
+        <div id="panel-bizum" style="display:none">
+
+          <!-- Paso 1 -->
+          <div style="background:#1a1409;border:1px solid rgba(201,168,76,.2);border-radius:2px;padding:1.25rem;margin-bottom:.75rem">
+            <div style="font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:.6rem" lc="es">Paso 1 · Realiza el Bizum</div>
+            <div style="font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:.6rem" lc="en">Step 1 · Send the Bizum</div>
+            <div style="font-size:.82rem;color:var(--stone);line-height:1.9">
+              <span lc="es">
+                Abre tu app bancaria y realiza un Bizum a:<br>
+                <strong style="color:var(--gold);font-size:1.1rem">+34 674 07 14 43</strong><br>
+                <strong style="color:var(--ink)">Titular:</strong> Raquel Moreno Garrido<br>
+                <strong style="color:var(--ink)">Importe:</strong> <span id="bizum-total-display" style="color:var(--gold);font-weight:500">—</span><br>
+                <strong style="color:var(--ink)">Concepto:</strong> <span id="bizum-concepto" style="color:var(--ink)">Vega Granada + tus fechas</span>
+              </span>
+              <span lc="en">
+                Open your banking app and send a Bizum to:<br>
+                <strong style="color:var(--gold);font-size:1.1rem">+34 674 07 14 43</strong><br>
+                <strong style="color:var(--ink)">Name:</strong> Raquel Moreno Garrido<br>
+                <strong style="color:var(--ink)">Amount:</strong> <span id="bizum-total-display-en" style="color:var(--gold);font-weight:500">—</span><br>
+                <strong style="color:var(--ink)">Reference:</strong> <span id="bizum-concepto-en" style="color:var(--ink)">Vega Granada + your dates</span>
+              </span>
+            </div>
+            <div style="margin-top:.75rem;font-size:.68rem;color:var(--stone);padding:.6rem;background:rgba(201,168,76,.06);border-radius:2px" lc="es">
+              💡 La fianza de 100€ puedes incluirla en el Bizum o entregarla <strong style="color:var(--ink)">en mano al check-in</strong>.
+            </div>
+            <div style="margin-top:.75rem;font-size:.68rem;color:var(--stone);padding:.6rem;background:rgba(201,168,76,.06);border-radius:2px" lc="en">
+              💡 The €100 deposit can be included in the Bizum or paid <strong style="color:var(--ink)">in person at check-in</strong>.
+            </div>
+          </div>
+
+          <!-- Paso 2 -->
+          <div style="background:#1a1409;border:1px solid rgba(201,168,76,.15);border-radius:2px;padding:1.25rem;margin-bottom:.75rem">
+            <div style="font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:.6rem" lc="es">Paso 2 · Confirma tu reserva</div>
+            <div style="font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:.6rem" lc="en">Step 2 · Confirm your booking</div>
+            <div style="font-size:.82rem;color:var(--stone);line-height:1.8" lc="es">
+              Envía el justificante del Bizum por WhatsApp. En cuanto lo recibamos <strong style="color:var(--ink)">validaremos tu reserva y te enviaremos todas las instrucciones de llegada</strong>.
+            </div>
+            <div style="font-size:.82rem;color:var(--stone);line-height:1.8" lc="en">
+              Send the Bizum receipt via WhatsApp. As soon as we receive it, <strong style="color:var(--ink)">we will confirm your booking and send you all arrival instructions</strong>.
+            </div>
+          </div>
+
+          <a href="https://wa.me/34674071443" target="_blank" style="display:block;text-align:center;text-decoration:none;background:#25d366;color:white;padding:.9rem;border-radius:2px;font-family:'DM Sans',sans-serif;font-size:.75rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.5rem" lc="es">💬 Enviar justificante por WhatsApp</a>
+          <a href="https://wa.me/34674071443" target="_blank" style="display:block;text-align:center;text-decoration:none;background:#25d366;color:white;padding:.9rem;border-radius:2px;font-family:'DM Sans',sans-serif;font-size:.75rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.5rem" lc="en">💬 Send receipt via WhatsApp</a>
         </div>
 
         <button class="res-btn-back" onclick="goStep(2)" lc="es">← Volver</button>
@@ -1250,6 +1303,15 @@ body.en [lc="en"]{display:revert}
           <div style="margin-top:1.5rem;padding:1rem;background:#161209;border-radius:2px;border:1px solid rgba(201,168,76,.15)">
             <p style="font-size:.72rem;color:var(--stone);line-height:1.7" lc="es">📍 C/ Sevilla esq. C/ Alicante, Churriana de la Vega<br>📞 WhatsApp para cualquier duda</p>
             <p style="font-size:.72rem;color:var(--stone);line-height:1.7" lc="en">📍 C/ Sevilla esq. C/ Alicante, Churriana de la Vega<br>📞 WhatsApp for any questions</p>
+          </div>
+          <div style="margin-top:1.25rem;background:#1a1409;border:1px solid rgba(201,168,76,.2);border-radius:2px;padding:1.25rem;text-align:center">
+            <div style="font-size:1.2rem;margin-bottom:.4rem">📋</div>
+            <p style="font-size:.82rem;color:var(--ink);font-weight:500;margin-bottom:.3rem" lc="es">Completa tu check-in online</p>
+            <p style="font-size:.82rem;color:var(--ink);font-weight:500;margin-bottom:.3rem" lc="en">Complete your online check-in</p>
+            <p style="font-size:.72rem;color:var(--stone);margin-bottom:.85rem" lc="es">Ahorra tiempo a tu llegada registrando tus datos ahora</p>
+            <p style="font-size:.72rem;color:var(--stone);margin-bottom:.85rem" lc="en">Save time on arrival by registering your details now</p>
+            <a href="https://guest.chekin.com/f77AQHaySAqEGcXAFwH8kw-user" target="_blank" style="display:inline-block;background:var(--gold);color:#0e0c09;text-decoration:none;padding:.75rem 1.5rem;border-radius:2px;font-family:'DM Sans',sans-serif;font-size:.72rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase" lc="es">✦ Hacer check-in online</a>
+            <a href="https://guest.chekin.com/f77AQHaySAqEGcXAFwH8kw-user" target="_blank" style="display:inline-block;background:var(--gold);color:#0e0c09;text-decoration:none;padding:.75rem 1.5rem;border-radius:2px;font-family:'DM Sans',sans-serif;font-size:.72rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase" lc="en">✦ Complete online check-in</a>
           </div>
         </div>
       </div>
@@ -1524,44 +1586,45 @@ function calcPrice(){
   document.getElementById('price-box').style.display='block';
 }
 
-// Bizum link
-function openBizumLink() {
-  const total = parseInt(document.getElementById('p-total').textContent) || 0;
-  const fianza = 100;
-  const totalBizum = total + fianza;
-  const ci = document.getElementById('r-checkin').value;
-  const co = document.getElementById('r-checkout').value;
-  const fname = document.getElementById('r-fname').value.trim();
-  const concepto = encodeURIComponent(`Vega Granada ${fname} ${ci} ${co}`);
-  
-  // Try to open Bizum app with prefilled data
-  const bizumUrl = `bizum://send?phone=674071443&amount=${totalBizum}&concept=${concepto}`;
-  const fallbackUrl = `https://bizum.es/?phone=674071443`;
-  
-  // Try app first, fallback to web
-  const win = window.open(bizumUrl, '_blank');
-  setTimeout(() => {
-    // If app didn't open, show instructions
-    const isEN = document.body.classList.contains('en');
-    alert(isEN 
-      ? `Send ${totalBizum}€ via Bizum to +34 674 07 14 43
-Concept: Vega Granada ${fname} ${ci} ${co}`
-      : `Envía ${totalBizum}€ por Bizum al +34 674 07 14 43
-Concepto: Vega Granada ${fname} ${ci} ${co}`
-    );
-  }, 1500);
+// Update Bizum display when method selected
+function updateBizumDisplay() {
+  const total = parseInt(document.getElementById('p-total')?.textContent) || 0;
+  const ci = document.getElementById('r-checkin')?.value || '';
+  const co = document.getElementById('r-checkout')?.value || '';
+  const fname = document.getElementById('r-fname')?.value.trim() || '';
+  const concepto = `Vega Granada ${fname} ${ci} ${co}`;
+  const totalText = `${total}€ (estancia) + 100€ fianza opcional`;
+  const totalTextEN = `${total}€ (stay) + €100 deposit optional`;
+
+  const el1 = document.getElementById('bizum-total-display');
+  const el2 = document.getElementById('bizum-total-display-en');
+  const el3 = document.getElementById('bizum-concepto');
+  const el4 = document.getElementById('bizum-concepto-en');
+  if (el1) el1.textContent = totalText;
+  if (el2) el2.textContent = totalTextEN;
+  if (el3) el3.textContent = concepto;
+  if (el4) el4.textContent = concepto;
 }
 
 // Selector método de pago
 let payMethod = 'card';
+let stripeInitialized = false;
 function selectPayMethod(method) {
   payMethod = method;
   document.getElementById('panel-card').style.display = method === 'card' ? 'block' : 'none';
   document.getElementById('panel-bizum').style.display = method === 'bizum' ? 'block' : 'none';
-  document.getElementById('method-card').style.border = method === 'card' ? '2px solid var(--gold)' : '2px solid rgba(201,168,76,.2)';
-  document.getElementById('method-card').style.background = method === 'card' ? 'rgba(201,168,76,.1)' : 'transparent';
-  document.getElementById('method-bizum').style.border = method === 'bizum' ? '2px solid var(--gold)' : '2px solid rgba(201,168,76,.2)';
-  document.getElementById('method-bizum').style.background = method === 'bizum' ? 'rgba(201,168,76,.1)' : 'transparent';
+  document.getElementById('panel-transferencia').style.display = method === 'transferencia' ? 'block' : 'none';
+  ['card','bizum','transferencia'].forEach(m => {
+    const btn = document.getElementById('method-' + m);
+    if (!btn) return;
+    btn.style.border = method === m ? '2px solid var(--gold)' : '2px solid rgba(201,168,76,.2)';
+    btn.style.background = method === m ? 'rgba(201,168,76,.1)' : 'transparent';
+  });
+  // Init Stripe only when card panel is visible
+  if (method === 'card' && !stripeInitialized) {
+    setTimeout(() => { initStripe(); stripeInitialized = true; }, 100);
+  }
+  if (method === 'bizum') { updateBizumDisplay(); }
 }
 
 // Validación step 2
