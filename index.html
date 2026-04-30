@@ -613,7 +613,13 @@ body.en [lc="en"]{display:revert}
         const banner = document.getElementById('oferta-banner');
         if (o.activa && o.titulo && banner) {
           document.getElementById('oferta-titulo').textContent = o.titulo;
-          document.getElementById('oferta-fechas').textContent = o.desde && o.hasta ? `📅 ${o.desde} → ${o.hasta}` : '';
+          // Format dates nicely if present
+          let fechasText = '';
+          if (o.desde && o.hasta) {
+            const fmtDate = s => { const d = new Date(s); return d.toLocaleDateString('es-ES',{day:'numeric',month:'long',year:'numeric'}); };
+            fechasText = `📅 ${fmtDate(o.desde)} → ${fmtDate(o.hasta)}`;
+          }
+          document.getElementById('oferta-fechas').textContent = fechasText;
           const precioEl = document.getElementById('oferta-precio');
           precioEl.innerHTML = o.precio ? `${o.precio}€<span style="font-size:.8rem;color:var(--stone)">/noche</span>${o.descuento ? `<span class="oferta-badge">-${o.descuento}%</span>` : ''}` : '';
           document.getElementById('oferta-desc').textContent = o.desc || '';
