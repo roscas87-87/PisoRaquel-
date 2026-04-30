@@ -536,6 +536,22 @@ html,body{height:100%;font-family:'DM Sans',sans-serif;background:var(--night);c
       </div>
 
       <div class="card">
+        <div class="card-title">📤 Tu calendario para Airbnb y Booking</div>
+        <p style="font-size:.78rem;color:var(--stone);line-height:1.7;margin-bottom:1rem">
+          Copia esta URL y pégala en Airbnb y Booking como <strong style="color:var(--ink)">"calendario externo"</strong> o "iCal URL". 
+          Así cuando bloquees fechas aquí, Airbnb y Booking las verán automáticamente y no habrá dobles reservas.
+        </p>
+        <div style="display:flex;gap:.5rem;align-items:center;margin-bottom:.5rem">
+          <input type="text" value="https://pisovegagranada.es/.netlify/functions/ical-export" readonly style="flex:1;background:#161209;border:1px solid rgba(201,168,76,.2);color:var(--gold);padding:.6rem .75rem;border-radius:2px;font-size:.72rem;font-family:monospace">
+          <button onclick="navigator.clipboard.writeText('https://pisovegagranada.es/.netlify/functions/ical-export');this.textContent='✅ Copiado!';setTimeout(()=>this.textContent='📋 Copiar',2000)" class="save-btn" style="white-space:nowrap;padding:.6rem 1rem">📋 Copiar</button>
+        </div>
+        <p style="font-size:.68rem;color:var(--stone);line-height:1.6">
+          <strong style="color:var(--ink)">Airbnb:</strong> Calendario → Conectar calendarios → Importar calendario → pega la URL<br>
+          <strong style="color:var(--ink)">Booking:</strong> Extranet → Calendario → Sincronizar → Exportar → pega la URL
+        </p>
+      </div>
+
+      <div class="card">
         <div class="card-title">🔄 Sincronizar ahora</div>
         <p style="font-size:.78rem;color:var(--stone);line-height:1.7;margin-bottom:1rem">
           Pulsa el botón para leer los calendarios de Airbnb y Booking y bloquear automáticamente esas fechas en Firebase.
@@ -777,12 +793,9 @@ function renderCal() {
   document.getElementById('calTitle').textContent = `${months[calMonth]} ${calYear}`;
   
   const grid = document.getElementById('calGrid');
-  // Keep day names
-  const dayNames = grid.querySelectorAll('.cal-day-name');
   grid.innerHTML = '';
-  dayNames.forEach(d => grid.appendChild(d.cloneNode(true)));
   
-  // Add day names back
+  // Add day names
   ['L','M','X','J','V','S','D'].forEach(d => {
     const el = document.createElement('div');
     el.className = 'cal-day-name';
