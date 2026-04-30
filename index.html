@@ -609,7 +609,7 @@ body.en [lc="en"]{display:revert}
         checkShowPromo();
 
         // Render oferta banner
-        const o = data.oferta || {};
+        const o = window.fbAdminData.oferta || {};
         const banner = document.getElementById('oferta-banner');
         if (o.activa && o.titulo && banner) {
           document.getElementById('oferta-titulo').textContent = o.titulo;
@@ -630,7 +630,7 @@ body.en [lc="en"]{display:revert}
         }
 
         // Update season prices from Firebase
-        const prices = data.prices || {};
+        const prices = window.fbAdminData.prices || {};
         if (prices.alta && document.getElementById('price-alta')) 
           document.getElementById('price-alta').textContent = prices.alta;
         if (prices.media && document.getElementById('price-media'))
@@ -904,8 +904,8 @@ body.en [lc="en"]{display:revert}
       <div>
         <div class="pt-extra-title" lc="es">Check-in / Check-out</div>
         <div class="pt-extra-title" lc="en">Check-in / Check-out</div>
-        <div class="pt-extra-desc" lc="es">Entrada: 16:00h · Salida: 11:00h<br>Check-in tardío bajo petición</div>
-        <div class="pt-extra-desc" lc="en">Check-in: 4pm · Check-out: 11am<br>Late check-in on request</div>
+        <div class="pt-extra-desc" lc="es">Entrada: 16:30h-22:00h · Salida: 8:00h-11:00h<br>Check-in tardío bajo petición previa</div>
+        <div class="pt-extra-desc" lc="en">Check-in: 4:30pm-10pm · Check-out: 8am-11am<br>Late check-in on prior request</div>
       </div>
     </div>
     <div class="pt-extra-item">
@@ -931,8 +931,8 @@ body.en [lc="en"]{display:revert}
       <div>
         <div class="pt-extra-title" lc="es">Niños y mascotas</div>
         <div class="pt-extra-title" lc="en">Children & pets</div>
-        <div class="pt-extra-desc" lc="es">Niños bienvenidos. Mascotas consultar.</div>
-        <div class="pt-extra-desc" lc="en">Children welcome. Pets — please enquire.</div>
+        <div class="pt-extra-desc" lc="es">Niños bienvenidos. No se admiten mascotas.</div>
+        <div class="pt-extra-desc" lc="en">Children welcome. No pets allowed.</div>
       </div>
     </div>
   </div>
