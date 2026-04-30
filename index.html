@@ -1131,13 +1131,13 @@ body.en [lc="en"]{display:revert}
           <div class="price-row"><span lc="es">Noches</span><span lc="en">Nights</span><span id="p-nights">—</span></div>
           <div class="price-row"><span lc="es">Precio por noche</span><span lc="en">Price per night</span><span id="p-rate">—</span></div>
           <div class="price-row"><span lc="es">Subtotal</span><span lc="en">Subtotal</span><span id="p-sub">—</span></div>
-          <div class="price-row"><span lc="es">Fianza (retenida)</span><span lc="en">Deposit (held)</span><span id="p-dep">150 €</span></div>
+          <div class="price-row"><span lc="es">Fianza por Bizum</span><span lc="en">Deposit via Bizum</span><span id="p-dep" style="color:var(--gold)">100€</span></div>
           <div class="price-row total">
             <span lc="es">Total a pagar ahora</span><span lc="en">Total to pay now</span>
             <span id="p-total">—</span>
           </div>
-          <p class="price-note" lc="es"><strong>Fianza:</strong> Los 300€ quedan retenidos en tu tarjeta y se liberan automáticamente 48h después del checkout si no hay incidencias.</p>
-          <p class="price-note" lc="en"><strong>Deposit:</strong> The €300 deposit is held on your card and automatically released 48h after checkout if there are no issues.</p>
+          <p class="price-note" lc="es">💳 <strong>Pago:</strong> El total de la estancia se cobra con tarjeta.<br>📱 <strong>Fianza 100€:</strong> Se paga por <strong style="color:var(--gold)">Bizum al +34 674 07 14 43</strong> antes del check-in. Se devuelve tras el checkout si no hay incidencias.</p>
+          <p class="price-note" lc="en">💳 <strong>Payment:</strong> The total stay amount is charged by card.<br>📱 <strong>€100 deposit:</strong> Paid via <strong style="color:var(--gold)">Bizum to +34 674 07 14 43</strong> before check-in. Returned after checkout if no issues.</p>
         </div>
 
         <button class="res-btn" onclick="goStep(2)" id="btn-step1" lc="es">Continuar →</button>
@@ -1176,44 +1176,65 @@ body.en [lc="en"]{display:revert}
         <button class="res-btn-back" onclick="goStep(1)" lc="en">← Back</button>
       </div>
 
-      <!-- STEP 3: Pago Stripe -->
+      <!-- STEP 3: Pago -->
       <div class="res-panel" id="res-step-3">
-        <p class="sec-lbl" style="margin-bottom:1rem" lc="es">Pago seguro</p>
-        <p class="sec-lbl" style="margin-bottom:1rem" lc="en">Secure payment</p>
+        <p class="sec-lbl" style="margin-bottom:1rem" lc="es">Método de pago</p>
+        <p class="sec-lbl" style="margin-bottom:1rem" lc="en">Payment method</p>
 
         <!-- Resumen compacto -->
-        <div class="price-box" style="margin-bottom:1.5rem">
-          <div class="price-row total">
-            <span lc="es">Total (incl. fianza 300€)</span><span lc="en">Total (incl. €300 deposit)</span>
-            <span id="p-total-2">—</span>
+        <div class="price-box" style="margin-bottom:1.25rem">
+          <div class="price-row"><span lc="es">Total estancia</span><span lc="en">Stay total</span><span id="p-total-2">—</span></div>
+          <div class="price-row"><span lc="es">Fianza (por Bizum)</span><span lc="en">Deposit (via Bizum)</span><span style="color:var(--gold)">100€</span></div>
+        </div>
+
+        <!-- Selector método de pago -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-bottom:1.25rem">
+          <button onclick="selectPayMethod('card')" id="method-card" style="padding:1rem;border:2px solid var(--gold);border-radius:2px;background:rgba(201,168,76,.1);color:var(--ink);cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.75rem;font-weight:500;transition:.2s;text-align:center">
+            💳<br><span lc="es">Tarjeta</span><span lc="en">Card</span><br><span style="font-size:.6rem;color:var(--stone)" lc="es">Estancia ahora · Fianza por Bizum</span><span style="font-size:.6rem;color:var(--stone)" lc="en">Stay now · Deposit via Bizum</span>
+          </button>
+          <button onclick="selectPayMethod('bizum')" id="method-bizum" style="padding:1rem;border:2px solid rgba(201,168,76,.2);border-radius:2px;background:transparent;color:var(--ink);cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.75rem;font-weight:500;transition:.2s;text-align:center">
+            📱<br>Bizum<br><span style="font-size:.6rem;color:var(--stone)" lc="es">Todo por Bizum + justificante</span><span style="font-size:.6rem;color:var(--stone)" lc="en">Full payment via Bizum</span>
+          </button>
+        </div>
+
+        <!-- Panel tarjeta -->
+        <div id="panel-card">
+          <div class="stripe-wrap">
+            <div id="card-element" style="display:none"></div>
+            <div id="stripe-placeholder" class="stripe-placeholder">
+              <div class="sp-icon">💳</div>
+              <p lc="es">Cargando formulario de pago seguro...</p>
+              <p lc="en">Loading secure payment form...</p>
+            </div>
+            <div id="card-errors"></div>
           </div>
-        </div>
-
-        <!-- ═══════════════════════════════════════════════
-             STRIPE — MAÑANA PEGAS AQUÍ TU CLAVE PÚBLICA
-             ═══════════════════════════════════════════════
-             1. Ve a dashboard.stripe.com → Desarrolladores → Claves API
-             2. Copia tu "Publishable key" (empieza por pk_live_...)
-             3. Reemplaza 'pk_test_PEGA_TU_CLAVE_AQUI' con tu clave real
-             ═══════════════════════════════════════════════ -->
-        <div class="stripe-wrap">
-          <div class="stripe-placeholder" id="stripe-placeholder">
-            <div class="sp-icon">💳</div>
-            <p lc="es"><strong style="color:var(--gold-dk)">Mañana:</strong> pega tu clave de Stripe<br><code>pk_live_TU_CLAVE_AQUI</code><br>y el formulario de tarjeta aparecerá aquí</p>
-            <p lc="en"><strong style="color:var(--gold-dk)">Tomorrow:</strong> paste your Stripe key<br><code>pk_live_YOUR_KEY_HERE</code><br>and the card form will appear here</p>
+          <div class="stripe-secure">🔒 <span lc="es">Pago seguro con Stripe · Datos encriptados</span><span lc="en">Secure payment with Stripe · Encrypted data</span></div>
+          <div style="margin-top:.75rem;padding:.75rem;background:#1a1409;border:1px solid rgba(201,168,76,.15);border-radius:2px;font-size:.72rem;color:var(--stone);line-height:1.7">
+            📱 <span lc="es">Tras confirmar, envía la <strong style="color:var(--gold)">fianza de 100€ por Bizum al +34 674 07 14 43</strong></span>
+            <span lc="en">After confirming, send the <strong style="color:var(--gold)">€100 deposit via Bizum to +34 674 07 14 43</strong></span>
           </div>
-          <!-- Cuando tengas la clave, esto se activa automáticamente -->
-          <div id="card-element" style="display:none"></div>
-          <div id="card-errors"></div>
+          <button class="res-btn" id="pay-btn" onclick="openConfirmModal()" style="margin-top:1rem" lc="es">💳 Pagar y confirmar reserva</button>
+          <button class="res-btn" id="pay-btn" onclick="openConfirmModal()" style="margin-top:1rem" lc="en">💳 Pay and confirm booking</button>
         </div>
 
-        <div class="stripe-secure">
-          🔒 <span lc="es">Pago seguro con Stripe · Datos encriptados · No guardamos tu tarjeta</span>
-          <span lc="en">Secure payment with Stripe · Encrypted data · We never store your card</span>
+        <!-- Panel Bizum -->
+        <div id="panel-bizum" style="display:none">
+          <div style="background:#1a1409;border:1px solid rgba(201,168,76,.2);border-radius:2px;padding:1.25rem;text-align:center;margin-bottom:1rem">
+            <div style="font-size:2rem;margin-bottom:.5rem">📱</div>
+            <div style="font-family:'Cormorant Garamond',serif;font-size:1.4rem;color:var(--gold);margin-bottom:.5rem">+34 674 07 14 43</div>
+            <div style="font-size:.72rem;color:var(--stone);line-height:1.7" lc="es">Envía el <strong style="color:var(--ink)">total de la estancia + 100€ de fianza</strong> por Bizum a este número.<br>Incluye en el concepto tu nombre y fechas.</div>
+            <div style="font-size:.72rem;color:var(--stone);line-height:1.7" lc="en">Send the <strong style="color:var(--ink)">full stay amount + €100 deposit</strong> via Bizum to this number.<br>Include your name and dates in the concept.</div>
+            <button onclick="openBizumLink()" style="margin-top:1rem;background:var(--gold);color:#0e0c09;border:none;padding:.85rem 2rem;border-radius:2px;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.75rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;width:100%" lc="es">📱 Abrir Bizum</button>
+            <button onclick="openBizumLink()" style="margin-top:1rem;background:var(--gold);color:#0e0c09;border:none;padding:.85rem 2rem;border-radius:2px;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.75rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;width:100%" lc="en">📱 Open Bizum</button>
+          </div>
+          <div style="background:#1a1409;border:1px solid rgba(201,168,76,.15);border-radius:2px;padding:1rem;font-size:.72rem;color:var(--stone);line-height:1.7;margin-bottom:1rem">
+            ⚠️ <span lc="es">Una vez realizado el pago, envía el <strong style="color:var(--ink)">justificante por WhatsApp</strong> al +34 674 07 14 43 para confirmar tu reserva.</span>
+            <span lc="en">Once payment is made, send the <strong style="color:var(--ink)">receipt via WhatsApp</strong> to +34 674 07 14 43 to confirm your booking.</span>
+          </div>
+          <a href="https://wa.me/34674071443" target="_blank" class="res-btn" style="display:block;text-align:center;text-decoration:none;background:#25d366;margin-bottom:.5rem" lc="es">💬 Enviar justificante por WhatsApp</a>
+          <a href="https://wa.me/34674071443" target="_blank" class="res-btn" style="display:block;text-align:center;text-decoration:none;background:#25d366;margin-bottom:.5rem" lc="en">💬 Send receipt via WhatsApp</a>
         </div>
 
-        <button class="res-btn" id="pay-btn" onclick="openConfirmModal()" lc="es">💳 Pagar y confirmar reserva</button>
-        <button class="res-btn" id="pay-btn" onclick="openConfirmModal()" lc="en">💳 Pay and confirm booking</button>
         <button class="res-btn-back" onclick="goStep(2)" lc="es">← Volver</button>
         <button class="res-btn-back" onclick="goStep(2)" lc="en">← Back</button>
       </div>
@@ -1245,8 +1266,8 @@ body.en [lc="en"]{display:revert}
       <span lc="en">✦ Confirm booking</span>
     </div>
     <div id="confirm-summary" style="background:#161209;border:1px solid rgba(201,168,76,.12);border-radius:2px;padding:1rem;margin-bottom:1.25rem;font-size:.82rem;color:var(--stone);line-height:2"></div>
-    <p style="font-size:.72rem;color:var(--stone);margin-bottom:1.25rem;line-height:1.6" lc="es">⚠️ Al confirmar se realizará el cargo en tu tarjeta. La fianza se devuelve automáticamente 48h después del checkout.</p>
-    <p style="font-size:.72rem;color:var(--stone);margin-bottom:1.25rem;line-height:1.6" lc="en">⚠️ By confirming, your card will be charged. The deposit is automatically returned 48h after checkout.</p>
+    <p style="font-size:.72rem;color:var(--stone);margin-bottom:1.25rem;line-height:1.6" lc="es">⚠️ Al confirmar se realizará el cargo de la estancia en tu tarjeta. Recuerda enviar la fianza de <strong style="color:var(--gold)">100€ por Bizum al +34 674 07 14 43</strong> antes del check-in.</p>
+    <p style="font-size:.72rem;color:var(--stone);margin-bottom:1.25rem;line-height:1.6" lc="en">⚠️ By confirming, your card will be charged for the stay. Remember to send the <strong style="color:var(--gold)">€100 deposit via Bizum to +34 674 07 14 43</strong> before check-in.</p>
     <div style="display:flex;gap:.75rem">
       <button onclick="closeConfirmModal()" style="flex:1;background:none;border:1px solid rgba(201,168,76,.2);color:var(--stone);padding:.85rem;border-radius:2px;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;transition:.2s" lc="es">← Cancelar</button>
       <button onclick="closeConfirmModal()" style="flex:1;background:none;border:1px solid rgba(201,168,76,.2);color:var(--stone);padding:.85rem;border-radius:2px;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;transition:.2s" lc="en">← Cancel</button>
@@ -1391,7 +1412,7 @@ const CONFIG = {
   MESES_MEDIA: [5, 6, 9, 10],   // May, Jun, Sep, Oct
 
   // 4. Fianza retenida (no se cobra)
-  FIANZA: 150,
+  FIANZA: 0,
 
   // 5. Tu email
   EMAIL_ANFITRION: 'pisovegagranada@gmail.com',
@@ -1501,6 +1522,46 @@ function calcPrice(){
   document.getElementById('p-total').textContent=total+'€';
   document.getElementById('p-total-2').textContent=total+'€';
   document.getElementById('price-box').style.display='block';
+}
+
+// Bizum link
+function openBizumLink() {
+  const total = parseInt(document.getElementById('p-total').textContent) || 0;
+  const fianza = 100;
+  const totalBizum = total + fianza;
+  const ci = document.getElementById('r-checkin').value;
+  const co = document.getElementById('r-checkout').value;
+  const fname = document.getElementById('r-fname').value.trim();
+  const concepto = encodeURIComponent(`Vega Granada ${fname} ${ci} ${co}`);
+  
+  // Try to open Bizum app with prefilled data
+  const bizumUrl = `bizum://send?phone=674071443&amount=${totalBizum}&concept=${concepto}`;
+  const fallbackUrl = `https://bizum.es/?phone=674071443`;
+  
+  // Try app first, fallback to web
+  const win = window.open(bizumUrl, '_blank');
+  setTimeout(() => {
+    // If app didn't open, show instructions
+    const isEN = document.body.classList.contains('en');
+    alert(isEN 
+      ? `Send ${totalBizum}€ via Bizum to +34 674 07 14 43
+Concept: Vega Granada ${fname} ${ci} ${co}`
+      : `Envía ${totalBizum}€ por Bizum al +34 674 07 14 43
+Concepto: Vega Granada ${fname} ${ci} ${co}`
+    );
+  }, 1500);
+}
+
+// Selector método de pago
+let payMethod = 'card';
+function selectPayMethod(method) {
+  payMethod = method;
+  document.getElementById('panel-card').style.display = method === 'card' ? 'block' : 'none';
+  document.getElementById('panel-bizum').style.display = method === 'bizum' ? 'block' : 'none';
+  document.getElementById('method-card').style.border = method === 'card' ? '2px solid var(--gold)' : '2px solid rgba(201,168,76,.2)';
+  document.getElementById('method-card').style.background = method === 'card' ? 'rgba(201,168,76,.1)' : 'transparent';
+  document.getElementById('method-bizum').style.border = method === 'bizum' ? '2px solid var(--gold)' : '2px solid rgba(201,168,76,.2)';
+  document.getElementById('method-bizum').style.background = method === 'bizum' ? 'rgba(201,168,76,.1)' : 'transparent';
 }
 
 // Validación step 2
