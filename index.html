@@ -592,6 +592,15 @@ body.en [lc="en"]{display:revert}
         if (document.getElementById('r-checkin') && document.getElementById('r-checkin').value) {
           calcPrice();
         }
+        // Update season prices from Firebase
+        const prices = data.prices || {};
+        if (prices.alta && document.getElementById('price-alta')) 
+          document.getElementById('price-alta').textContent = prices.alta;
+        if (prices.media && document.getElementById('price-media'))
+          document.getElementById('price-media').textContent = prices.media;
+        if (prices.baja && document.getElementById('price-baja'))
+          document.getElementById('price-baja').textContent = prices.baja;
+
         // Refresh availability calendar if visible
         if (document.getElementById('avail-grid')) {
           renderAvailCal();
@@ -809,7 +818,7 @@ body.en [lc="en"]{display:revert}
   <p class="sec-lbl rv-a" lc="es">Tarifas</p>
   <p class="sec-lbl rv-a" lc="en">Rates</p>
   <h2 class="sec-h rv-a"><span lc="es">Precios por <em>temporada</em></span><span lc="en">Seasonal <em>rates</em></span></h2>
-  <p class="sec-p rv-a" lc="es">El precio se calcula automáticamente según tus fechas al reservar. Fianza de 150€ retenida en tarjeta y devuelta tras el checkout.</p>
+  <p class="sec-p rv-a" lc="es">El precio se calcula automáticamente según tus fechas al reservar. Fianza de 100€ pagadera por Bizum o en mano al check-in.</p>
   <p class="sec-p rv-a" lc="en">Price is calculated automatically based on your dates when booking. €150 deposit held on card and returned after checkout.</p>
 
   <!-- Tarjetas de precio -->
@@ -820,7 +829,7 @@ body.en [lc="en"]{display:revert}
         <span class="pc-season-name" lc="es">Temporada Alta</span>
         <span class="pc-season-name" lc="en">High Season</span>
       </div>
-      <div class="pc-from" lc="es">desde</div><div class="pc-from" lc="en">from</div><div class="pc-amount">90€<span class="pc-unit" lc="es">/noche</span><span class="pc-unit" lc="en">/night</span></div>
+      <div class="pc-from" lc="es">desde</div><div class="pc-from" lc="en">from</div><div class="pc-amount"><span id="price-alta">90</span>€<span class="pc-unit" lc="es">/noche</span><span class="pc-unit" lc="en">/night</span></div>
       <div class="pc-months" lc="es">Julio · Agosto · Semana Santa · Navidad</div>
       <div class="pc-months" lc="en">July · August · Easter · Christmas</div>
 
@@ -831,7 +840,7 @@ body.en [lc="en"]{display:revert}
         <span class="pc-season-name" lc="es">Temporada Media</span>
         <span class="pc-season-name" lc="en">Mid Season</span>
       </div>
-      <div class="pc-from" lc="es">desde</div><div class="pc-from" lc="en">from</div><div class="pc-amount">70€<span class="pc-unit" lc="es">/noche</span><span class="pc-unit" lc="en">/night</span></div>
+      <div class="pc-from" lc="es">desde</div><div class="pc-from" lc="en">from</div><div class="pc-amount"><span id="price-media">70</span>€<span class="pc-unit" lc="es">/noche</span><span class="pc-unit" lc="en">/night</span></div>
       <div class="pc-months" lc="es">Abril · Mayo · Junio · Septiembre · Octubre</div>
       <div class="pc-months" lc="en">April · May · June · September · October</div>
 
@@ -842,7 +851,7 @@ body.en [lc="en"]{display:revert}
         <span class="pc-season-name" lc="es">Temporada Baja</span>
         <span class="pc-season-name" lc="en">Low Season</span>
       </div>
-      <div class="pc-from" lc="es">desde</div><div class="pc-from" lc="en">from</div><div class="pc-amount">50€<span class="pc-unit" lc="es">/noche</span><span class="pc-unit" lc="en">/night</span></div>
+      <div class="pc-from" lc="es">desde</div><div class="pc-from" lc="en">from</div><div class="pc-amount"><span id="price-baja">50</span>€<span class="pc-unit" lc="es">/noche</span><span class="pc-unit" lc="en">/night</span></div>
       <div class="pc-months" lc="es">Enero · Febrero · Marzo · Noviembre · Diciembre</div>
       <div class="pc-months" lc="en">January · February · March · November · December</div>
 
@@ -867,8 +876,8 @@ body.en [lc="en"]{display:revert}
       <div>
         <div class="pt-extra-title" lc="es">Fianza</div>
         <div class="pt-extra-title" lc="en">Deposit</div>
-        <div class="pt-extra-desc" lc="es">150€ retenidos en tarjeta. Se liberan automáticamente 48h tras el checkout sin incidencias.</div>
-        <div class="pt-extra-desc" lc="en">€150 held on card. Automatically released 48h after checkout with no issues.</div>
+        <div class="pt-extra-desc" lc="es">100€ pagadera por Bizum o en mano al check-in. Se devuelve en 7 días tras el checkout sin incidencias.</div>
+        <div class="pt-extra-desc" lc="en">€100 payable via Bizum or in person at check-in. Returned within 7 days after checkout with no issues.</div>
       </div>
     </div>
     <div class="pt-extra-item">
@@ -1445,12 +1454,18 @@ body.en [lc="en"]{display:revert}
           <div style="background:#1a1409;border:1px solid rgba(201,168,76,.2);border-radius:2px;padding:1.25rem;margin-bottom:1rem">
             <div style="font-size:1.5rem;text-align:center;margin-bottom:.75rem">🏦</div>
             <div style="font-size:.82rem;color:var(--stone);line-height:2">
-              <span lc="es"><strong style="color:var(--ink)">Titular:</strong> Raquel Moreno Garrido<br>
-              <strong style="color:var(--ink)">Concepto:</strong> Vega Granada + tus fechas<br><br>
-              ⚠️ Envía el justificante por <strong style="color:var(--gold)">WhatsApp al +34 674 07 14 43</strong> para confirmar tu reserva.</span>
-              <span lc="en"><strong style="color:var(--ink)">Account holder:</strong> Raquel Moreno Garrido<br>
-              <strong style="color:var(--ink)">Reference:</strong> Vega Granada + your dates<br><br>
-              ⚠️ Send the receipt via <strong style="color:var(--gold)">WhatsApp to +34 674 07 14 43</strong> to confirm your booking.</span>
+              <span lc="es">
+                <strong style="color:var(--ink)">Titular:</strong> Raquel Moreno Garrido<br>
+                <strong style="color:var(--ink)">IBAN:</strong> <span style="color:var(--gold);font-family:monospace;letter-spacing:.05em">ES41 2100 5760 4701 0039 7961</span><br>
+                <strong style="color:var(--ink)">Concepto:</strong> Vega Granada + tu nombre + fechas<br><br>
+                ⚠️ Envía el justificante por <strong style="color:var(--gold)">WhatsApp al +34 674 07 14 43</strong> para confirmar tu reserva.
+              </span>
+              <span lc="en">
+                <strong style="color:var(--ink)">Account holder:</strong> Raquel Moreno Garrido<br>
+                <strong style="color:var(--ink)">IBAN:</strong> <span style="color:var(--gold);font-family:monospace;letter-spacing:.05em">ES41 2100 5760 4701 0039 7961</span><br>
+                <strong style="color:var(--ink)">Reference:</strong> Vega Granada + your name + dates<br><br>
+                ⚠️ Send the receipt via <strong style="color:var(--gold)">WhatsApp to +34 674 07 14 43</strong> to confirm your booking.
+              </span>
             </div>
           </div>
           <div style="background:#1a1409;border:1px solid rgba(201,168,76,.15);border-radius:2px;padding:.85rem;font-size:.72rem;color:var(--stone);line-height:1.7;margin-bottom:1rem">
